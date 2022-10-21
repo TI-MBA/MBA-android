@@ -10,93 +10,114 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/adminDashboardContentView"
-            xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginVertical="8dp"
-            card_view:cardCornerRadius="4dp">
+            app:cardCornerRadius="4dp">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="4dp"
-                >
-                <LinearLayout
-                    android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/editPaymentIcon"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="4dp"
-                    >
-
-                    <ImageView
-                        android:layout_gravity="center"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="4dp"
-                        android:src="@drawable/ic_calendar" />
-
-                    <TextView
-                        android:id="@+id/cellPaymentMonth"
-                        tools:text="Agosto 2022"
-                        android:layout_gravity="center"
-                        android:textStyle="bold"
-                        android:textSize="14sp"
-                        android:gravity="start"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                </LinearLayout>
+                    android:layout_gravity="center"
+                    android:padding="16dp"
+                    android:src="@drawable/ic_edit"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.96"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:padding="4dp"
-                    >
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-                    <ImageView
-                        android:layout_gravity="center"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="4dp"
-                        android:src="@drawable/ic_money" />
+                        android:orientation="horizontal"
+                        android:padding="4dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginEnd="4dp"
+                            android:src="@drawable/ic_calendar" />
+
+                        <TextView
+                            android:id="@+id/cellPaymentMonth"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="start"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            tools:text="10/2022" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="4dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginEnd="4dp"
+                            android:src="@drawable/ic_money" />
+
+                        <TextView
+                            android:id="@+id/cellPaymentValue"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="start"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            tools:text="R$ 15.00" />
+
+                    </LinearLayout>
 
                     <TextView
-                        android:id="@+id/cellPaymentValue"
-                        tools:text="R$ 15.00"
-                        android:layout_gravity="center"
-                        android:textStyle="bold"
-                        android:textSize="14sp"
-                        android:gravity="start"
+                        android:id="@+id/cellPaymentObservationTitle"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        android:padding="4dp"
+                        android:text="Observações: "
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
 
+                    <TextView
+                        android:id="@+id/cellPaymentObservationText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:gravity="start"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:textSize="14sp"
+                        tools:text="Veiaco demorou muitos messes pra pagar essa porra, deveria ter pago a um ano isso, mas a vida é assim mesmo, fazer o que é..." />
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/cellPaymentObservationTitle"
-                    android:text="Observações: "
-                    android:textStyle="bold"
-                    android:textSize="14sp"
-                    android:padding="4dp"
-                    android:gravity="start"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:id="@+id/cellPaymentObservationText"
-                    tools:text="Veiaco demorou muitos messes pra pagar essa porra, deveria ter pago a um ano isso, mas a vida é assim mesmo, fazer o que é..."
-                    android:textSize="14sp"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp"
-                    android:layout_marginBottom="8dp"
-                    android:gravity="start"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
     </LinearLayout>
 </layout>

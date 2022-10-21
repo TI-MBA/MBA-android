@@ -9,15 +9,17 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.gabia.mbaproject.R;
+import com.gabia.mbaproject.application.SelectListener;
+import com.gabia.mbaproject.application.adminmodules.finance.payment.PaymentAdapter;
+import com.gabia.mbaproject.application.adminmodules.finance.payment.PaymentFormActivity;
 import com.gabia.mbaproject.databinding.ActivityMemberDetailBinding;
 import com.gabia.mbaproject.model.Payment;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-public class MemberDetailActivity extends AppCompatActivity {
+public class MemberDetailActivity extends AppCompatActivity implements SelectListener<Payment> {
 
     private ActivityMemberDetailBinding binding;
     private PaymentAdapter adapter;
@@ -27,7 +29,7 @@ public class MemberDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_member_detail);
         binding.setActivity(this);
-        adapter = new PaymentAdapter();
+        adapter = new PaymentAdapter(this);
         binding.paymentsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.paymentsRecyclerView.setAdapter(adapter);
 
@@ -39,7 +41,7 @@ public class MemberDetailActivity extends AppCompatActivity {
     }
 
     public void addPaymentDidPress(View view) {
-        Toast.makeText(this, "VOU CRIAR A TELA DE ADICIONAR PAGAMENTO", Toast.LENGTH_SHORT).show();
+        startActivity(PaymentFormActivity.createIntent(this, null));
     }
 
     private void fetchPayments() {
@@ -54,5 +56,10 @@ public class MemberDetailActivity extends AppCompatActivity {
         );
 
         adapter.setPaymentList(paymentList);
+    }
+
+    @Override
+    public void didSelect(Payment model) {
+        startActivity(PaymentFormActivity.createIntent(this, model));
     }
 }

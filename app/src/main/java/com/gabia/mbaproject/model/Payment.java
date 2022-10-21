@@ -1,8 +1,9 @@
 package com.gabia.mbaproject.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Payment {
+public class Payment implements Serializable {
     private Float value;
     private String observation;
     private Date relativeDate;

@@ -1,8 +1,9 @@
-package com.gabia.mbaproject.application.adminmodules.finance;
+package com.gabia.mbaproject.application.adminmodules.finance.payment;
 
 import static com.gabia.mbaproject.utils.DateUtils.monthAndYear;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -22,6 +23,10 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
 
     private List<Payment> paymentList = new ArrayList<>();
     private SelectListener<Payment> listener;
+
+    public PaymentAdapter(SelectListener<Payment> listener) {
+        this.listener = listener;
+    }
 
     public void setPaymentList(List<Payment> paymentList) {
         this.paymentList.clear();
@@ -43,6 +48,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Payment current = paymentList.get(position);
+        holder.cellBinding.editPaymentIcon.setOnClickListener(view -> listener.didSelect(current));
         holder.bind(current);
     }
 

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.gabia.mbaproject.R;
@@ -28,8 +29,12 @@ public class FinanceHomeActivity extends AppCompatActivity implements SelectList
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_finance_home);
         memberAdapter = new MemberAdapter(this);
-        binding.membersRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        binding.membersRecyclerView.setLayoutManager(layoutManager);
         binding.membersRecyclerView.setAdapter(memberAdapter);
+        binding.membersRecyclerView.addItemDecoration(
+                new DividerItemDecoration(this, layoutManager.getOrientation())
+        );
 
         memberAdapter.setMembers(fetchMembers());
 

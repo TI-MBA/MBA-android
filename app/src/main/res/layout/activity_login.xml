@@ -4,7 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     >
-
     <data>
         <variable
             name="activity"
@@ -39,6 +38,7 @@
                 <ImageView
                     android:layout_gravity="center"
                     android:layout_width="100dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
                     android:layout_height="100dp"
                     android:src="@drawable/logo_baque" />
@@ -53,6 +53,8 @@
 
                 <EditText
                     android:id="@+id/inputEmail"
+                    android:singleLine="true"
+                    android:imeOptions="actionNext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -61,6 +63,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Senha"
+                    android:singleLine="true"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textSize="12sp" />
 
@@ -68,6 +71,7 @@
                     android:id="@+id/inputPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
                     android:inputType="textPassword" />
 
                 <Button
@@ -79,6 +83,7 @@
                     android:layout_marginBottom="16dp"
                     android:paddingStart="32dp"
                     android:paddingEnd="32dp"
+                    android:textColor="@android:color/white"
                     android:onClick="@{activity::loginDidPress}"
                     android:text="Entrar" />
             </LinearLayout>
