@@ -1,4 +1,4 @@
-package com.gabia.mbaproject.application.adminmodules.finance;
+package com.gabia.mbaproject.application.modules.admin.finance;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;

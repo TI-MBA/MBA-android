@@ -1,4 +1,4 @@
-package com.gabia.mbaproject.application.adminmodules.finance;
+package com.gabia.mbaproject.application.modules.admin.finance;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.gabia.mbaproject.R;
 import com.gabia.mbaproject.application.SelectListener;
-import com.gabia.mbaproject.application.adminmodules.dashboard.AdminDashboardActivity;
 import com.gabia.mbaproject.databinding.ActivityFinanceHomeBinding;
 import com.gabia.mbaproject.model.Member;
 

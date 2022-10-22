@@ -1,7 +1,6 @@
-package com.gabia.mbaproject.application.adminmodules.dashboard;
+package com.gabia.mbaproject.application.modules.admin.dashboard;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;

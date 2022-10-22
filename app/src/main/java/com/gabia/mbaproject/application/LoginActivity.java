@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.gabia.mbaproject.R;
-import com.gabia.mbaproject.application.adminmodules.dashboard.AdminDashboardActivity;
+import com.gabia.mbaproject.application.modules.admin.dashboard.AdminDashboardActivity;
 import com.gabia.mbaproject.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {

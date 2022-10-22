@@ -1,4 +1,4 @@
-package com.gabia.mbaproject.application.adminmodules.finance;
+package com.gabia.mbaproject.application.modules.admin.finance;
 
 import android.os.Bundle;
 import android.view.View;
@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.gabia.mbaproject.R;
 import com.gabia.mbaproject.application.SelectListener;
-import com.gabia.mbaproject.application.adminmodules.finance.payment.PaymentAdapter;
-import com.gabia.mbaproject.application.adminmodules.finance.payment.PaymentFormActivity;
+import com.gabia.mbaproject.application.modules.admin.finance.payment.PaymentAdapter;
+import com.gabia.mbaproject.application.modules.admin.finance.payment.PaymentFormActivity;
 import com.gabia.mbaproject.databinding.ActivityMemberDetailBinding;
 import com.gabia.mbaproject.model.Payment;
 

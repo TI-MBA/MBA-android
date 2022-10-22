@@ -1,4 +1,4 @@
-package com.gabia.mbaproject.application.adminmodules.dashboard;
+package com.gabia.mbaproject.application.modules.admin.dashboard;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -9,7 +9,7 @@ import android.os.Bundle;
 
 import com.gabia.mbaproject.R;
 import com.gabia.mbaproject.application.SelectListener;
-import com.gabia.mbaproject.application.adminmodules.finance.FinanceHomeActivity;
+import com.gabia.mbaproject.application.modules.admin.finance.FinanceHomeActivity;
 import com.gabia.mbaproject.databinding.ActivityAdminDashboardBinding;
 import com.gabia.mbaproject.model.AdminFeatureModel;
 

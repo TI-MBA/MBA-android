@@ -6,7 +6,7 @@
     <data>
         <variable
             name="activity"
-            type="com.gabia.mbaproject.application.adminmodules.finance.MemberDetailActivity"/>
+            type="com.gabia.mbaproject.application.modules.admin.finance.MemberDetailActivity"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

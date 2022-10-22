@@ -1,9 +1,8 @@
-package com.gabia.mbaproject.application.adminmodules.finance.payment;
+package com.gabia.mbaproject.application.modules.admin.finance.payment;
 
 import static com.gabia.mbaproject.utils.DateUtils.monthAndYear;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;

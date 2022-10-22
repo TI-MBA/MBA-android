@@ -1,4 +1,4 @@
-package com.gabia.mbaproject.application.adminmodules.finance.payment;
+package com.gabia.mbaproject.application.modules.admin.finance.payment;
 
 import static com.gabia.mbaproject.utils.DateUtils.monthAndYear;
 
@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.gabia.mbaproject.R;
-import com.gabia.mbaproject.application.adminmodules.dashboard.AdminDashboardActivity;
 import com.gabia.mbaproject.databinding.ActivityPaymentFormBinding;
 import com.gabia.mbaproject.model.Payment;
 import com.gabia.mbaproject.utils.DateUtils;
@@ -23,7 +22,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class PaymentFormActivity extends AppCompatActivity  implements DatePickerDialog.OnDateSetListener {
-    public static final String PAYMENT_KEY = "com.gabia.mbaproject.application.adminmodules.finance.payment.PAYMENT_KEY";
+    public static final String PAYMENT_KEY = "com.gabia.mbaproject.application.modules.adminmodules.finance.payment.PAYMENT_KEY";
     private ActivityPaymentFormBinding binding;
     private Date referenceDate;
     final Calendar myCalendar = Calendar.getInstance();
