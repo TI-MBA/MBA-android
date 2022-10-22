@@ -11,11 +11,38 @@
         <item name="colorOnSecondary">@color/black</item>
         <item name="android:listDivider">@drawable/list_divider_gray</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/baque_blue</item>
         <!-- Customize your theme here. -->
     </style>
     <style name="FloatButtonTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorSecondary">@color/baque_blue</item>
         <item name="colorOnSecondary">@color/white</item>
+    </style>
+
+    <style name="FullBlueActivityTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/baque_blue</item>
+        <item name="colorPrimaryVariant">@color/baque_blue</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+    </style>
+
+    <style name="FullRedActivityTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/baque_red</item>
+        <item name="colorPrimaryVariant">@color/baque_red</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+    </style>
+
+    <style name="DeleteDialogTheme" parent="ThemeOverlay.AppCompat.Dialog.Alert">
+        <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
+    </style>
+
+    <style name="NegativeButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="PositiveButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
+        <item name="android:textColor">@color/baque_red</item>
     </style>
 </resources>

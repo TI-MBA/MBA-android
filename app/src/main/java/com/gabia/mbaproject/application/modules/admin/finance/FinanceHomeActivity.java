@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.SearchView;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -46,7 +47,6 @@ public class FinanceHomeActivity extends AppCompatActivity implements SelectList
         });
 
         binding.searchView.setOnQueryTextListener(this);
-
     }
 
     private List<Member> fetchMembers() {

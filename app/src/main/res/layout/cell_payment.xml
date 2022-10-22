@@ -21,19 +21,37 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <ImageView
-                    android:id="@+id/editPaymentIcon"
+                <LinearLayout
+                    android:id="@+id/paymentCellActionsContent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:padding="16dp"
-                    android:src="@drawable/ic_edit"
+                    android:orientation="horizontal"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.96"
+                    app:layout_constraintHorizontal_bias="1.00"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintVertical_bias="0.0" >
+
+                    <ImageView
+                        android:id="@+id/editPaymentIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_edit"
+                        />
+
+                    <ImageView
+                        android:id="@+id/deletePaymentIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_delete_red"
+                        />
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="0dp"

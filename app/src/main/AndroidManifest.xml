@@ -9,26 +9,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MBAProject">
-        <activity
-            android:name=".application.LoginActivity"
+        <activity android:name=".application.modules.login.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-        <activity android:name=".application.modules.admin.dashboard.AdminDashboardActivity"/>
-        <activity android:name=".application.modules.admin.finance.FinanceHomeActivity"/>
-        <activity android:name=".application.modules.admin.finance.MemberDetailActivity"
-            android:exported="true">
-
-        </activity>
-        <activity android:name=".application.modules.admin.finance.payment.PaymentFormActivity"
-            android:exported="true">
-
-        </activity>
+        <activity android:name=".application.modules.admin.dashboard.AdminDashboardActivity" />
+        <activity android:name=".application.modules.admin.finance.FinanceHomeActivity" />
+        <activity android:name=".application.modules.admin.finance.MemberDetailActivity" android:theme="@style/FullRedActivityTheme"/>
+        <activity android:name=".application.modules.admin.finance.payment.PaymentFormActivity" />
+        <activity android:name=".application.modules.member.HomeActivity" android:theme="@style/FullBlueActivityTheme"/>
     </application>
 
 </manifest>

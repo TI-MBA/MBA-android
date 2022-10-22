@@ -1,9 +1,11 @@
 package com.gabia.mbaproject.application.modules.admin.dashboard;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -47,5 +49,24 @@ public class AdminDashboardActivity extends AppCompatActivity implements SelectL
     public void didSelect(AdminFeatureModel model) {
         Intent i = new Intent(getApplicationContext(), FinanceHomeActivity.class);
         startActivity(i);
+    }
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this, R.style.DeleteDialogTheme)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Sair")
+                .setMessage("Tem certeza que deseja sair do app?")
+
+                .setPositiveButton("Sair", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+
+                })
+                .setNegativeButton("Ficar", null)
+                .show();
     }
 }

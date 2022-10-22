@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/paymentTab"
+        android:title="Financeiro"
+        android:icon="@drawable/ic_payment_blue"
+        />
+    <item
+        android:id="@+id/rollCallTab"
+        android:title="Frequência"
+        android:icon="@drawable/ic_rollcall_blue"
+        />
+</menu>

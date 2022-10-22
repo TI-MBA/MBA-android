@@ -1,8 +1,10 @@
 package com.gabia.mbaproject.application.modules.admin.finance.payment;
 
 import static com.gabia.mbaproject.utils.DateUtils.monthAndYear;
+import static com.gabia.mbaproject.utils.FloatUtils.moneyFormat;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -10,6 +12,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gabia.mbaproject.R;
+import com.gabia.mbaproject.application.ActionsListener;
 import com.gabia.mbaproject.application.SelectListener;
 import com.gabia.mbaproject.databinding.CellPaymentBinding;
 import com.gabia.mbaproject.model.Payment;
@@ -21,9 +24,9 @@ import java.util.List;
 public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHolder> {
 
     private List<Payment> paymentList = new ArrayList<>();
-    private SelectListener<Payment> listener;
+    private ActionsListener<Payment> listener;
 
-    public PaymentAdapter(SelectListener<Payment> listener) {
+    public PaymentAdapter(ActionsListener<Payment> listener) {
         this.listener = listener;
     }
 
@@ -47,7 +50,8 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Payment current = paymentList.get(position);
-        holder.cellBinding.editPaymentIcon.setOnClickListener(view -> listener.didSelect(current));
+        holder.cellBinding.editPaymentIcon.setOnClickListener(view -> listener.edit(current));
+        holder.cellBinding.deletePaymentIcon.setOnClickListener(view -> listener.delete(current));
         holder.bind(current);
     }
 
@@ -56,9 +60,9 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
         return paymentList.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        private final CellPaymentBinding cellBinding;
+        public final CellPaymentBinding cellBinding;
 
         public ViewHolder(CellPaymentBinding cellBinding) {
             super(cellBinding.getRoot());
@@ -67,7 +71,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
 
         public void bind(Payment payment) {
             String relativeDate = DateUtils.toString(monthAndYear, payment.getRelativeDate());
-            String paymentValue = "R$ " + payment.getValue();
+            String paymentValue = moneyFormat(payment.getValue());
 
             cellBinding.cellPaymentMonth.setText(relativeDate);
             cellBinding.cellPaymentValue.setText(paymentValue);

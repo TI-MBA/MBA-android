@@ -1,27 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-
+    xmlns:tools="http://schemas.android.com/tools"
+    >
     <data>
         <variable
             name="activity"
-            type="com.gabia.mbaproject.application.modules.admin.finance.MemberDetailActivity"/>
+            type="com.gabia.mbaproject.application.modules.member.HomeActivity"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:context=".application.modules.member.HomeActivity">
 
         <LinearLayout
-            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_gravity="center"
-            android:background="@drawable/shape_half_circle_red"
+            android:background="@drawable/shape_half_circle_blue"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageView
+            android:id="@+id/logoutButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:onClick="@{activity::logoutDidPress}"
+            android:paddingTop="4dp"
+            android:paddingBottom="8dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:src="@drawable/ic_exit_white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
@@ -32,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="40dp"
             android:layout_marginEnd="32dp"
             android:paddingBottom="32dp"
             android:elevation="40dp"
@@ -76,7 +95,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Gabriel Rosa do Nascimento"
-                        android:textColor="@color/baque_red"
+                        android:textColor="@color/baque_blue"
                         android:textStyle="bold" />
 
                     <TextView
@@ -113,49 +132,27 @@
                             android:text="Colaborador" />
                     </LinearLayout>
                 </LinearLayout>
-
-
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </androidx.cardview.widget.CardView>
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <FrameLayout
+            android:id="@+id/homeContentFrame"
+            android:layout_width="0dp"
             android:layout_height="0dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="4dp"
+            app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/memberInfoContentView">
+            app:layout_constraintTop_toBottomOf="@+id/memberInfoContentView" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="8dp"
-                android:text="Lista de pagamentos"
-                android:textStyle="bold" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/paymentsRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:listitem="@layout/cell_payment" />
-        </LinearLayout>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:layout_width="wrap_content"
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigationView"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_add_white"
-            app:maxImageSize="30dp"
-            android:theme="@style/FloatButtonTheme"
-            android:onClick="@{activity::addPaymentDidPress}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.95"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.95" />
-
+            app:menu="@menu/member_bottom_menu"
+            />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

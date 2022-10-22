@@ -1,4 +1,4 @@
-package com.gabia.mbaproject.application;
+package com.gabia.mbaproject.application.modules.login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,10 +6,12 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.databinding.DataBindingUtil;
 
 import com.gabia.mbaproject.R;
 import com.gabia.mbaproject.application.modules.admin.dashboard.AdminDashboardActivity;
+import com.gabia.mbaproject.application.modules.member.HomeActivity;
 import com.gabia.mbaproject.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
@@ -22,6 +24,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         binding.setActivity(this);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
     }
 
 
@@ -34,13 +37,16 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void executeLogin() {
-        boolean isAdmin = true;
+        boolean isAdmin = false;
+        Intent intent;
         // realiza login
          if (isAdmin) {
-             Intent i = new Intent(getApplicationContext(), AdminDashboardActivity.class);
-             startActivity(i);
-         } else {
+              intent = new Intent(getApplicationContext(), AdminDashboardActivity.class);
 
+         } else {
+            intent = new Intent(getApplicationContext(), HomeActivity.class);
          }
+
+        startActivity(intent);
     }
 }

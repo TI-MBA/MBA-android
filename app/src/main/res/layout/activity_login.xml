@@ -7,7 +7,7 @@
     <data>
         <variable
             name="activity"
-            type="com.gabia.mbaproject.application.LoginActivity"/>
+            type="com.gabia.mbaproject.application.modules.login.LoginActivity"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
