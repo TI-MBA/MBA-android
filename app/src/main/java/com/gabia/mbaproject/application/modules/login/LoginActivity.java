@@ -18,7 +18,6 @@ public class LoginActivity extends AppCompatActivity {
 
     ActivityLoginBinding binding;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +25,6 @@ public class LoginActivity extends AppCompatActivity {
         binding.setActivity(this);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
     }
-
 
     public void loginDidPress(View view) {
         if (binding.inputEmail.getText().toString().isEmpty() || binding.inputPassword.getText().toString().isEmpty()) {
@@ -37,12 +35,14 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void executeLogin() {
-        boolean isAdmin = false;
-        Intent intent;
-        // realiza login
-         if (isAdmin) {
-              intent = new Intent(getApplicationContext(), AdminDashboardActivity.class);
+        String email = binding.inputEmail.getText().toString();
+        String password = binding.inputPassword.getText().toString();
+        boolean isAdmin = email.equals("a") && password.equals("a");
 
+        Intent intent;
+
+         if (isAdmin) {
+             intent = new Intent(getApplicationContext(), AdminDashboardActivity.class);
          } else {
             intent = new Intent(getApplicationContext(), HomeActivity.class);
          }

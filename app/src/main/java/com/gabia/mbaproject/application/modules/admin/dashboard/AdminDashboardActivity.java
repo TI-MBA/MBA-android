@@ -38,7 +38,6 @@ public class AdminDashboardActivity extends AppCompatActivity implements SelectL
     public void setupAdminFeatures() {
         List<AdminFeatureModel> featureList = new ArrayList<>();
 
-        // TODO: Add switch to check user type
         featureList.add(new AdminFeatureModel("Financeiro"));
 
         adminDashboardAdapter.setFeatures(featureList);
@@ -54,7 +53,6 @@ public class AdminDashboardActivity extends AppCompatActivity implements SelectL
     @Override
     public void onBackPressed() {
         new AlertDialog.Builder(this, R.style.DeleteDialogTheme)
-                .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle("Sair")
                 .setMessage("Tem certeza que deseja sair do app?")
 
