@@ -1,10 +1,6 @@
 package com.gabia.mbaproject.application.modules.member.editdata;
 
-import android.content.DialogInterface;
-import android.os.Build;
 import android.os.Bundle;
-import android.text.Html;
-import android.text.Spanned;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
