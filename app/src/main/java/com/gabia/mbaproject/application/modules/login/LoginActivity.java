@@ -38,7 +38,6 @@ public class LoginActivity extends AppCompatActivity {
         String email = binding.inputEmail.getText().toString();
         String password = binding.inputPassword.getText().toString();
         boolean isAdmin = email.equals("a") && password.equals("a");
-
         Intent intent;
 
          if (isAdmin) {
@@ -46,6 +45,8 @@ public class LoginActivity extends AppCompatActivity {
          } else {
             intent = new Intent(getApplicationContext(), HomeActivity.class);
          }
+
+
 
         startActivity(intent);
     }
