@@ -13,7 +13,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.gabia.mbaproject.R;
 import com.gabia.mbaproject.application.modules.admin.finance.payment.PaymentAdapter;
 import com.gabia.mbaproject.databinding.FragmentPaymentListBinding;
+import com.gabia.mbaproject.infrastructure.remote.providers.ApiDataSourceProvider;
+import com.gabia.mbaproject.infrastructure.remote.remotedatasource.PaymentRemoteDataSource;
+import com.gabia.mbaproject.infrastructure.utils.BaseCallBack;
 import com.gabia.mbaproject.model.Payment;
+import com.gabia.mbaproject.model.PaymentResponse;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -64,6 +68,9 @@ public class PaymentListFragment extends Fragment {
     }
 
     private void fetchPayments() {
+        PaymentRemoteDataSource paymentRemoteDataSource = new PaymentRemoteDataSource(ApiDataSourceProvider.Companion.getPaymentApiDataSource());
+
+        
         List<Payment> paymentList = Arrays.asList(
                 new Payment(15.0f, "pagou metade esse mês", new Date()),
                 new Payment(30.50f, "pagou Inteira", new Date()),

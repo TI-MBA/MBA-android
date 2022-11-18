@@ -1,6 +1,7 @@
 package com.gabia.mbaproject.infrastructure.remote.providers
 
 import com.gabia.mbaproject.infrastructure.remote.api.AuthApiDataSource
+import com.gabia.mbaproject.infrastructure.remote.api.PaymentApiDataSource
 import com.gabia.mbaproject.infrastructure.remote.api.RetrofitInstance
 import com.gabia.mbaproject.infrastructure.remote.api.UserApiDataSource
 
@@ -11,5 +12,6 @@ class ApiDataSourceProvider {
 
         val authApiDataSource = retrofit.create(AuthApiDataSource::class.java)
         val userApiDataSource = retrofit.create(UserApiDataSource::class.java)
+        val paymentApiDataSource = retrofit.create(PaymentApiDataSource::class.java)
     }
 }
