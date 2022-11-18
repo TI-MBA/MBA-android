@@ -11,4 +11,5 @@
     <color name="baque_blue">#064c91</color>
     <color name="baque_red">#d52415</color>
     <color name="gray">#AAAAAA</color>
+    <color name="yellow_warning">#EED202</color>
 </resources>

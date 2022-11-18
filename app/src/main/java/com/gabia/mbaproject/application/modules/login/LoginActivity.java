@@ -1,6 +1,8 @@
 package com.gabia.mbaproject.application.modules.login;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -17,12 +19,15 @@ import com.gabia.mbaproject.R;
 import com.gabia.mbaproject.application.modules.admin.dashboard.AdminDashboardActivity;
 import com.gabia.mbaproject.application.modules.member.HomeActivity;
 import com.gabia.mbaproject.databinding.ActivityLoginBinding;
-import com.gabia.mbaproject.infrastructure.api.AuthApiDataSource;
-import com.gabia.mbaproject.infrastructure.providers.ApiDataSourceProvider;
-import com.gabia.mbaproject.infrastructure.remotedatasource.AuthRemoteDataSource;
+import com.gabia.mbaproject.infrastructure.local.UserDefaults;
+import com.gabia.mbaproject.infrastructure.remote.api.AuthApiDataSource;
+import com.gabia.mbaproject.infrastructure.remote.providers.ApiDataSourceProvider;
+import com.gabia.mbaproject.infrastructure.remote.remotedatasource.AuthRemoteDataSource;
 import com.gabia.mbaproject.infrastructure.utils.BaseCallBack;
 import com.gabia.mbaproject.model.AuthRequest;
 import com.gabia.mbaproject.model.User;
+import com.gabia.mbaproject.model.enums.UserLevel;
+import com.google.gson.Gson;
 
 import okhttp3.ResponseBody;
 
@@ -56,19 +61,18 @@ public class LoginActivity extends AppCompatActivity {
         remoteDataSource.login(new AuthRequest(email, password), new BaseCallBack<User>() {
              @Override
              public void onSuccess(User result) {
-                 boolean isAdmin = email.equals("a") && password.equals("a");
-                 Intent intent;
+                 new UserDefaults(getApplicationContext()).save(result);
 
-                 if (isAdmin) {
-                     intent = new Intent(getApplicationContext(), AdminDashboardActivity.class);
-                 } else {
-                     intent = new Intent(getApplicationContext(), HomeActivity.class);
-                 }
+                 boolean isAdmin = result.getAdminLevel() >= UserLevel.ROLE_ADMIN.getValue();;
+                 Intent intent = isAdmin ?
+                         new Intent(getApplicationContext(), AdminDashboardActivity.class) :
+                         new Intent(getApplicationContext(), HomeActivity.class);
+
                  startActivity(intent);
                  binding.setIsLoading(false);
              }
 
-             @Override
+            @Override
              public void onError(int code) {
                  binding.setIsLoading(false);
                  runOnUiThread(() -> {

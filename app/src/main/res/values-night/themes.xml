@@ -23,6 +23,7 @@
         <item name="colorPrimary">@color/baque_blue</item>
         <item name="colorPrimaryVariant">@color/baque_blue</item>
         <item name="colorOnPrimary">@color/white</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
     </style>
 
     <style name="FullRedActivityTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
@@ -43,5 +44,9 @@
 
     <style name="PositiveButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
         <item name="android:textColor">@color/baque_red</item>
+    </style>
+
+    <style name="SplashTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_background</item>
     </style>
 </resources>

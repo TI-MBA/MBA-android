@@ -4,10 +4,10 @@ data class User(
     val id: Int,
     val email: String,
     val password: String,
-    val adminLevel: Int, // TODO: Update to use enum
+    val adminLevel: Int,
     val name: String,
-    val instrument: String, // TODO: Update to use enum
-    val situation: String, // TODO: Update to use enum
+    val instrument: String,
+    val situation: String,
     val createdAt: String,
     val updatedAt: String?,
     val associated: Boolean,

@@ -1,4 +1,4 @@
-package com.gabia.mbaproject.infrastructure.api
+package com.gabia.mbaproject.infrastructure.remote.api
 
 import com.gabia.mbaproject.model.AuthRequest
 import com.gabia.mbaproject.model.User

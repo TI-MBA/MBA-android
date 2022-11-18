@@ -1,8 +1,8 @@
-package com.gabia.mbaproject.infrastructure.providers
+package com.gabia.mbaproject.infrastructure.remote.providers
 
-import com.gabia.mbaproject.infrastructure.api.AuthApiDataSource
-import com.gabia.mbaproject.infrastructure.api.RetrofitInstance
-import com.gabia.mbaproject.infrastructure.api.UserApiDataSource
+import com.gabia.mbaproject.infrastructure.remote.api.AuthApiDataSource
+import com.gabia.mbaproject.infrastructure.remote.api.RetrofitInstance
+import com.gabia.mbaproject.infrastructure.remote.api.UserApiDataSource
 
 class ApiDataSourceProvider {
 

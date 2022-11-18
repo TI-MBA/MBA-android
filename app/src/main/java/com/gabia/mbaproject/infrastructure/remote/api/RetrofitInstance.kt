@@ -1,4 +1,4 @@
-package com.gabia.mbaproject.infrastructure.api
+package com.gabia.mbaproject.infrastructure.remote.api
 
 import com.google.gson.GsonBuilder
 import okhttp3.ConnectionPool
