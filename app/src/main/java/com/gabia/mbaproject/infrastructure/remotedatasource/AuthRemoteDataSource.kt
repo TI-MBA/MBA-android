@@ -17,7 +17,7 @@ class AuthRemoteDataSource(private val apiDataSource: AuthApiDataSource): AuthRe
             if (response.isSuccessful) {
                 resultCallBack.onSuccess(response.body())
             } else {
-                resultCallBack.onError("Failed request " + response.code(), response.code())
+                resultCallBack.onError(response.code())
             }
         }
     }

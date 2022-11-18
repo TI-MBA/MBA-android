@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
              }
 
              @Override
-             public void onError(@NonNull String cause, int code) {
+             public void onError(int code) {
                  binding.setIsLoading(false);
                  runOnUiThread(() -> {
                      showError(code);
