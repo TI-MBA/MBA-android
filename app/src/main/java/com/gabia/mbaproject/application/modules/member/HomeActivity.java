@@ -17,15 +17,12 @@ import androidx.fragment.app.FragmentTransaction;
 import com.gabia.mbaproject.R;
 import com.gabia.mbaproject.application.modules.login.LoginActivity;
 import com.gabia.mbaproject.application.modules.member.editdata.EditPasswordActivity;
-import com.gabia.mbaproject.application.modules.member.payment.PaymentListFragment;
+import com.gabia.mbaproject.application.modules.member.payment.MemberPaymentListFragment;
 import com.gabia.mbaproject.application.modules.member.rollcall.RollCallFragment;
 import com.gabia.mbaproject.databinding.ActivityHomeBinding;
 import com.gabia.mbaproject.infrastructure.local.UserDefaults;
 import com.gabia.mbaproject.model.User;
 import com.gabia.mbaproject.model.enums.Situation;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -85,12 +82,12 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void setupBottomTabs() {
-        replaceFragment(PaymentListFragment.newInstance(currentUser.getId()));
+        replaceFragment(MemberPaymentListFragment.newInstance(currentUser.getId()));
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.paymentTab:
-                    replaceFragment(PaymentListFragment.newInstance(currentUser.getId()));
+                    replaceFragment(MemberPaymentListFragment.newInstance(currentUser.getId()));
                     break;
                 case R.id.rollCallTab:
                     replaceFragment(RollCallFragment.newInstance(currentUser.getId()));

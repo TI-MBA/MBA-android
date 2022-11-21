@@ -10,6 +10,7 @@ import java.util.Date;
 public class DateUtils {
 
     public static String datePattern = "dd/MM/yyyy HH:mm:ss";
+    public static String isoDateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'";
     public static String monthAndYear = "MM/yyyy";
 
     public static Date toDate(String pattern, String date) {
@@ -23,5 +24,10 @@ public class DateUtils {
     public static String toString(String pattern, Date date) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         return simpleDateFormat.format(date);
+    }
+
+    public static String changeFromIso(String pattern, String date) {
+        Date dateResult = toDate(isoDateFormat, date);
+        return toString(pattern, dateResult);
     }
 }

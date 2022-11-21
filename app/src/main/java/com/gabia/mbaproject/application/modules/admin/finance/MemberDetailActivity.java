@@ -21,13 +21,14 @@ import com.gabia.mbaproject.application.modules.admin.finance.payment.PaymentAda
 import com.gabia.mbaproject.application.modules.admin.finance.payment.PaymentFormActivity;
 import com.gabia.mbaproject.databinding.ActivityMemberDetailBinding;
 import com.gabia.mbaproject.model.Payment;
+import com.gabia.mbaproject.model.PaymentResponse;
 import com.gabia.mbaproject.utils.DateUtils;
 
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-public class MemberDetailActivity extends AppCompatActivity implements ActionsListener<Payment> {
+public class MemberDetailActivity extends AppCompatActivity implements ActionsListener<PaymentResponse> {
 
     private ActivityMemberDetailBinding binding;
     private PaymentAdapter adapter;
@@ -52,30 +53,30 @@ public class MemberDetailActivity extends AppCompatActivity implements ActionsLi
     }
 
     private void fetchPayments() {
-        List<Payment> paymentList = Arrays.asList(
-                new Payment(15.0f, "pagou metade esse mês", new Date()),
-                new Payment(30.50f, "pagou Inteira", new Date()),
-                new Payment(30.50f, "pagou Inteira", new Date()),
-                new Payment(30.50f, "pagou Inteira", new Date()),
-                new Payment(30.50f, "pagou Inteira", new Date()),
-                new Payment(15.0f, "pagou metade esse mês", new Date()),
-                new Payment(30.50f, "pagou Inteira", new Date())
-        );
+//        List<Payment> paymentList = Arrays.asList(
+//                new Payment(15.0f, "pagou metade esse mês", new Date()),
+//                new Payment(30.50f, "pagou Inteira", new Date()),
+//                new Payment(30.50f, "pagou Inteira", new Date()),
+//                new Payment(30.50f, "pagou Inteira", new Date()),
+//                new Payment(30.50f, "pagou Inteira", new Date()),
+//                new Payment(15.0f, "pagou metade esse mês", new Date()),
+//                new Payment(30.50f, "pagou Inteira", new Date())
+//        );
 
-        adapter.setPaymentList(paymentList);
+//        adapter.setPaymentList(paymentList);
     }
 
     @Override
-    public void edit(Payment item) {
-        startActivity(PaymentFormActivity.createIntent(this, item));
+    public void edit(PaymentResponse item) {
+//        startActivity(PaymentFormActivity.createIntent(this, item));
     }
 
     @Override
-    public void delete(Payment item) {
-        String relativeDate = DateUtils.toString(monthAndYear, item.getRelativeDate());
+    public void delete(PaymentResponse item) {
+        String relativeDate = DateUtils.changeFromIso(monthAndYear, item.getDate());
         String message = "Tem certeza que deseja deletar o pagamento \n\n" +
                 "Mês de referência: " + relativeDate + "\n" +
-                "Valor: " + moneyFormat(item.getValue()) + "\n";
+                "Valor: " + moneyFormat(item.getPaymentValue()) + "\n";
         new AlertDialog.Builder(this, R.style.DeleteDialogTheme)
                 .setIcon(R.drawable.ic_delete_red)
                 .setTitle("Deletar pagamento")

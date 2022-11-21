@@ -21,6 +21,7 @@
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/82d42c756b80dd38ac73e2db1e061bd5/transformed/databinding-ktx-7.3.1-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/logging-interceptor/4.10.0/ae7524eec42d4ab0c3a7cb93da010cf9bcc5007c/logging-interceptor-4.10.0.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp-urlconnection/4.10.0/c9dff59b2b2417028f17ae12e411a8a68deb69c/okhttp-urlconnection-4.10.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/4822e4384a90656124898c4e47db93b2/transformed/lifecycle-viewmodel-ktx-2.5.1-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/7b35fa8e20c406113679e1fc0a42fa2a/transformed/lifecycle-runtime-ktx-2.4.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-coroutines-core-jvm/1.6.1/97fd74ccf54a863d221956ffcd21835e168e2aaa/kotlinx-coroutines-core-jvm-1.6.1.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/888a6bccf70af685eafbd4a94a9ec1d7/transformed/CurrencyEditText-0.0.10-api.jar</arg>
@@ -208,6 +209,7 @@
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.slidingpanelayout:slidingpanelayout:1.0.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.swiperefreshlayout:swiperefreshlayout:1.0.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.asynclayoutinflater:asynclayoutinflater:1.0.0@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1@aar" level="project" />
   </component>
   <component name="TestModuleProperties" production-module="MBAProject.app.main" />
 </module>

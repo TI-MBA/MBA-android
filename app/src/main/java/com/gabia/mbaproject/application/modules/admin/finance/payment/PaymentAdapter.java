@@ -16,6 +16,7 @@ import com.gabia.mbaproject.application.ActionsListener;
 import com.gabia.mbaproject.application.SelectListener;
 import com.gabia.mbaproject.databinding.CellPaymentBinding;
 import com.gabia.mbaproject.model.Payment;
+import com.gabia.mbaproject.model.PaymentResponse;
 import com.gabia.mbaproject.utils.DateUtils;
 
 import java.util.ArrayList;
@@ -23,14 +24,14 @@ import java.util.List;
 
 public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHolder> {
 
-    private List<Payment> paymentList = new ArrayList<>();
-    private ActionsListener<Payment> listener;
+    private List<PaymentResponse> paymentList = new ArrayList<>();
+    private ActionsListener<PaymentResponse> listener;
 
-    public PaymentAdapter(ActionsListener<Payment> listener) {
+    public PaymentAdapter(ActionsListener<PaymentResponse> listener) {
         this.listener = listener;
     }
 
-    public void setPaymentList(List<Payment> paymentList) {
+    public void setPaymentList(List<PaymentResponse> paymentList) {
         this.paymentList.clear();
         this.paymentList.addAll(paymentList);
         notifyDataSetChanged();
@@ -49,7 +50,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Payment current = paymentList.get(position);
+        PaymentResponse current = paymentList.get(position);
         holder.cellBinding.editPaymentIcon.setOnClickListener(view -> listener.edit(current));
         holder.cellBinding.deletePaymentIcon.setOnClickListener(view -> listener.delete(current));
         holder.bind(current);
@@ -69,9 +70,9 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
             this.cellBinding = cellBinding;
         }
 
-        public void bind(Payment payment) {
-            String relativeDate = DateUtils.toString(monthAndYear, payment.getRelativeDate());
-            String paymentValue = moneyFormat(payment.getValue());
+        public void bind(PaymentResponse payment) {
+            String relativeDate = DateUtils.changeFromIso(monthAndYear, payment.getDate());
+            String paymentValue = moneyFormat(payment.getPaymentValue());
 
             cellBinding.cellPaymentMonth.setText(relativeDate);
             cellBinding.cellPaymentValue.setText(paymentValue);

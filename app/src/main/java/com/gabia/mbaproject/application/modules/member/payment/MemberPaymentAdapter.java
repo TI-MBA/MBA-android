@@ -12,15 +12,16 @@ import com.gabia.mbaproject.R;
 import com.gabia.mbaproject.application.modules.admin.finance.payment.PaymentAdapter;
 import com.gabia.mbaproject.databinding.CellPaymentBinding;
 import com.gabia.mbaproject.model.Payment;
+import com.gabia.mbaproject.model.PaymentResponse;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MemberPaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHolder> {
 
-    private List<Payment> paymentList = new ArrayList<>();
+    private List<PaymentResponse> paymentList = new ArrayList<>();
 
-    public void setPaymentList(List<Payment> paymentList) {
+    public void setPaymentList(List<PaymentResponse> paymentList) {
         this.paymentList.clear();
         this.paymentList.addAll(paymentList);
         notifyDataSetChanged();
@@ -40,7 +41,7 @@ public class MemberPaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull PaymentAdapter.ViewHolder holder, int position) {
         holder.cellBinding.paymentCellActionsContent.setVisibility(View.GONE);
-        Payment current = paymentList.get(position);
+        PaymentResponse current = paymentList.get(position);
         holder.bind(current);
     }
 

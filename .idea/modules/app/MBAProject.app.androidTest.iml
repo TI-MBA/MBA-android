@@ -22,6 +22,7 @@
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/82d42c756b80dd38ac73e2db1e061bd5/transformed/databinding-ktx-7.3.1-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/logging-interceptor/4.10.0/ae7524eec42d4ab0c3a7cb93da010cf9bcc5007c/logging-interceptor-4.10.0.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp-urlconnection/4.10.0/c9dff59b2b2417028f17ae12e411a8a68deb69c/okhttp-urlconnection-4.10.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/4822e4384a90656124898c4e47db93b2/transformed/lifecycle-viewmodel-ktx-2.5.1-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/7b35fa8e20c406113679e1fc0a42fa2a/transformed/lifecycle-runtime-ktx-2.4.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-coroutines-core-jvm/1.6.1/97fd74ccf54a863d221956ffcd21835e168e2aaa/kotlinx-coroutines-core-jvm-1.6.1.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/888a6bccf70af685eafbd4a94a9ec1d7/transformed/CurrencyEditText-0.0.10-api.jar</arg>
@@ -70,6 +71,7 @@
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/7992d7eb0bb65718591d3d19464d7e83/transformed/cursoradapter-1.0.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/d5bd4a930a22077c4dcaa5a9f7a74385/transformed/savedstate-1.2.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/da9cd803288b96222fd7a4bc3f8bbce5/transformed/cardview-1.0.0-api.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/50532811cfc8c8de6864b5346c8c57c0/transformed/lifecycle-viewmodel-2.5.1-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/4b4c48899f7092171146336cd9ed0d53/transformed/lifecycle-process-2.4.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/689c7451a85651ac88c162278b9f5578/transformed/lifecycle-service-2.4.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/9b391c3e0ec289407dd8e5d7166649da/transformed/lifecycle-runtime-2.5.1-api.jar</arg>
@@ -79,7 +81,6 @@
                 <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.concurrent/concurrent-futures/1.0.0/c1e77e3ee6f4643b77496a1ddf7a2eef1aefdaa1/concurrent-futures-1.0.0.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/f280d714149f66044592bcb95677504f/transformed/core-runtime-2.1.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/3bb9d75da67e7fa9afb84075f06901c1/transformed/versionedparcelable-1.1.1-api.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/50532811cfc8c8de6864b5346c8c57c0/transformed/lifecycle-viewmodel-2.5.1-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.collection/collection/1.1.0/1f27220b47669781457de0d600849a5de0e89909/collection-1.1.0.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/d8972b633b7b1adf6ebc146c88056865/transformed/documentfile-1.0.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/9b5c6034da859387bca812aef514a344/transformed/localbroadcastmanager-1.0.0-api.jar</arg>
@@ -244,6 +245,7 @@
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.slidingpanelayout:slidingpanelayout:1.0.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.swiperefreshlayout:swiperefreshlayout:1.0.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.asynclayoutinflater:asynclayoutinflater:1.0.0@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1@aar" level="project" />
   </component>
   <component name="TestModuleProperties" production-module="MBAProject.app.main" />
 </module>
