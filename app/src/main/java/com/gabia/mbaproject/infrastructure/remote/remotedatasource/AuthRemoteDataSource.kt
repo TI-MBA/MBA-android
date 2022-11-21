@@ -22,4 +22,15 @@ class AuthRemoteDataSource(private val apiDataSource: AuthApiDataSource):
             }
         }
     }
+
+    override fun changePassword(authRequest: AuthRequest, resultCallBack: BaseCallBack<Int>) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = apiDataSource.changePassword(authRequest)
+            if (response.isSuccessful) {
+                resultCallBack.onSuccess(response.code())
+            } else {
+                resultCallBack.onError(response.code())
+            }
+        }
+    }
 }

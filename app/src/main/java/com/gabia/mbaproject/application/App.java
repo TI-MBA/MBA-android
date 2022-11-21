@@ -4,6 +4,9 @@ import android.app.Application;
 import android.content.Context;
 import android.content.res.Configuration;
 
+import com.gabia.mbaproject.infrastructure.local.UserDefaults;
+import com.gabia.mbaproject.model.User;
+
 public class App extends Application {
     @Override
     public void onCreate() {
@@ -24,5 +27,9 @@ public class App extends Application {
     @Override
     public void onLowMemory() {
         super.onLowMemory();
+    }
+
+    public static User getCurrentUser(Context context) {
+        return new UserDefaults(context).getCurrentUser();
     }
 }
