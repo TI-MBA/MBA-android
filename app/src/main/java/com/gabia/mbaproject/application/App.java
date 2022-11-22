@@ -1,9 +1,12 @@
 package com.gabia.mbaproject.application;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 
+import com.gabia.mbaproject.application.modules.login.LoginActivity;
 import com.gabia.mbaproject.infrastructure.local.UserDefaults;
 import com.gabia.mbaproject.model.User;
 
@@ -30,6 +33,13 @@ public class App extends Application {
     }
 
     public static User getCurrentUser(Context context) {
-        return new UserDefaults(context).getCurrentUser();
+        return UserDefaults.getInstance(context).getCurrentUser();
+    }
+
+    public static void logout(Activity activity) {
+        UserDefaults.getInstance(activity).deleteCurrentUser();
+        Intent intent = new Intent(activity, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        activity.startActivity(intent);
     }
 }

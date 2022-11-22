@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.gabia.mbaproject.R;
+import com.gabia.mbaproject.application.App;
 import com.gabia.mbaproject.application.modules.login.LoginActivity;
 import com.gabia.mbaproject.application.modules.member.editdata.EditPasswordActivity;
 import com.gabia.mbaproject.application.modules.member.payment.MemberPaymentListFragment;
@@ -34,11 +35,11 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home);
         binding.setActivity(this);
-        currentUser = new UserDefaults(getApplicationContext()).getCurrentUser();
+        currentUser = UserDefaults.getInstance(getApplicationContext()).getCurrentUser();
 
         if (currentUser == null) {
             Toast.makeText(this, "Sem usuário na sessão", Toast.LENGTH_SHORT).show();
-            logout();
+            App.logout(this);
         } else {
             bindUser();
             setupBottomTabs();
@@ -68,17 +69,10 @@ public class HomeActivity extends AppCompatActivity {
                 .setMessage("Tem certeza que deseja sair do app?")
 
                 .setPositiveButton("Sair", (dialog, which) -> {
-                    new UserDefaults(HomeActivity.this).deleteCurrentUser();
-                    logout();
+                    App.logout(this);
                 })
                 .setNegativeButton("Ficar", null)
                 .show();
-    }
-
-    private void logout() {
-        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
     }
 
     private void setupBottomTabs() {

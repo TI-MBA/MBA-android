@@ -12,9 +12,13 @@ public class UserDefaults implements UserDefaultsContract {
     private final SharedPreferences sharedPreferences;
     private final Gson gson = new Gson();
 
-    public UserDefaults(Context context) {
+    private UserDefaults(Context context) {
         sharedPreferences = context.getSharedPreferences(
                 "com.gabia.mbaproject.infrastructure.local", Context.MODE_PRIVATE);
+    }
+
+    public static UserDefaults getInstance(Context context) {
+        return new UserDefaults(context);
     }
 
     @Override

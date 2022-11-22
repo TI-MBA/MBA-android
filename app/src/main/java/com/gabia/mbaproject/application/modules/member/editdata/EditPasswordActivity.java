@@ -67,15 +67,9 @@ public class EditPasswordActivity extends AppCompatActivity {
                 }
             });
         } else {
-            moveToLogin();
+            Toast.makeText(this, "Usuário não encontrado", Toast.LENGTH_SHORT).show();
+            App.logout(this);
         }
-    }
-
-    private void moveToLogin() {
-        Toast.makeText(this, "Usuário não encontrado", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
     }
 
     private boolean haveDifferentText(EditText firstEditText, EditText secondEditText) {

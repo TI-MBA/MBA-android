@@ -8,12 +8,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.gabia.mbaproject.R;
+import com.gabia.mbaproject.application.App;
 import com.gabia.mbaproject.application.SelectListener;
 import com.gabia.mbaproject.application.modules.admin.finance.FinanceHomeActivity;
+import com.gabia.mbaproject.application.modules.admin.rollcall.RollCallHomeActivity;
 import com.gabia.mbaproject.databinding.ActivityAdminDashboardBinding;
 import com.gabia.mbaproject.model.AdminFeatureModel;
+import com.gabia.mbaproject.model.User;
+import com.gabia.mbaproject.model.enums.AdminFeatureCode;
+import com.gabia.mbaproject.model.enums.UserLevel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,9 +42,20 @@ public class AdminDashboardActivity extends AppCompatActivity implements SelectL
 
 
     public void setupAdminFeatures() {
+        User user = App.getCurrentUser(this);
         List<AdminFeatureModel> featureList = new ArrayList<>();
 
-        featureList.add(new AdminFeatureModel("Financeiro"));
+        if (user.getAdminLevel() == UserLevel.ROLE_USER.getValue()) {
+            Toast.makeText(this, "Essa tela é só para adms", Toast.LENGTH_SHORT).show();
+            App.logout(this);
+        } else if (user.getAdminLevel() == UserLevel.ROLE_ADMIN.getValue()) {
+            featureList.add(new AdminFeatureModel("Financeiro", AdminFeatureCode.FINANCE));
+            featureList.add(new AdminFeatureModel("Chamada", AdminFeatureCode.ROLL_CALL));
+        } else if (user.getAdminLevel() == UserLevel.ROLE_FINANCE.getValue()) {
+            featureList.add(new AdminFeatureModel("Financeiro", AdminFeatureCode.FINANCE));
+        } else if (user.getAdminLevel() == UserLevel.ROLE_ROLL_CALL.getValue()) {
+            featureList.add(new AdminFeatureModel("Chamada", AdminFeatureCode.ROLL_CALL));
+        }
 
         adminDashboardAdapter.setFeatures(featureList);
     }
@@ -46,8 +63,15 @@ public class AdminDashboardActivity extends AppCompatActivity implements SelectL
 
     @Override
     public void didSelect(AdminFeatureModel model) {
-        Intent i = new Intent(getApplicationContext(), FinanceHomeActivity.class);
-        startActivity(i);
+        if (model.getCode() == AdminFeatureCode.FINANCE) {
+            Intent intent = new Intent(getApplicationContext(), FinanceHomeActivity.class);
+            startActivity(intent);
+        } else if (model.getCode() == AdminFeatureCode.ROLL_CALL) {
+            Intent intent = new Intent(getApplicationContext(), RollCallHomeActivity.class);
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "Opção não encontrada", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -60,7 +84,7 @@ public class AdminDashboardActivity extends AppCompatActivity implements SelectL
                 {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        finish();
+                        App.logout(AdminDashboardActivity.this);
                     }
 
                 })

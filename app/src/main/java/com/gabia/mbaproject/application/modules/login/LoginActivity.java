@@ -61,9 +61,9 @@ public class LoginActivity extends AppCompatActivity {
         remoteDataSource.login(new AuthRequest(email, password), new BaseCallBack<User>() {
              @Override
              public void onSuccess(User result) {
-                 new UserDefaults(getApplicationContext()).save(result);
+                 UserDefaults.getInstance(getApplicationContext()).save(result);
 
-                 boolean isAdmin = result.getAdminLevel() >= UserLevel.ROLE_ADMIN.getValue();;
+                 boolean isAdmin = result.getAdminLevel() >= UserLevel.ROLE_ADMIN.getValue();
                  Intent intent = isAdmin ?
                          new Intent(getApplicationContext(), AdminDashboardActivity.class) :
                          new Intent(getApplicationContext(), HomeActivity.class);

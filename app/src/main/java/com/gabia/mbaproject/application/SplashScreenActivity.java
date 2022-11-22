@@ -17,7 +17,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        User user = new UserDefaults(getApplicationContext()).getCurrentUser();
+        User user = UserDefaults.getInstance(getApplicationContext()).getCurrentUser();
         Intent intent = new Intent(SplashScreenActivity.this, LoginActivity.class);
 
         if (user != null) {
