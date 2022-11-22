@@ -3,7 +3,7 @@ package com.gabia.mbaproject.infrastructure.local;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.gabia.mbaproject.model.User;
+import com.gabia.mbaproject.model.Member;
 import com.google.gson.Gson;
 
 public class UserDefaults implements UserDefaultsContract {
@@ -22,17 +22,17 @@ public class UserDefaults implements UserDefaultsContract {
     }
 
     @Override
-    public void save(User user) {
+    public void save(Member member) {
         SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
-        String json = gson.toJson(user);
+        String json = gson.toJson(member);
         prefsEditor.putString(USER_KEY, json);
         prefsEditor.apply();
     }
 
     @Override
-    public User getCurrentUser() {
+    public Member getCurrentUser() {
         String json = sharedPreferences.getString(USER_KEY, "");
-        return gson.fromJson(json, User.class);
+        return gson.fromJson(json, Member.class);
     }
 
     @Override

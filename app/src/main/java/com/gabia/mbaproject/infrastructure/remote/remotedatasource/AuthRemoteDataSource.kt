@@ -3,16 +3,20 @@ package com.gabia.mbaproject.infrastructure.remote.remotedatasource
 import com.gabia.mbaproject.infrastructure.remote.api.AuthApiDataSource
 import com.gabia.mbaproject.infrastructure.utils.BaseCallBack
 import com.gabia.mbaproject.model.AuthRequest
-import com.gabia.mbaproject.model.User
+import com.gabia.mbaproject.model.Member
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+interface AuthRemoteDataSourceContract {
+    fun login(authRequest: AuthRequest, resultCallBack: BaseCallBack<Member?>)
+    fun changePassword(authRequest: AuthRequest, resultCallBack: BaseCallBack<Int>)
+}
 
 class AuthRemoteDataSource(private val apiDataSource: AuthApiDataSource):
     AuthRemoteDataSourceContract {
 
-    override fun login(authRequest: AuthRequest, resultCallBack: BaseCallBack<User?>) {
+    override fun login(authRequest: AuthRequest, resultCallBack: BaseCallBack<Member?>) {
         CoroutineScope(Dispatchers.IO).launch {
             val response = apiDataSource.login(authRequest)
             if (response.isSuccessful) {

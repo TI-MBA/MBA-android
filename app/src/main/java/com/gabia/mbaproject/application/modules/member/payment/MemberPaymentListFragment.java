@@ -13,14 +13,21 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.gabia.mbaproject.R;
+import com.gabia.mbaproject.application.modules.admin.finance.FinanceHomeActivity;
 import com.gabia.mbaproject.databinding.FragmentPaymentListBinding;
 import com.gabia.mbaproject.infrastructure.remote.api.PaymentApiDataSource;
 import com.gabia.mbaproject.infrastructure.remote.providers.ApiDataSourceProvider;
 import com.gabia.mbaproject.model.Payment;
+import com.gabia.mbaproject.model.PaymentResponse;
+import com.gabia.mbaproject.utils.DateUtils;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,9 +41,14 @@ public class MemberPaymentListFragment extends Fragment {
     private FragmentPaymentListBinding binding;
     private int userID;
     private MemberPaymentAdapter adapter;
+    private MemberPaymentListDelegate delegate;
 
-    public static MemberPaymentListFragment newInstance(int userID) {
-        MemberPaymentListFragment fragment = new MemberPaymentListFragment();
+    private MemberPaymentListFragment(MemberPaymentListDelegate delegate) {
+        this.delegate = delegate;
+    }
+
+    public static MemberPaymentListFragment newInstance(int userID, MemberPaymentListDelegate delegate) {
+        MemberPaymentListFragment fragment = new MemberPaymentListFragment(delegate);
         Bundle args = new Bundle();
         args.putInt(USER_ID, userID);
         fragment.setArguments(args);
@@ -77,13 +89,24 @@ public class MemberPaymentListFragment extends Fragment {
         MemberPaymentListViewModel viewModel = new ViewModelProvider(this, new MemberPaymentListViewModelFactory(paymentApiDataSource)).get(MemberPaymentListViewModel.class);
         viewModel.getPaymentListLiveData().observe(getViewLifecycleOwner(), paymentList -> {
             if (paymentList != null) {
-                binding.setIsLoading(false);
+                orderByDate(paymentList);
                 adapter.setPaymentList(paymentList);
             } else {
                 Toast.makeText(getContext(), "Erro ao carregar os pagamentos", Toast.LENGTH_SHORT).show();
-                binding.setIsLoading(false);
             }
+            binding.setIsLoading(false);
         });
-        viewModel.fetchPayments(userID);
+        viewModel.fetchPayments(userID, code -> {
+            delegate.failToLoadPayments(code);
+            return null;
+        });
+    }
+
+    private void orderByDate(List<PaymentResponse> paymentList) {
+        paymentList.sort((o1, o2) -> {
+            Date firstDate = DateUtils.toDate(DateUtils.isoDateFormat, o1.getDate());
+            Date secondDate = DateUtils.toDate(DateUtils.isoDateFormat, o2.getDate());
+            return firstDate.compareTo(secondDate);
+        });
     }
 }

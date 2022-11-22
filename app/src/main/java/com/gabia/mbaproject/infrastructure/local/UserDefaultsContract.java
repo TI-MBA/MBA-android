@@ -1,10 +1,10 @@
 package com.gabia.mbaproject.infrastructure.local;
 
-import com.gabia.mbaproject.model.User;
+import com.gabia.mbaproject.model.Member;
 
 public interface UserDefaultsContract {
 
-    void save(User user);
-    User getCurrentUser();
+    void save(Member member);
+    Member getCurrentUser();
     void deleteCurrentUser();
 }

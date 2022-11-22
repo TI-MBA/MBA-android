@@ -17,7 +17,7 @@ import com.gabia.mbaproject.application.modules.admin.finance.FinanceHomeActivit
 import com.gabia.mbaproject.application.modules.admin.rollcall.RollCallHomeActivity;
 import com.gabia.mbaproject.databinding.ActivityAdminDashboardBinding;
 import com.gabia.mbaproject.model.AdminFeatureModel;
-import com.gabia.mbaproject.model.User;
+import com.gabia.mbaproject.model.Member;
 import com.gabia.mbaproject.model.enums.AdminFeatureCode;
 import com.gabia.mbaproject.model.enums.UserLevel;
 
@@ -42,18 +42,18 @@ public class AdminDashboardActivity extends AppCompatActivity implements SelectL
 
 
     public void setupAdminFeatures() {
-        User user = App.getCurrentUser(this);
+        Member member = App.getCurrentUser(this);
         List<AdminFeatureModel> featureList = new ArrayList<>();
 
-        if (user.getAdminLevel() == UserLevel.ROLE_USER.getValue()) {
+        if (member.getAdminLevel() == UserLevel.ROLE_USER.getValue()) {
             Toast.makeText(this, "Essa tela é só para adms", Toast.LENGTH_SHORT).show();
             App.logout(this);
-        } else if (user.getAdminLevel() == UserLevel.ROLE_ADMIN.getValue()) {
+        } else if (member.getAdminLevel() == UserLevel.ROLE_ADMIN.getValue()) {
             featureList.add(new AdminFeatureModel("Financeiro", AdminFeatureCode.FINANCE));
             featureList.add(new AdminFeatureModel("Chamada", AdminFeatureCode.ROLL_CALL));
-        } else if (user.getAdminLevel() == UserLevel.ROLE_FINANCE.getValue()) {
+        } else if (member.getAdminLevel() == UserLevel.ROLE_FINANCE.getValue()) {
             featureList.add(new AdminFeatureModel("Financeiro", AdminFeatureCode.FINANCE));
-        } else if (user.getAdminLevel() == UserLevel.ROLE_ROLL_CALL.getValue()) {
+        } else if (member.getAdminLevel() == UserLevel.ROLE_ROLL_CALL.getValue()) {
             featureList.add(new AdminFeatureModel("Chamada", AdminFeatureCode.ROLL_CALL));
         }
 

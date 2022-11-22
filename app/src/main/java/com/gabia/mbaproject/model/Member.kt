@@ -1,6 +1,6 @@
 package com.gabia.mbaproject.model
 
-data class User(
+data class Member(
     val id: Int,
     val email: String,
     val password: String,

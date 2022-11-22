@@ -7,6 +7,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+interface PaymentRemoteDataSourceContract {
+    fun getByUser(id: Int, resultCallBack: BaseCallBack<List<PaymentResponse>?>)
+}
+
 class PaymentRemoteDataSource(private val apiDataSource: PaymentApiDataSource): PaymentRemoteDataSourceContract {
 
     override fun getByUser(id: Int, resultCallBack: BaseCallBack<List<PaymentResponse>?>) {

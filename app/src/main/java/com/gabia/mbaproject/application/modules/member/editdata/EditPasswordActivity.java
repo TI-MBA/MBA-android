@@ -1,6 +1,5 @@
 package com.gabia.mbaproject.application.modules.member.editdata;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -12,13 +11,12 @@ import androidx.databinding.DataBindingUtil;
 
 import com.gabia.mbaproject.R;
 import com.gabia.mbaproject.application.App;
-import com.gabia.mbaproject.application.modules.login.LoginActivity;
 import com.gabia.mbaproject.databinding.ActivityEditPasswordBinding;
 import com.gabia.mbaproject.infrastructure.remote.providers.ApiDataSourceProvider;
 import com.gabia.mbaproject.infrastructure.remote.remotedatasource.AuthRemoteDataSource;
 import com.gabia.mbaproject.infrastructure.utils.BaseCallBack;
 import com.gabia.mbaproject.model.AuthRequest;
-import com.gabia.mbaproject.model.User;
+import com.gabia.mbaproject.model.Member;
 
 public class EditPasswordActivity extends AppCompatActivity {
 
@@ -44,10 +42,10 @@ public class EditPasswordActivity extends AppCompatActivity {
     }
 
     private void requestUpdatePassword() {
-        User currentUser = App.getCurrentUser(this);
-        if (currentUser != null) {
+        Member currentMember = App.getCurrentUser(this);
+        if (currentMember != null) {
             AuthRemoteDataSource remoteDataSource = new AuthRemoteDataSource(ApiDataSourceProvider.Companion.getAuthApiDataSource());
-            AuthRequest authRequest = new AuthRequest(currentUser.getEmail(), binding.newPasswordField.getText().toString());
+            AuthRequest authRequest = new AuthRequest(currentMember.getEmail(), binding.newPasswordField.getText().toString());
             remoteDataSource.changePassword(authRequest, new BaseCallBack<Integer>() {
                 @Override
                 public void onSuccess(Integer result) {

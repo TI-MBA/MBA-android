@@ -2,18 +2,21 @@ package com.gabia.mbaproject.application.modules.admin.finance;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.SearchView;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.gabia.mbaproject.R;
 import com.gabia.mbaproject.application.SelectListener;
+import com.gabia.mbaproject.application.modules.admin.finance.payment.MemberListViewModel;
 import com.gabia.mbaproject.databinding.ActivityFinanceHomeBinding;
 import com.gabia.mbaproject.model.Member;
+import com.gabia.mbaproject.model.enums.UserLevel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,51 +26,50 @@ public class FinanceHomeActivity extends AppCompatActivity implements SelectList
 
     private ActivityFinanceHomeBinding binding;
     private MemberAdapter memberAdapter;
+    private List<Member> memberList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_finance_home);
+        binding.setIsLoading(true);
         memberAdapter = new MemberAdapter(this);
+        setupRecyclerview();
+        fetchMembers();
+        setupSearchView();
+    }
+
+    private void setupSearchView() {
+        binding.searchView.setOnCloseListener(() -> {
+            memberAdapter.setMembers(memberList);
+            return true;
+        });
+        binding.searchView.setOnQueryTextListener(this);
+    }
+
+    private void setupRecyclerview() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         binding.membersRecyclerView.setLayoutManager(layoutManager);
         binding.membersRecyclerView.setAdapter(memberAdapter);
         binding.membersRecyclerView.addItemDecoration(
                 new DividerItemDecoration(this, layoutManager.getOrientation())
         );
-
-        memberAdapter.setMembers(fetchMembers());
-
-        binding.searchView.setOnCloseListener(new SearchView.OnCloseListener() {
-            @Override
-            public boolean onClose() {
-                memberAdapter.setMembers(fetchMembers());
-                return true;
-            }
-        });
-
-        binding.searchView.setOnQueryTextListener(this);
     }
 
-    private List<Member> fetchMembers() {
-        List<Member> memberList = new ArrayList<>();
-        memberList.add(new Member("Gabriel Rosa do Nascimento"));
-        memberList.add(new Member("Carina de Oliveira Monteiro"));
-        memberList.add(new Member("Beatriz Vilalta Jimenez"));
-        memberList.add(new Member("Gabriel Rosa do Nascimento"));
-        memberList.add(new Member("Carina de Oliveira Monteiro"));
-        memberList.add(new Member("Beatriz Vilalta Jimenez"));
-        memberList.add(new Member("Gabriel Rosa do Nascimento"));
-        memberList.add(new Member("Carina de Oliveira Monteiro"));
-        memberList.add(new Member("Beatriz Vilalta Jimenez"));
-        memberList.add(new Member("Gabriel Rosa do Nascimento"));
-        memberList.add(new Member("Carina de Oliveira Monteiro"));
-        memberList.add(new Member("Beatriz Vilalta Jimenez"));
-        memberList.add(new Member("Gabriel Rosa do Nascimento"));
-        memberList.add(new Member("Carina de Oliveira Monteiro"));
-        memberList.add(new Member("Beatriz Vilalta Jimenez"));
-
-        return memberList;
+    private void fetchMembers() {
+        MemberListViewModel viewModel = new ViewModelProvider(this).get(MemberListViewModel.class);
+        viewModel.getMemberListLiveData().observe(this, members -> {
+            binding.setIsLoading(false);
+            List<Member> userLevelMembers = members.stream()
+                    .filter(member -> member.getAdminLevel() == UserLevel.ROLE_USER.getValue())
+                    .collect(Collectors.toList());
+            memberList = userLevelMembers;
+            memberAdapter.setMembers(userLevelMembers);
+        });
+        viewModel.fetchAll(code -> {
+            runOnUiThread(() -> Toast.makeText(FinanceHomeActivity.this, "Falha ao carregar membros code " + code, Toast.LENGTH_SHORT).show());
+            return null;
+        });
     }
 
 
@@ -88,25 +90,13 @@ public class FinanceHomeActivity extends AppCompatActivity implements SelectList
 
     private void searchMembers(String query) {
         if (memberAdapter.getMemberList().isEmpty()) {
-            memberAdapter.setMembers(fetchMembers());
+            memberAdapter.setMembers(memberList);
         } else {
-            List<Member> filteredMembers = fetchMembers()
+            List<Member> filteredMembers = memberList
                     .stream()
                     .filter(element -> element.getName().toLowerCase().contains(query.toLowerCase()))
                     .collect(Collectors.toList());
             memberAdapter.setMembers(filteredMembers);
         }
     }
-
-//    private fun searchLogic(searchString: String?) {
-//        if (searchString?.isNotEmpty() == true) {
-//
-//            val list = mainList.filter {
-//                it.contains(searchString, true)
-//            }
-//            adapter.updateList(ArrayList(list))
-//        } else {
-//            adapter.updateList(ArrayList(mainList))
-//        }
-//    }
 }

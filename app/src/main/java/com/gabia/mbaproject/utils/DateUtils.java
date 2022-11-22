@@ -10,7 +10,7 @@ import java.util.Date;
 public class DateUtils {
 
     public static String datePattern = "dd/MM/yyyy HH:mm:ss";
-    public static String isoDateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+    public static String isoDateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
     public static String monthAndYear = "MM/yyyy";
 
     public static Date toDate(String pattern, String date) {

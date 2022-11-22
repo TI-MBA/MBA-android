@@ -8,7 +8,7 @@ import android.content.res.Configuration;
 
 import com.gabia.mbaproject.application.modules.login.LoginActivity;
 import com.gabia.mbaproject.infrastructure.local.UserDefaults;
-import com.gabia.mbaproject.model.User;
+import com.gabia.mbaproject.model.Member;
 
 public class App extends Application {
     @Override
@@ -32,7 +32,7 @@ public class App extends Application {
         super.onLowMemory();
     }
 
-    public static User getCurrentUser(Context context) {
+    public static Member getCurrentUser(Context context) {
         return UserDefaults.getInstance(context).getCurrentUser();
     }
 

@@ -16,28 +16,28 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.gabia.mbaproject.R;
 import com.gabia.mbaproject.application.App;
-import com.gabia.mbaproject.application.modules.login.LoginActivity;
 import com.gabia.mbaproject.application.modules.member.editdata.EditPasswordActivity;
+import com.gabia.mbaproject.application.modules.member.payment.MemberPaymentListDelegate;
 import com.gabia.mbaproject.application.modules.member.payment.MemberPaymentListFragment;
 import com.gabia.mbaproject.application.modules.member.rollcall.RollCallFragment;
 import com.gabia.mbaproject.databinding.ActivityHomeBinding;
 import com.gabia.mbaproject.infrastructure.local.UserDefaults;
-import com.gabia.mbaproject.model.User;
+import com.gabia.mbaproject.model.Member;
 import com.gabia.mbaproject.model.enums.Situation;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements MemberPaymentListDelegate {
 
     private ActivityHomeBinding binding;
-    private User currentUser;
+    private Member currentMember;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home);
         binding.setActivity(this);
-        currentUser = UserDefaults.getInstance(getApplicationContext()).getCurrentUser();
+        currentMember = UserDefaults.getInstance(getApplicationContext()).getCurrentUser();
 
-        if (currentUser == null) {
+        if (currentMember == null) {
             Toast.makeText(this, "Sem usuário na sessão", Toast.LENGTH_SHORT).show();
             App.logout(this);
         } else {
@@ -47,11 +47,11 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void bindUser() {
-        String instrumentText = "Ala: " + capitalizeFirstLetter(currentUser.getInstrument());
-        String associatedText = currentUser.getAssociated() ? "Sócio" : "Membro";
-        Situation userSituation = Situation.valueOf(currentUser.getSituation());
+        String instrumentText = "Ala: " + capitalizeFirstLetter(currentMember.getInstrument());
+        String associatedText = currentMember.getAssociated() ? "Sócio" : "Membro";
+        Situation userSituation = Situation.valueOf(currentMember.getSituation());
 
-        binding.memberNameText.setText(currentUser.getName());
+        binding.memberNameText.setText(currentMember.getName());
         binding.instrumentText.setText(instrumentText);
         binding.associatedText.setText(associatedText);
         binding.memberSituationTag.setBackgroundTintList(getResources().getColorStateList(userSituation.getSituationColor()));
@@ -76,15 +76,15 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void setupBottomTabs() {
-        replaceFragment(MemberPaymentListFragment.newInstance(currentUser.getId()));
+        replaceFragment(MemberPaymentListFragment.newInstance(currentMember.getId(), this));
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.paymentTab:
-                    replaceFragment(MemberPaymentListFragment.newInstance(currentUser.getId()));
+                    replaceFragment(MemberPaymentListFragment.newInstance(currentMember.getId(), this));
                     break;
                 case R.id.rollCallTab:
-                    replaceFragment(RollCallFragment.newInstance(currentUser.getId()));
+                    replaceFragment(RollCallFragment.newInstance(currentMember.getId()));
                     break;
             }
             return true;
@@ -100,4 +100,9 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {}
+
+    @Override
+    public void failToLoadPayments(int code) {
+        runOnUiThread(() -> Toast.makeText(this, "Falha ao carregar pagamentos code " + code, Toast.LENGTH_SHORT).show());
+    }
 }
