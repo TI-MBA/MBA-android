@@ -16,4 +16,7 @@ interface PaymentApiDataSource {
 
     @PUT("api/payment/{paymentId}")
     suspend fun updatePayment(@Path("paymentId") paymentId: Int, @Body payment: UpdatePaymentRequest): Response<PaymentResponse>
+
+    @DELETE("api/payment/{paymentId}")
+    suspend fun deletePayment(@Path("paymentId") paymentId: Int): Response<Unit>
 }

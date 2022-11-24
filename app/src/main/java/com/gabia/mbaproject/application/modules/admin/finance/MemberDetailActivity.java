@@ -8,9 +8,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -23,6 +26,7 @@ import com.gabia.mbaproject.application.ActionsListener;
 import com.gabia.mbaproject.application.SelectListener;
 import com.gabia.mbaproject.application.modules.admin.finance.payment.PaymentAdapter;
 import com.gabia.mbaproject.application.modules.admin.finance.payment.PaymentFormActivity;
+import com.gabia.mbaproject.application.modules.admin.finance.payment.PaymentViewModel;
 import com.gabia.mbaproject.application.modules.member.payment.MemberPaymentListViewModel;
 import com.gabia.mbaproject.databinding.ActivityMemberDetailBinding;
 import com.gabia.mbaproject.model.Member;
@@ -35,7 +39,10 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-public class MemberDetailActivity extends AppCompatActivity implements ActionsListener<PaymentResponse> {
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
+
+public class MemberDetailActivity extends AppCompatActivity implements ActionsListener<PaymentResponse>, PopupMenu.OnMenuItemClickListener {
 
     public static final String MEMBER_KEY = "com.gabia.mbaproject.application.modules.admin.finance.MEMBER_KEY";
 
@@ -54,12 +61,27 @@ public class MemberDetailActivity extends AppCompatActivity implements ActionsLi
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_member_detail);
         binding.setActivity(this);
-        binding.setIsLoading(true);
         adapter = new PaymentAdapter(this);
         binding.paymentsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.paymentsRecyclerView.setAdapter(adapter);
 
         currentMember = (Member) getIntent().getSerializableExtra(MEMBER_KEY);
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.resetPassword:
+//                archive(item);
+                System.out.println("Reset password");
+                return true;
+            case R.id.editMember:
+//                delete(item);
+                System.out.println("Edit member");
+                return true;
+            default:
+                return false;
+        }
     }
 
     @Override
@@ -89,23 +111,20 @@ public class MemberDetailActivity extends AppCompatActivity implements ActionsLi
                 .setIcon(R.drawable.ic_delete_red)
                 .setTitle("Deletar pagamento")
                 .setMessage(message)
-                .setPositiveButton("Deletar", new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(MemberDetailActivity.this, "Deletado", Toast.LENGTH_SHORT).show();
-                    }
-                })
+                .setPositiveButton("Deletar", (dialog, which) -> requestDeletion(item.getId()))
                 .setNegativeButton("Cancelar", null)
                 .show();
     }
 
-    public void editMemberDidPress(View view) {
-        Toast.makeText(this, "VOU FAZER A TELA DE EDITAR USER", Toast.LENGTH_SHORT).show();
-    }
-
     public void addPaymentDidPress(View view) {
         startActivity(PaymentFormActivity.createIntent(this, null, currentMember.getId()));
+    }
+
+    public void memberActionsDidPress(View view) {
+        PopupMenu popup = new PopupMenu(this, view);
+        popup.setOnMenuItemClickListener(this);
+        popup.inflate(R.menu.member_actions_menu);
+        popup.show();
     }
 
     private void bind() {
@@ -121,6 +140,7 @@ public class MemberDetailActivity extends AppCompatActivity implements ActionsLi
     }
 
     private void fetchPayments(int memberId) {
+        binding.setIsLoading(true);
         MemberPaymentListViewModel viewModel = new ViewModelProvider(this).get(MemberPaymentListViewModel.class);
         viewModel.getPaymentListLiveData().observe(this, paymentList -> {
             if (paymentList != null) {
@@ -143,6 +163,21 @@ public class MemberDetailActivity extends AppCompatActivity implements ActionsLi
             Date firstDate = DateUtils.toDate(DateUtils.isoDateFormat, o1.getDate());
             Date secondDate = DateUtils.toDate(DateUtils.isoDateFormat, o2.getDate());
             return secondDate.compareTo(firstDate);
+        });
+    }
+
+    private void requestDeletion(int paymentId) {
+        PaymentViewModel paymentViewModel = new ViewModelProvider(MemberDetailActivity.this).get(PaymentViewModel.class);
+        paymentViewModel.delete(paymentId, code -> {
+            runOnUiThread(() -> {
+                if (code >= 200 && code <=299) {
+                    Toast.makeText(MemberDetailActivity.this, "Deletado com sucesso", Toast.LENGTH_SHORT).show();
+                    fetchPayments(currentMember.getId());
+                } else {
+                    Toast.makeText(MemberDetailActivity.this, "Falha ao deletar code: " + code, Toast.LENGTH_SHORT).show();
+                }
+            });
+            return null;
         });
     }
 }

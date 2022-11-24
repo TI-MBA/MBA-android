@@ -35,4 +35,11 @@ class PaymentViewModel: ViewModel() {
             }
         }
     }
+
+    fun delete(paymentId: Int, resultCallback: (code: Int) -> Unit) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = apiDataSource.deletePayment(paymentId)
+            resultCallback(result.code())
+        }
+    }
 }

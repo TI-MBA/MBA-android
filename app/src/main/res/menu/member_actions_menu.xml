@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/resetPassword"
+        android:title="Resetar senha"
+        />
+    <item
+        android:id="@+id/editMember"
+        android:title="Editar membro"
+        android:icon="@drawable/ic_rollcall_blue"
+        />
+</menu>
