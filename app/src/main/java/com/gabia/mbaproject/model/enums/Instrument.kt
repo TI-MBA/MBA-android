@@ -6,6 +6,20 @@ enum class Instrument(val value: String) {
     GONGUE("GONGUE"),
     CAIXA("CAIXA"),
     ALFAIA("ALFAIA"),
-    APITO("APITO"),
-    CANTO("CANTO")
+    CANTO("CANTO");
+
+    val formattedValue: String
+        get() {
+            var result = ""
+            result = when (value) {
+                "AGBE" -> "Agbe"
+                "AGOGO" -> "Agogo"
+                "GONGUE" -> "Gonguê"
+                "CAIXA" -> "Caixa"
+                "ALFAIA" -> "Alfaia"
+                "CANTO" -> "Canto"
+                else -> "Indefinido"
+            }
+            return result
+        }
 }
