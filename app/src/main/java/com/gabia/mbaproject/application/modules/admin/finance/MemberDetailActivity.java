@@ -29,6 +29,10 @@ import com.gabia.mbaproject.application.modules.admin.finance.payment.PaymentFor
 import com.gabia.mbaproject.application.modules.admin.finance.payment.PaymentViewModel;
 import com.gabia.mbaproject.application.modules.member.payment.MemberPaymentListViewModel;
 import com.gabia.mbaproject.databinding.ActivityMemberDetailBinding;
+import com.gabia.mbaproject.infrastructure.remote.providers.ApiDataSourceProvider;
+import com.gabia.mbaproject.infrastructure.remote.remotedatasource.AuthRemoteDataSource;
+import com.gabia.mbaproject.infrastructure.utils.BaseCallBack;
+import com.gabia.mbaproject.model.AuthRequest;
 import com.gabia.mbaproject.model.Member;
 import com.gabia.mbaproject.model.Payment;
 import com.gabia.mbaproject.model.PaymentResponse;
@@ -72,8 +76,7 @@ public class MemberDetailActivity extends AppCompatActivity implements ActionsLi
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.resetPassword:
-//                archive(item);
-                System.out.println("Reset password");
+                showResetPasswordAlert();
                 return true;
             case R.id.editMember:
 //                delete(item);
@@ -137,6 +140,34 @@ public class MemberDetailActivity extends AppCompatActivity implements ActionsLi
         binding.associatedText.setText(associatedText);
         binding.memberSituationTag.setBackgroundTintList(getResources().getColorStateList(userSituation.getSituationColor()));
         binding.memberSituationTag.setText(userSituation.getFormattedValue());
+    }
+
+    private void showResetPasswordAlert() {
+        String message = "Tem certeza que resetar a senha \n\n" +
+                "Nome: " + currentMember.getName() + "\n" +
+                "Email: " + currentMember.getEmail() + "\n";
+        new AlertDialog.Builder(this, R.style.DeleteDialogTheme)
+                .setIcon(R.drawable.ic_edit)
+                .setTitle("Resetar senha")
+                .setMessage(message)
+                .setPositiveButton("Resetar senha", (dialog, which) -> resetPassword())
+                .setNegativeButton("Cancelar", null)
+                .show();
+    }
+
+    private void resetPassword() {
+        AuthRemoteDataSource authRemoteDataSource = new AuthRemoteDataSource(ApiDataSourceProvider.Companion.getAuthApiDataSource());
+        authRemoteDataSource.resetPassword(new AuthRequest(currentMember.getEmail(), ""), new BaseCallBack<AuthRequest>() {
+            @Override
+            public void onSuccess(AuthRequest result) {
+                runOnUiThread(() -> Toast.makeText(MemberDetailActivity.this, "Senha resetada com sucesso", Toast.LENGTH_SHORT).show());
+            }
+
+            @Override
+            public void onError(int code) {
+                runOnUiThread(() -> Toast.makeText(MemberDetailActivity.this, "Falha ao resetar senha code: " + code, Toast.LENGTH_SHORT).show());
+            }
+        });
     }
 
     private void fetchPayments(int memberId) {

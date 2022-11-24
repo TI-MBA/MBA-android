@@ -15,10 +15,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.gabia.mbaproject.R;
-import com.gabia.mbaproject.application.modules.admin.MemberListViewModel;
 import com.gabia.mbaproject.databinding.ActivityPaymentFormBinding;
 import com.gabia.mbaproject.infrastructure.utils.BaseCallBack;
-import com.gabia.mbaproject.model.Payment;
 import com.gabia.mbaproject.model.PaymentRequest;
 import com.gabia.mbaproject.model.PaymentResponse;
 import com.gabia.mbaproject.model.PaymentUserRequest;
@@ -72,7 +70,7 @@ public class PaymentFormActivity extends AppCompatActivity  implements DatePicke
         String selectedDate = getMonthText(month) + "/" + year;
         binding.referenceMonthText.setText(selectedDate);
         referenceDate = DateUtils.toDate(monthAndYear, selectedDate);
-        System.out.println("Data selecionada" + referenceDate);
+
     }
 
     public void referenceDateDidPress(View view) {
@@ -101,8 +99,7 @@ public class PaymentFormActivity extends AppCompatActivity  implements DatePicke
             @Override
             public void onSuccess(PaymentResponse result) {
                 runOnUiThread(() -> {
-                    System.out.println("aa");
-                    System.out.println("aa");
+                    Toast.makeText(PaymentFormActivity.this, "Pagamento adicionado", Toast.LENGTH_SHORT).show();
                     PaymentFormActivity.this.onBackPressed();
                 });
             }
@@ -110,8 +107,7 @@ public class PaymentFormActivity extends AppCompatActivity  implements DatePicke
             @Override
             public void onError(int code) {
                 runOnUiThread(() -> {
-                    System.out.println("aa");
-                    System.out.println("aa");
+                    Toast.makeText(PaymentFormActivity.this, "Erro ao criar pagamento code " + code, Toast.LENGTH_SHORT).show();
                     PaymentFormActivity.this.onBackPressed();
                 });
             }
@@ -124,8 +120,7 @@ public class PaymentFormActivity extends AppCompatActivity  implements DatePicke
             @Override
             public void onSuccess(PaymentResponse result) {
                 runOnUiThread(() -> {
-                    System.out.println("aa");
-                    System.out.println("aa");
+                    Toast.makeText(PaymentFormActivity.this, "Pagamento atualizado", Toast.LENGTH_SHORT).show();
                     PaymentFormActivity.this.onBackPressed();
                 });
             }
@@ -133,8 +128,7 @@ public class PaymentFormActivity extends AppCompatActivity  implements DatePicke
             @Override
             public void onError(int code) {
                 runOnUiThread(() -> {
-                    System.out.println("aa");
-                    System.out.println("aa");
+                    Toast.makeText(PaymentFormActivity.this, "Erro ao editar pagamento code " + code, Toast.LENGTH_SHORT).show();
                     PaymentFormActivity.this.onBackPressed();
                 });
             }

@@ -16,5 +16,5 @@ interface AuthApiDataSource {
     suspend fun changePassword(@Body authRequest: AuthRequest): Response<Unit>
 
     @PUT("api/user/resetPassword")
-    suspend fun resetPassword(@Body authRequest: AuthRequest): Response<Unit>
+    suspend fun resetPassword(@Body authRequest: AuthRequest): Response<AuthRequest>
 }

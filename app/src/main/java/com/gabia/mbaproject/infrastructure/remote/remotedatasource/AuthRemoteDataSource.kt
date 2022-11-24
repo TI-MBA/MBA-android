@@ -11,6 +11,7 @@ import kotlinx.coroutines.launch
 interface AuthRemoteDataSourceContract {
     fun login(authRequest: AuthRequest, resultCallBack: BaseCallBack<Member?>)
     fun changePassword(authRequest: AuthRequest, resultCallBack: BaseCallBack<Int>)
+    fun resetPassword(authRequest: AuthRequest, resultCallBack: BaseCallBack<AuthRequest?>)
 }
 
 class AuthRemoteDataSource(private val apiDataSource: AuthApiDataSource):
@@ -32,6 +33,17 @@ class AuthRemoteDataSource(private val apiDataSource: AuthApiDataSource):
             val response = apiDataSource.changePassword(authRequest)
             if (response.isSuccessful) {
                 resultCallBack.onSuccess(response.code())
+            } else {
+                resultCallBack.onError(response.code())
+            }
+        }
+    }
+
+    override fun resetPassword(authRequest: AuthRequest, resultCallBack: BaseCallBack<AuthRequest?>) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = apiDataSource.resetPassword(authRequest)
+            if (response.isSuccessful) {
+                resultCallBack.onSuccess(response.body())
             } else {
                 resultCallBack.onError(response.code())
             }

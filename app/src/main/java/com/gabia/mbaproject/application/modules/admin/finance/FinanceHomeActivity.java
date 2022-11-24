@@ -12,10 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.gabia.mbaproject.R;
 import com.gabia.mbaproject.application.SelectListener;
-import com.gabia.mbaproject.application.modules.admin.MemberListViewModel;
+import com.gabia.mbaproject.application.modules.admin.MemberViewModel;
 import com.gabia.mbaproject.databinding.ActivityFinanceHomeBinding;
 import com.gabia.mbaproject.model.Member;
-import com.gabia.mbaproject.model.enums.UserLevel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +55,7 @@ public class FinanceHomeActivity extends AppCompatActivity implements SelectList
     }
 
     private void fetchMembers() {
-        MemberListViewModel viewModel = new ViewModelProvider(this).get(MemberListViewModel.class);
+        MemberViewModel viewModel = new ViewModelProvider(this).get(MemberViewModel.class);
         viewModel.getMemberListLiveData().observe(this, members -> {
             binding.setIsLoading(false);
             memberList = members;

@@ -10,7 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlin.streams.toList
 
-class MemberListViewModel: ViewModel() {
+class MemberViewModel: ViewModel() {
 
     var memberListLiveData: MutableLiveData<List<Member>> = MutableLiveData()
 
@@ -25,7 +25,8 @@ class MemberListViewModel: ViewModel() {
                     body()?.
                     stream()?.
                     filter { it.adminLevel == UserLevel.ROLE_USER.value }?.
-                    toList() ?: emptyList()
+                    toList()?.
+                    sortedBy { it.name } ?: emptyList()
                 )
             } else {
                 failCallback(response.code())
