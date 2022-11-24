@@ -1,5 +1,7 @@
 package com.gabia.mbaproject.model
 
+import java.io.Serializable
+
 data class Member(
     val id: Int,
     val email: String,
@@ -12,4 +14,4 @@ data class Member(
     val updatedAt: String?,
     val associated: Boolean,
     val active: Boolean
-)
+): Serializable

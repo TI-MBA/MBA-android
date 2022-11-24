@@ -7,11 +7,25 @@
         <variable
             name="activity"
             type="com.gabia.mbaproject.application.modules.admin.finance.MemberDetailActivity"/>
+
+        <variable
+            name="isLoading"
+            type="Boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <ProgressBar
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:indeterminateTint="@color/baque_blue"
+            android:visibility="@{isLoading}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -138,6 +152,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/paymentsRecyclerView"
+                android:visibility="@{!isLoading}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:listitem="@layout/cell_payment" />

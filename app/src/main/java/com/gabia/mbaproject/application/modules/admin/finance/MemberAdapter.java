@@ -1,5 +1,6 @@
 package com.gabia.mbaproject.application.modules.admin.finance;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -11,6 +12,7 @@ import com.gabia.mbaproject.R;
 import com.gabia.mbaproject.application.SelectListener;
 import com.gabia.mbaproject.databinding.CellMemberBinding;
 import com.gabia.mbaproject.model.Member;
+import com.gabia.mbaproject.model.enums.Situation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +20,8 @@ import java.util.List;
 public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder> {
 
     List<Member> memberList = new ArrayList<>();
-    private SelectListener<Member> listener;
+    private final SelectListener<Member> listener;
+    private Context context;
 
     public MemberAdapter(SelectListener<Member> listener) {
         this.listener = listener;
@@ -42,13 +45,15 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
                 R.layout.cell_member, parent, false
         );
 
+        context = parent.getContext();
+
         return new MemberAdapter.ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Member current = memberList.get(position);
-        holder.bind(current);
+        holder.bind(current, context);
         holder.cellBinding.cellMemberContent
                 .setOnClickListener(view -> listener.didSelect(current));
     }
@@ -67,9 +72,11 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
             this.cellBinding = cellBinding;
         }
 
-        // TODO: Add model
-        public void bind(Member member) {
+        public void bind(Member member, Context context) {
             cellBinding.cellMemberNameTitle.setText(member.getName());
+            Situation userSituation = Situation.valueOf(member.getSituation());
+            cellBinding.cellMemberSituationTag.setBackgroundTintList(context.getResources().getColorStateList(userSituation.getSituationColor()));
+            cellBinding.cellMemberSituationTag.setText(userSituation.getFormattedValue());
         }
     }
 }

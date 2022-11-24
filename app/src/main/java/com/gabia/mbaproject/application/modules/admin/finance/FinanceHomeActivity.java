@@ -1,6 +1,5 @@
 package com.gabia.mbaproject.application.modules.admin.finance;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -13,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.gabia.mbaproject.R;
 import com.gabia.mbaproject.application.SelectListener;
-import com.gabia.mbaproject.application.modules.admin.finance.payment.MemberListViewModel;
+import com.gabia.mbaproject.application.modules.admin.MemberListViewModel;
 import com.gabia.mbaproject.databinding.ActivityFinanceHomeBinding;
 import com.gabia.mbaproject.model.Member;
 import com.gabia.mbaproject.model.enums.UserLevel;
@@ -60,14 +59,14 @@ public class FinanceHomeActivity extends AppCompatActivity implements SelectList
         MemberListViewModel viewModel = new ViewModelProvider(this).get(MemberListViewModel.class);
         viewModel.getMemberListLiveData().observe(this, members -> {
             binding.setIsLoading(false);
-            List<Member> userLevelMembers = members.stream()
-                    .filter(member -> member.getAdminLevel() == UserLevel.ROLE_USER.getValue())
-                    .collect(Collectors.toList());
-            memberList = userLevelMembers;
-            memberAdapter.setMembers(userLevelMembers);
+            memberList = members;
+            memberAdapter.setMembers(members);
         });
         viewModel.fetchAll(code -> {
-            runOnUiThread(() -> Toast.makeText(FinanceHomeActivity.this, "Falha ao carregar membros code " + code, Toast.LENGTH_SHORT).show());
+            runOnUiThread(() -> {
+                Toast.makeText(FinanceHomeActivity.this, "Falha ao carregar membros code " + code, Toast.LENGTH_SHORT).show();
+                binding.setIsLoading(false);
+            });
             return null;
         });
     }
@@ -75,8 +74,7 @@ public class FinanceHomeActivity extends AppCompatActivity implements SelectList
 
     @Override
     public void didSelect(Member model) {
-        Intent i = new Intent(getApplicationContext(), MemberDetailActivity.class);
-        startActivity(i);
+        startActivity(MemberDetailActivity.createIntent(this, model));
     }
 
     @Override

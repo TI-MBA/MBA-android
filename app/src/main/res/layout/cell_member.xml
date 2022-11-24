@@ -8,6 +8,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:tag="cards main container"
+        android:layout_marginBottom="4dp"
         >
 
         <LinearLayout

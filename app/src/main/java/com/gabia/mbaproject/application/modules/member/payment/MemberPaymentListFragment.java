@@ -85,8 +85,7 @@ public class MemberPaymentListFragment extends Fragment {
     }
 
     private void setupViewModel() {
-        PaymentApiDataSource paymentApiDataSource = ApiDataSourceProvider.Companion.getPaymentApiDataSource();
-        MemberPaymentListViewModel viewModel = new ViewModelProvider(this, new MemberPaymentListViewModelFactory(paymentApiDataSource)).get(MemberPaymentListViewModel.class);
+        MemberPaymentListViewModel viewModel = new ViewModelProvider(this).get(MemberPaymentListViewModel.class);
         viewModel.getPaymentListLiveData().observe(getViewLifecycleOwner(), paymentList -> {
             if (paymentList != null) {
                 orderByDate(paymentList);
@@ -98,6 +97,7 @@ public class MemberPaymentListFragment extends Fragment {
         });
         viewModel.fetchPayments(userID, code -> {
             delegate.failToLoadPayments(code);
+            binding.setIsLoading(false);
             return null;
         });
     }
