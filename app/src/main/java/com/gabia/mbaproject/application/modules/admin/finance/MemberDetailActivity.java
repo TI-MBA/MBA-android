@@ -27,6 +27,7 @@ import com.gabia.mbaproject.application.SelectListener;
 import com.gabia.mbaproject.application.modules.admin.finance.payment.PaymentAdapter;
 import com.gabia.mbaproject.application.modules.admin.finance.payment.PaymentFormActivity;
 import com.gabia.mbaproject.application.modules.admin.finance.payment.PaymentViewModel;
+import com.gabia.mbaproject.application.modules.admin.memberform.MemberFormActivity;
 import com.gabia.mbaproject.application.modules.member.payment.MemberPaymentListViewModel;
 import com.gabia.mbaproject.databinding.ActivityMemberDetailBinding;
 import com.gabia.mbaproject.infrastructure.remote.providers.ApiDataSourceProvider;
@@ -79,8 +80,7 @@ public class MemberDetailActivity extends AppCompatActivity implements ActionsLi
                 showResetPasswordAlert();
                 return true;
             case R.id.editMember:
-//                delete(item);
-                System.out.println("Edit member");
+                goToEditMember();
                 return true;
             default:
                 return false;
@@ -210,5 +210,9 @@ public class MemberDetailActivity extends AppCompatActivity implements ActionsLi
             });
             return null;
         });
+    }
+
+    private void goToEditMember() {
+        startActivity(MemberFormActivity.createIntent(this, currentMember));
     }
 }
