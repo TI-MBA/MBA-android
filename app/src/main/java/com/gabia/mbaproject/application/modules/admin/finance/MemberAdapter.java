@@ -73,8 +73,10 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
         }
 
         public void bind(Member member, Context context) {
-            cellBinding.cellMemberNameTitle.setText(member.getName());
             Situation userSituation = Situation.valueOf(member.getSituation());
+            int contentColor = member.getActive() ? R.color.white : R.color.gray;
+            cellBinding.cellMemberNameTitle.setText(member.getName());
+            cellBinding.cellMemberContent.setBackgroundColor(context.getColor(contentColor));
             cellBinding.cellMemberSituationTag.setBackgroundTintList(context.getResources().getColorStateList(userSituation.getSituationColor()));
             cellBinding.cellMemberSituationTag.setText(userSituation.getFormattedValue());
         }

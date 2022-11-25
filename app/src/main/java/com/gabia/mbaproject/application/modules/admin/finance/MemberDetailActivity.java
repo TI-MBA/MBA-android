@@ -1,11 +1,12 @@
 package com.gabia.mbaproject.application.modules.admin.finance;
 
+import static com.gabia.mbaproject.application.ConstantKeys.MEMBER_KEY;
+import static com.gabia.mbaproject.application.ConstantKeys.REQUEST_UPDATE_MEMBER;
 import static com.gabia.mbaproject.utils.DateUtils.monthAndYear;
 import static com.gabia.mbaproject.utils.FloatUtils.moneyFormat;
 import static com.gabia.mbaproject.utils.StringUtils.capitalizeFirstLetter;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -13,17 +14,15 @@ import android.view.View;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.gabia.mbaproject.R;
 import com.gabia.mbaproject.application.ActionsListener;
-import com.gabia.mbaproject.application.SelectListener;
 import com.gabia.mbaproject.application.modules.admin.finance.payment.PaymentAdapter;
 import com.gabia.mbaproject.application.modules.admin.finance.payment.PaymentFormActivity;
 import com.gabia.mbaproject.application.modules.admin.finance.payment.PaymentViewModel;
@@ -35,21 +34,14 @@ import com.gabia.mbaproject.infrastructure.remote.remotedatasource.AuthRemoteDat
 import com.gabia.mbaproject.infrastructure.utils.BaseCallBack;
 import com.gabia.mbaproject.model.AuthRequest;
 import com.gabia.mbaproject.model.Member;
-import com.gabia.mbaproject.model.Payment;
 import com.gabia.mbaproject.model.PaymentResponse;
 import com.gabia.mbaproject.model.enums.Situation;
 import com.gabia.mbaproject.utils.DateUtils;
 
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import kotlin.Unit;
-import kotlin.jvm.functions.Function1;
-
 public class MemberDetailActivity extends AppCompatActivity implements ActionsListener<PaymentResponse>, PopupMenu.OnMenuItemClickListener {
-
-    public static final String MEMBER_KEY = "com.gabia.mbaproject.application.modules.admin.finance.MEMBER_KEY";
 
     private ActivityMemberDetailBinding binding;
     private PaymentAdapter adapter;
@@ -93,9 +85,6 @@ public class MemberDetailActivity extends AppCompatActivity implements ActionsLi
         if (currentMember != null) {
             fetchPayments(currentMember.getId());
             bind();
-        } else {
-            Toast.makeText(this, "Falha ao carregar membro", Toast.LENGTH_SHORT).show();
-            onBackPressed();
         }
     }
 
@@ -119,6 +108,18 @@ public class MemberDetailActivity extends AppCompatActivity implements ActionsLi
                 .show();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_UPDATE_MEMBER && resultCode == RESULT_OK) {
+            assert data != null;
+            if (data.getSerializableExtra(MEMBER_KEY) != null) {
+                currentMember = (Member) data.getSerializableExtra(MEMBER_KEY);
+                bind();
+            }
+        }
+    }
+
     public void addPaymentDidPress(View view) {
         startActivity(PaymentFormActivity.createIntent(this, null, currentMember.getId()));
     }
@@ -140,6 +141,7 @@ public class MemberDetailActivity extends AppCompatActivity implements ActionsLi
         binding.associatedText.setText(associatedText);
         binding.memberSituationTag.setBackgroundTintList(getResources().getColorStateList(userSituation.getSituationColor()));
         binding.memberSituationTag.setText(userSituation.getFormattedValue());
+        binding.setActive(currentMember.getActive());
     }
 
     private void showResetPasswordAlert() {
@@ -213,6 +215,7 @@ public class MemberDetailActivity extends AppCompatActivity implements ActionsLi
     }
 
     private void goToEditMember() {
-        startActivity(MemberFormActivity.createIntent(this, currentMember));
+
+        startActivityForResult(MemberFormActivity.createIntent(this, currentMember), REQUEST_UPDATE_MEMBER);
     }
 }

@@ -13,7 +13,7 @@ enum class Situation(val value: String) {
             var result = ""
             result = when (value) {
                 "UP_TO_DATE" -> "Em dia"
-                "DEBIT" -> "Debito"
+                "DEBIT" -> "Débito"
                 "EXEMPT" -> "Isento"
                 "AGREEMENT" -> "Em acordo"
                 else -> "Indefinido"
@@ -30,6 +30,19 @@ enum class Situation(val value: String) {
                 "EXEMPT" -> R.color.baque_blue
                 "AGREEMENT" -> R.color.yellow_warning
                 else -> R.color.gray
+            }
+            return result
+        }
+
+    val position: Int
+        get() {
+            var result = R.color.gray
+            result = when (value) {
+                "UP_TO_DATE" -> 0
+                "DEBIT" -> 1
+                "EXEMPT" -> 2
+                "AGREEMENT" -> 3
+                else -> 0
             }
             return result
         }

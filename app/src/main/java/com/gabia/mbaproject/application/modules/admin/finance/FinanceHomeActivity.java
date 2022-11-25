@@ -1,6 +1,7 @@
 package com.gabia.mbaproject.application.modules.admin.finance;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.gabia.mbaproject.R;
 import com.gabia.mbaproject.application.SelectListener;
 import com.gabia.mbaproject.application.modules.admin.MemberViewModel;
+import com.gabia.mbaproject.application.modules.admin.memberform.MemberFormActivity;
 import com.gabia.mbaproject.databinding.ActivityFinanceHomeBinding;
 import com.gabia.mbaproject.model.Member;
 
@@ -30,11 +32,17 @@ public class FinanceHomeActivity extends AppCompatActivity implements SelectList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_finance_home);
+        binding.setActivity(this);
         binding.setIsLoading(true);
         memberAdapter = new MemberAdapter(this);
         setupRecyclerview();
-        fetchMembers();
         setupSearchView();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        fetchMembers();
     }
 
     private void setupSearchView() {
@@ -68,6 +76,10 @@ public class FinanceHomeActivity extends AppCompatActivity implements SelectList
             });
             return null;
         });
+    }
+
+    public void addMemberDidPress(View view) {
+        startActivity(MemberFormActivity.createIntent(this, null));
     }
 
 
