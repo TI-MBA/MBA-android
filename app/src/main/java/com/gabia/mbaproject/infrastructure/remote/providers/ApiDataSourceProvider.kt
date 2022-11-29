@@ -1,17 +1,15 @@
 package com.gabia.mbaproject.infrastructure.remote.providers
 
-import com.gabia.mbaproject.infrastructure.remote.api.AuthApiDataSource
-import com.gabia.mbaproject.infrastructure.remote.api.PaymentApiDataSource
-import com.gabia.mbaproject.infrastructure.remote.api.RetrofitInstance
-import com.gabia.mbaproject.infrastructure.remote.api.MemberApiDataSource
+import com.gabia.mbaproject.infrastructure.remote.api.*
 
 class ApiDataSourceProvider {
 
     companion object {
         private val retrofit = RetrofitInstance.getInstance()
 
-        val authApiDataSource = retrofit.create(AuthApiDataSource::class.java)
-        val memberApiDataSource = retrofit.create(MemberApiDataSource::class.java)
-        val paymentApiDataSource = retrofit.create(PaymentApiDataSource::class.java)
+        val authApiDataSource: AuthApiDataSource = retrofit.create(AuthApiDataSource::class.java)
+        val memberApiDataSource: MemberApiDataSource = retrofit.create(MemberApiDataSource::class.java)
+        val paymentApiDataSource: PaymentApiDataSource = retrofit.create(PaymentApiDataSource::class.java)
+        val rehearsalApiDataSource: RehearsalApiDataSource = retrofit.create(RehearsalApiDataSource::class.java)
     }
 }

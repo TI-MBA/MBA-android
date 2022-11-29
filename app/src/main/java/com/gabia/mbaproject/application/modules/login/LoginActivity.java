@@ -1,7 +1,9 @@
 package com.gabia.mbaproject.application.modules.login;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.Toast;
 
@@ -19,7 +21,24 @@ import com.gabia.mbaproject.infrastructure.remote.remotedatasource.AuthRemoteDat
 import com.gabia.mbaproject.infrastructure.utils.BaseCallBack;
 import com.gabia.mbaproject.model.AuthRequest;
 import com.gabia.mbaproject.model.Member;
+import com.gabia.mbaproject.model.MemberRequest;
+import com.gabia.mbaproject.model.enums.Instrument;
+import com.gabia.mbaproject.model.enums.Situation;
 import com.gabia.mbaproject.model.enums.UserLevel;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -40,6 +59,81 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             executeLogin();
         }
+    }
+
+    public void createUsers(View view) {
+
+        List<MemberRequest> memberRequestList = new ArrayList<>();
+
+        try {
+            InputStream is = getAssets().open("peopleDataForm.csv");
+            BufferedReader br = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
+
+            String line = br.readLine();
+
+            while (line != null) {
+                String[] user = line.split(",");
+                String email = user[2];
+                int adminLevel = 0;
+                String name = user[1];
+                String instrument = "";
+                switch (user[3]) {
+                    case "Agbe":
+                        instrument = Instrument.AGBE.getValue();
+                        break;
+                    case "Agogo ":
+                        instrument = Instrument.AGOGO.getValue();
+                        break;
+                    case "Gonguê":
+                        instrument = Instrument.GONGUE.getValue();
+                        break;
+                    case "Alfaia":
+                        instrument = Instrument.ALFAIA.getValue();
+                        break;
+                    case "Canto":
+                        instrument = Instrument.CANTO.getValue();
+                        break;
+                    default:
+                        instrument = Instrument.CAIXA.getValue();
+                }
+
+                String situation = "";
+
+                switch (user[4]) {
+                    case "Em acordo":
+                        situation = Situation.AGREEMENT.getValue();
+                        break;
+                    case "Isento":
+                        situation = Situation.EXEMPT.getValue();
+                        break;
+                    case "Débito":
+                        situation = Situation.DEBIT.getValue();
+                        break;
+                    default:
+                        situation = Situation.UP_TO_DATE.getValue();
+                }
+
+                boolean active = true;
+                boolean associated = true;
+
+                if (user[5].equals("Não")) {
+                    active = false;
+                }
+
+                if (user[6].equals("Não")) {
+                    associated = false;
+                }
+
+                memberRequestList.add(new MemberRequest(email, adminLevel, name, instrument, situation, active, associated));
+
+                line = br.readLine();
+            }
+
+        } catch(IOException e) {
+            e.getMessage();
+        }
+
+
     }
 
     private void executeLogin() {

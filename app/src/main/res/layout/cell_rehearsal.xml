@@ -9,6 +9,7 @@
         android:tag="cards main container">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/rehearsalContentView"
             android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -21,12 +22,12 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:id="@+id/presenceIcon"
+                    android:id="@+id/rehearsalIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:padding="8dp"
-                    android:src="@drawable/ic_presence_green"
+                    android:src="@drawable/ic_rehearsal"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -42,7 +43,7 @@
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/presenceIcon"
+                    app:layout_constraintEnd_toStartOf="@+id/rehearsalIcon"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>

@@ -22,7 +22,6 @@ interface MemberApiDataSource {
     @GET("api/user/{id}")
     suspend fun getById(@Path("id") id: Int): Response<Member>
 
-    // TOOD: MISSING BODY with user data
     @PUT("api/user/{id}")
     suspend fun edit(@Path("id") id: Int, @Body member: MemberRequest): Response<Member>
 

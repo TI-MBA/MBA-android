@@ -64,7 +64,6 @@ public class AdminDashboardAdapter extends RecyclerView.Adapter<AdminDashboardAd
             this.cellBinding = cellBinding;
         }
 
-        // TODO: Add model
         public void bind(AdminFeatureModel model) {
             cellBinding.adminFeatureTitle.setText(model.getFeatureTitle());
         }
