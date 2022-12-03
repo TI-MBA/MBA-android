@@ -25,15 +25,12 @@
         <activity android:name=".application.modules.admin.dashboard.AdminDashboardActivity" />
         <activity android:name=".application.modules.admin.finance.FinanceHomeActivity" />
         <activity android:name=".application.modules.admin.rollcall.RollCallHomeActivity" />
-        <activity
-            android:name=".application.modules.admin.finance.MemberDetailActivity"
-            android:theme="@style/FullRedActivityTheme" />
+        <activity android:name=".application.modules.admin.finance.MemberDetailActivity" android:theme="@style/FullRedActivityTheme" />
         <activity android:name=".application.modules.admin.finance.payment.PaymentFormActivity" />
-        <activity
-            android:name=".application.modules.member.HomeActivity"
-            android:theme="@style/FullBlueActivityTheme" />
+        <activity android:name=".application.modules.member.HomeActivity" android:theme="@style/FullBlueActivityTheme" />
         <activity android:name=".application.modules.member.editdata.EditPasswordActivity" />
-        <activity android:name=".application.modules.admin.memberform.MemberFormActivity"/>
+        <activity android:name=".application.modules.admin.memberform.MemberFormActivity" />
+        <activity android:name=".application.modules.admin.rollcall.detail.RollCallDetailActivity"/>
     </application>
 
 </manifest>

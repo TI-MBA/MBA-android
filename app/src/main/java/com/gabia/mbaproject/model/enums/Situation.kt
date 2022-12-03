@@ -14,7 +14,7 @@ enum class Situation(val value: String) {
             result = when (value) {
                 "UP_TO_DATE" -> "Em dia"
                 "DEBIT" -> "Débito"
-                "EXEMPT" -> "Isento"
+                "EXEMPT" -> "Cota"
                 "AGREEMENT" -> "Em acordo"
                 else -> "Indefinido"
             }

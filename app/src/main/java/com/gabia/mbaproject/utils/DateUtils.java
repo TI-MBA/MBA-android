@@ -15,6 +15,7 @@ public class DateUtils {
     public static String brazilianDate = "dd/MM/yyyy";
 
     public static Date toDate(String pattern, String date) {
+        if (date == null) { return new Date(); }
         try {
             return new SimpleDateFormat(pattern).parse(date);
         } catch (ParseException e) {
@@ -23,11 +24,13 @@ public class DateUtils {
     }
 
     public static String toString(String pattern, Date date) {
+        if (date == null) { return "Data sem valor"; }
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         return simpleDateFormat.format(date);
     }
 
     public static String changeFromIso(String pattern, String date) {
+        if (date == null) { return "Data sem valor"; }
         Date dateResult = toDate(isoDateFormat, date);
         return toString(pattern, dateResult);
     }

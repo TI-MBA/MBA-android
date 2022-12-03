@@ -27,4 +27,10 @@ interface MemberApiDataSource {
 
     @DELETE("api/user/{id}")
     suspend fun delete(@Path("id") id: Int)
+
+    @GET("api/user/presentRehearsal/{rehearsalId}")
+    suspend fun getPresentMembers(@Path("rehearsalId") rehearsalId: Int): Response<List<Member>>
+
+    @GET("api/user/absentRehearsal/{rehearsalId}")
+    suspend fun getAbsent(@Path("rehearsalId") rehearsalId: Int): Response<List<Member>>
 }

@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-
+    xmlns:tools="http://schemas.android.com/tools"
+    >
     <data>
-        <variable
-            name="activity"
-            type="com.gabia.mbaproject.application.modules.admin.finance.MemberDetailActivity"/>
-
         <variable
             name="isLoading"
             type="Boolean" />
+
         <variable
-            name="active"
-            type="Boolean" />
+            name="activity"
+            type="com.gabia.mbaproject.application.modules.admin.rollcall.detail.RollCallDetailActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_gravity="center"
-            android:background="@drawable/shape_half_circle_red"
+            android:background="@drawable/shape_half_circle_blue"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -44,7 +42,7 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/memberInfoContentView"
+            android:id="@+id/rehearsalInfoContentView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -64,87 +62,35 @@
                 android:padding="8dp"
                 >
 
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_gravity="center"
-                    android:onClick="@{activity::memberActionsDidPress}"
-                    android:padding="4dp"
-                    android:src="@drawable/ic_more"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
-
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/imageView"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
-                        android:id="@+id/activeMemberText"
+                        android:id="@+id/rehearsalTitleText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
+                        android:gravity="center_horizontal"
+                        android:text="Ensaio - 00/00/000"
                         android:textSize="20sp"
-                        android:visibility="@{!active}"
-                        tools:visibility="gone"
-                        android:text="Membro afastado"
+                        android:textColor="@color/baque_blue"
                         android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/memberNameText"
+                    <Button
+                        android:layout_marginTop="8dp"
+                        android:text="Finalizar chamada"
+                        android:onClick="@{activity::endRollCallDidPress}"
+                        android:backgroundTint="@color/baque_red"
+                        android:layout_marginHorizontal="16dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Gabriel Rosa do Nascimento"
-                        android:textColor="@color/baque_red"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/instrumentText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Ala: Caixa"
-                        android:textStyle="bold" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/memberSituationTag"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginVertical="6dp"
-                            android:background="@drawable/tag_success_shape"
-                            android:gravity="start"
-                            android:padding="4dp"
-                            android:text="Em dia"
-                            android:textColor="@android:color/white"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/associatedText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="8dp"
-                            android:text="Colaborador" />
-                    </LinearLayout>
+                        android:layout_height="wrap_content"/>
                 </LinearLayout>
-
-
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </androidx.cardview.widget.CardView>
 
         <LinearLayout
@@ -154,22 +100,22 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/memberInfoContentView">
+            app:layout_constraintTop_toBottomOf="@+id/rehearsalInfoContentView">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="8dp"
-                android:text="Lista de pagamentos"
+                android:text="Lista de frequencia"
                 android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/paymentsRecyclerView"
+                android:id="@+id/frequencyRecyclerView"
                 android:visibility="@{!isLoading}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:listitem="@layout/cell_payment" />
+                tools:listitem="@layout/cell_member_presence" />
         </LinearLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -178,7 +124,7 @@
             android:src="@drawable/ic_add_white"
             app:maxImageSize="30dp"
             android:theme="@style/FloatButtonTheme"
-            android:onClick="@{activity::addPaymentDidPress}"
+            android:onClick="@{activity::addPresenceDidPress}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.95"

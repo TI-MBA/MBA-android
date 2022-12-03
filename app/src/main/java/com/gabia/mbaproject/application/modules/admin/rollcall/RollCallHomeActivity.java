@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.gabia.mbaproject.R;
 import com.gabia.mbaproject.application.SelectListener;
 import com.gabia.mbaproject.application.modules.admin.RehearsalViewModel;
+import com.gabia.mbaproject.application.modules.admin.rollcall.detail.RollCallDetailActivity;
 import com.gabia.mbaproject.databinding.ActivityRollCallHomeBinding;
 import com.gabia.mbaproject.infrastructure.utils.BaseCallBack;
 import com.gabia.mbaproject.model.RehearsalRequest;
@@ -53,7 +54,7 @@ public class RollCallHomeActivity extends AppCompatActivity implements SelectLis
 
     @Override
     public void didSelect(RehearsalResponse model) {
-
+        startActivity(RollCallDetailActivity.createIntent(this, model));
     }
 
     private void createRehearsal() {
