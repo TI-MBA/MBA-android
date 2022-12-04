@@ -18,4 +18,16 @@ enum class PresenceType(val value: String) {
             }
             return result
         }
+
+    val formattedValue: String
+        get() {
+            var result = ""
+            result = when (value) {
+                "PRESENT" -> "Presente"
+                "ABSENT" -> "Ausente"
+                "OBSERVATION" -> "Observação"
+                else -> "Indefinido"
+            }
+            return result
+        }
 }

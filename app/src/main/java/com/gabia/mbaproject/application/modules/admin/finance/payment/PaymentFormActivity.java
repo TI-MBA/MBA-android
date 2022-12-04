@@ -1,5 +1,7 @@
 package com.gabia.mbaproject.application.modules.admin.finance.payment;
 
+import static com.gabia.mbaproject.application.ConstantKeys.MEMBER_KEY;
+import static com.gabia.mbaproject.application.ConstantKeys.PAYMENT_KEY;
 import static com.gabia.mbaproject.utils.DateUtils.monthAndYear;
 
 import android.app.DatePickerDialog;
@@ -27,8 +29,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class PaymentFormActivity extends AppCompatActivity  implements DatePickerDialog.OnDateSetListener {
-    public static final String PAYMENT_KEY = "com.gabia.mbaproject.application.modules.adminmodules.finance.payment.PAYMENT_KEY";
-    public static final String USER_KEY = "com.gabia.mbaproject.application.modules.adminmodules.finance.payment.USER_ID_KEY";
     private ActivityPaymentFormBinding binding;
     private Date referenceDate;
     private boolean isEditing = false;
@@ -40,7 +40,7 @@ public class PaymentFormActivity extends AppCompatActivity  implements DatePicke
     public static Intent createIntent(Context context, PaymentResponse payment, int userId) {
         Intent intent = new Intent(context, PaymentFormActivity.class);
         intent.putExtra(PAYMENT_KEY, payment);
-        intent.putExtra(USER_KEY, userId);
+        intent.putExtra(MEMBER_KEY, userId);
         return intent;
     }
 
@@ -52,7 +52,7 @@ public class PaymentFormActivity extends AppCompatActivity  implements DatePicke
         viewModel = new ViewModelProvider(this).get(PaymentViewModel.class);
 
         currentPayment = (PaymentResponse) getIntent().getSerializableExtra(PAYMENT_KEY);
-        userId = getIntent().getIntExtra(USER_KEY, 0);
+        userId = getIntent().getIntExtra(MEMBER_KEY, 0);
 
         if (currentPayment != null) {
             referenceDate = DateUtils.toDate(DateUtils.isoDateFormat, currentPayment.getDate());

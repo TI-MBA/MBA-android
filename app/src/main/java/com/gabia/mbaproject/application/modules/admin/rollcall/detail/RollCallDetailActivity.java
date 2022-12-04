@@ -13,7 +13,11 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.gabia.mbaproject.R;
+import com.gabia.mbaproject.application.SelectListener;
 import com.gabia.mbaproject.application.modules.admin.finance.payment.PaymentAdapter;
+import com.gabia.mbaproject.application.modules.admin.rollcall.memberlist.MemberListActivity;
+import com.gabia.mbaproject.application.modules.admin.utils.PresenceFormDialog;
+import com.gabia.mbaproject.application.modules.admin.utils.SavePresenceListener;
 import com.gabia.mbaproject.databinding.ActivityRollcallDetailBinding;
 import com.gabia.mbaproject.model.Member;
 import com.gabia.mbaproject.model.PresenceResponse;
@@ -25,7 +29,7 @@ import com.gabia.mbaproject.utils.DateUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RollCallDetailActivity extends AppCompatActivity {
+public class RollCallDetailActivity extends AppCompatActivity implements SelectListener<PresenceResponse> {
 
     private ActivityRollcallDetailBinding binding;
     private RehearsalResponse rehearsal;
@@ -63,18 +67,7 @@ public class RollCallDetailActivity extends AppCompatActivity {
     }
 
     public void addPresenceDidPress(View view) {
-
-    }
-
-    private void fetchMembers() {
-        presenceList.add(new PresenceResponse(0, PresenceType.PRESENT.getValue(), "", new Member(0, "", "", 0, "Pedroni", Instrument.AGBE.getFormattedValue(), "", "", "", true, true)));
-        presenceList.add(new PresenceResponse(0, PresenceType.ABSENT.getValue(), "", new Member(0, "", "", 0, "Gabi", Instrument.AGOGO.getFormattedValue(), "", "", "", true, true)));
-        presenceList.add(new PresenceResponse(0, PresenceType.OBSERVATION.getValue(), "", new Member(0, "", "", 0, "Beatriz Vilalta", Instrument.GONGUE.getFormattedValue(), "", "", "", true, true)));
-        presenceList.add(new PresenceResponse(0, PresenceType.PRESENT.getValue(), "", new Member(0, "", "", 0, "Carina Monteiro", Instrument.CAIXA.getFormattedValue(), "", "", "", true, true)));
-        presenceList.add(new PresenceResponse(0, PresenceType.OBSERVATION.getValue(), "", new Member(0, "", "", 0, "Gabriel Rosa", Instrument.ALFAIA.getFormattedValue(), "", "", "", true, true)));
-        presenceList.add(new PresenceResponse(0, PresenceType.PRESENT.getValue(), "", new Member(0, "", "", 0, "Romulo", Instrument.CANTO.getFormattedValue(), "", "", "", true, true)));
-
-        adapter.setPresenceList(presenceList);
+        startActivity(MemberListActivity.createIntent(this));
     }
 
     private void bind() {
@@ -82,8 +75,26 @@ public class RollCallDetailActivity extends AppCompatActivity {
         String title = "Ensaio - " + formattedDate;
         binding.rehearsalTitleText.setText(title);
 
-        adapter = new PresenceAdapter();
+        adapter = new PresenceAdapter(this);
         binding.frequencyRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.frequencyRecyclerView.setAdapter(adapter);
+    }
+
+    private void fetchMembers() {
+        presenceList.add(new PresenceResponse(0, PresenceType.PRESENT.getValue(), "", new Member(0, "", "", 0, "Pedroni", Instrument.AGBE.getValue(), "", "", "", true, true)));
+        presenceList.add(new PresenceResponse(0, PresenceType.ABSENT.getValue(), "", new Member(0, "", "", 0, "Gabi", Instrument.AGOGO.getValue(), "", "", "", true, true)));
+        presenceList.add(new PresenceResponse(0, PresenceType.OBSERVATION.getValue(), "", new Member(0, "", "", 0, "Beatriz Vilalta", Instrument.GONGUE.getValue(), "", "", "", true, true)));
+        presenceList.add(new PresenceResponse(0, PresenceType.PRESENT.getValue(), "", new Member(0, "", "", 0, "Carina Monteiro", Instrument.CAIXA.getValue(), "", "", "", true, true)));
+        presenceList.add(new PresenceResponse(0, PresenceType.OBSERVATION.getValue(), "", new Member(0, "", "", 0, "Gabriel Rosa", Instrument.ALFAIA.getValue(), "", "", "", true, true)));
+        presenceList.add(new PresenceResponse(0, PresenceType.PRESENT.getValue(), "", new Member(0, "", "", 0, "Romulo", Instrument.CANTO.getValue(), "", "", "", true, true)));
+
+        adapter.setPresenceList(presenceList);
+    }
+
+    @Override
+    public void didSelect(PresenceResponse model) {
+        new PresenceFormDialog(this, model, () -> {
+            // TODO: fetch again the list to update
+        }).show();
     }
 }

@@ -1,4 +1,4 @@
-package com.gabia.mbaproject.application.modules.admin.rollcall.detail;
+package com.gabia.mbaproject.application.modules.admin.rollcall.memberlist;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,27 +11,29 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.gabia.mbaproject.R;
 import com.gabia.mbaproject.application.SelectListener;
 import com.gabia.mbaproject.databinding.CellMemberPresenceBinding;
-import com.gabia.mbaproject.model.PresenceResponse;
-import com.gabia.mbaproject.model.RehearsalResponse;
+import com.gabia.mbaproject.model.Member;
 import com.gabia.mbaproject.model.enums.Instrument;
-import com.gabia.mbaproject.model.enums.PresenceType;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PresenceAdapter extends RecyclerView.Adapter<PresenceAdapter.ViewHolder> {
+public class MemberListAdapter extends RecyclerView.Adapter<MemberListAdapter.ViewHolder> {
 
-    List<PresenceResponse> presenceList = new ArrayList<>();
-    private SelectListener<PresenceResponse> listener;
+    List<Member> memberList = new ArrayList<>();
+    private final SelectListener<Member> listener;
 
-    public PresenceAdapter(SelectListener<PresenceResponse> listener) {
+    public MemberListAdapter(SelectListener<Member> listener) {
         this.listener = listener;
     }
 
-    public void setPresenceList(List<PresenceResponse> presenceList) {
-        this.presenceList.clear();
-        this.presenceList = presenceList;
+    public void setMembers(List<Member> memberList) {
+        this.memberList.clear();
+        this.memberList.addAll(memberList);
         notifyDataSetChanged();
+    }
+
+    public List<Member> getMemberList() {
+        return memberList;
     }
 
     @NonNull
@@ -42,19 +44,20 @@ public class PresenceAdapter extends RecyclerView.Adapter<PresenceAdapter.ViewHo
                 R.layout.cell_member_presence, parent, false
         );
 
-        return new PresenceAdapter.ViewHolder(binding);
+        return new MemberListAdapter.ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        PresenceResponse current = presenceList.get(position);
-        holder.cellBinding.cellMemberContent.setOnClickListener(v -> listener.didSelect(current));
+        Member current = memberList.get(position);
         holder.bind(current);
+        holder.cellBinding.cellMemberContent
+                .setOnClickListener(view -> listener.didSelect(current));
     }
 
     @Override
     public int getItemCount() {
-        return presenceList.size();
+        return memberList.size();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -66,12 +69,11 @@ public class PresenceAdapter extends RecyclerView.Adapter<PresenceAdapter.ViewHo
             this.cellBinding = cellBinding;
         }
 
-        public void bind(PresenceResponse model) {
-            PresenceType presence = PresenceType.valueOf(model.getType());
-            String instrument = Instrument.valueOf(model.getUser().getInstrument()).getFormattedValue();
-            cellBinding.cellMemberName.setText(model.getUser().getName());
+        public void bind(Member member) {
+            String instrument = Instrument.valueOf(member.getInstrument()).getFormattedValue();
+            cellBinding.cellMemberPresenceIndicator.setVisibility(View.GONE);
+            cellBinding.cellMemberName.setText(member.getName());
             cellBinding.cellMemberInstrumentTag.setText(instrument);
-            cellBinding.cellMemberPresenceIndicator.setImageResource(presence.getPresenceIcon());
         }
     }
 }

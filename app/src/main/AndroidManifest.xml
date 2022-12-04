@@ -30,7 +30,7 @@
         <activity android:name=".application.modules.member.HomeActivity" android:theme="@style/FullBlueActivityTheme" />
         <activity android:name=".application.modules.member.editdata.EditPasswordActivity" />
         <activity android:name=".application.modules.admin.memberform.MemberFormActivity" />
-        <activity android:name=".application.modules.admin.rollcall.detail.RollCallDetailActivity"/>
+        <activity android:name=".application.modules.admin.rollcall.detail.RollCallDetailActivity" />
+        <activity android:name=".application.modules.admin.rollcall.memberlist.MemberListActivity"/>
     </application>
-
 </manifest>
