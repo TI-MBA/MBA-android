@@ -1,9 +1,7 @@
 package com.gabia.mbaproject.application.modules.login;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
 import android.widget.Toast;
 
@@ -27,16 +25,10 @@ import com.gabia.mbaproject.model.enums.Situation;
 import com.gabia.mbaproject.model.enums.UserLevel;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,12 +53,11 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    public void createUsers(View view) {
-
+    public void createUsers() {
         List<MemberRequest> memberRequestList = new ArrayList<>();
 
         try {
-            InputStream is = getAssets().open("peopleDataForm.csv");
+            InputStream is = getAssets().open("inexistent.csv");
             BufferedReader br = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
 
             String line = br.readLine();
@@ -117,12 +108,13 @@ public class LoginActivity extends AppCompatActivity {
                 boolean associated = true;
 
                 if (user[5].equals("Não")) {
-                    active = false;
+                    associated = false;
                 }
 
                 if (user[6].equals("Não")) {
-                    associated = false;
+                    active = false;
                 }
+
 
                 memberRequestList.add(new MemberRequest(email, adminLevel, name, instrument, situation, active, associated));
 
@@ -133,7 +125,8 @@ public class LoginActivity extends AppCompatActivity {
             e.getMessage();
         }
 
-
+        memberRequestList.remove(0);
+        int i = 0;
     }
 
     private void executeLogin() {

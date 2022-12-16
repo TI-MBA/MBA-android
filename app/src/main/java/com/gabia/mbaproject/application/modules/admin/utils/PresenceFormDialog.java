@@ -15,7 +15,10 @@ import androidx.appcompat.widget.AppCompatRadioButton;
 
 import com.gabia.mbaproject.R;
 import com.gabia.mbaproject.application.modules.admin.rollcall.detail.RollCallDetailActivity;
+import com.gabia.mbaproject.model.CreatePresenceRehearsalRequest;
+import com.gabia.mbaproject.model.CreatePresenceUserRequest;
 import com.gabia.mbaproject.model.Member;
+import com.gabia.mbaproject.model.PresenceRequest;
 import com.gabia.mbaproject.model.PresenceResponse;
 import com.gabia.mbaproject.model.enums.Instrument;
 import com.gabia.mbaproject.model.enums.PresenceType;
@@ -24,11 +27,17 @@ public class PresenceFormDialog {
 
     private AlertDialog.Builder builder;
     private Member member;
+    private int rehearsalId;
     private SavePresenceListener listener;
     private Activity activity;
     private String title;
+    private int memberId;
     private PresenceResponse presenceResponse;
+    private String memberName = "Membro: ";
+    String memberInstrument = "Ala: ";
+    private int presenceId;
     private String presenceType = PresenceType.PRESENT.getValue();
+    private AlertDialog aLertDialog;
 
     private LinearLayout contentView;
     private ProgressBar loadingBar;
@@ -41,31 +50,40 @@ public class PresenceFormDialog {
     private AppCompatRadioButton observationRadioButton;
     private AppCompatRadioButton absentRadioButton;
 
-    public PresenceFormDialog(Activity activity, Member member, SavePresenceListener listener) {
+    public PresenceFormDialog(Activity activity, Member member, int rehearsalId, SavePresenceListener listener) {
         this.builder = new AlertDialog.Builder(activity);
         this.activity = activity;
         this.member = member;
+        this.memberId = member.getId();
+        this.rehearsalId = rehearsalId;
         this.listener = listener;
         this.title = "Adicionar Presença";
+        this.memberName += member.getName();
+        this.memberInstrument += Instrument.valueOf(member.getInstrument()).getFormattedValue();
 
         bind();
     }
 
-    public PresenceFormDialog(Activity activity, PresenceResponse presenceResponse, SavePresenceListener listener) {
+    public PresenceFormDialog(Activity activity, PresenceResponse presenceResponse, int rehearsalId, SavePresenceListener listener) {
         this.builder = new AlertDialog.Builder(activity);
         this.activity = activity;
-        this.member = presenceResponse.getUser();
         this.listener = listener;
+        this.rehearsalId = rehearsalId;
         this.title = "Editar Presença";
-        this.presenceType = presenceResponse.getType();
         this.presenceResponse = presenceResponse;
+        this.presenceType = presenceResponse.getPresenceType();
+        this.memberId = presenceResponse.getUserId();
+        this.memberName += presenceResponse.getName();
+        this.memberInstrument += Instrument.valueOf(presenceResponse.getInstrument()).getFormattedValue();
+        this.presenceId = presenceResponse.getPresenceId();
 
         bind();
         setupEdit();
     }
 
     public void show() {
-        builder.show();
+        aLertDialog = builder.create();
+        aLertDialog.show();
     }
 
     private void bind() {
@@ -87,8 +105,6 @@ public class PresenceFormDialog {
     }
 
     private void setupView(View view) {
-        String memberName = "Membro: " + member.getName();
-        String memberInstrument = "Ala: " + Instrument.valueOf(member.getInstrument()).getFormattedValue();
         titleTextView.setText(title);
         nameText.setText(memberName);
         instrumentText.setText(memberInstrument);
@@ -98,17 +114,15 @@ public class PresenceFormDialog {
         absentRadioButton.setOnClickListener(v -> selectRadio(view));
 
         saveButton.setOnClickListener(v -> {
-            saveAction();
-            listener.saveResult();
-        });
-    }
+            PresenceRequest presenceRequest = new PresenceRequest(
+                    presenceType,
+                    new CreatePresenceRehearsalRequest(rehearsalId),
+                    new CreatePresenceUserRequest(memberId)
+            );
 
-    private void saveAction() {
-        if (presenceResponse == null) {
-            // TODO: create new presence and add it
-        } else {
-            // TODO: Use current presence response and update it
-        }
+            listener.save(presenceRequest, presenceId);
+            aLertDialog.dismiss();
+        });
     }
 
     private void selectRadio(View view) {

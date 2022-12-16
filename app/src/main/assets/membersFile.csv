@@ -1,18 +1,14 @@
 Carimbo de data/hora,Nome Completo (apelido),E-mail,Ala,Situação fiscal,Sócio,Ativo
-23/11/2022 22:30:30,Geanne Cardoso,gungus@gmail.com,Agbe,Em dia,Sim,Sim
-23/11/2022 22:35:32,Kátia Lanúzia Vilar de Oliveira,katiavilar2@gmail.com,Agbe,Em dia,Sim,Sim
-23/11/2022 23:02:21,Maria Clara ,mariaclaralemos890@gmail.com,Agbe,Em dia,Não,Sim
-23/11/2022 23:57:32,Daniela Fernanda Ferreira Rodrigues Palmeira,dffdrigues@hotmail.com,Agbe,Em dia,Não,Sim
 24/11/2022 04:43:25,Natália de Carvalho Santos ,nadecasa@outlook.com,Agbe,Em dia,Não,Sim
 24/11/2022 05:48:11,Narayana Sandes (Nara),narayanasandes@gmail.com,Agbe,Em dia,Não,Sim
 24/11/2022 06:38:59,Priscila de Araujo Bastos Lima Bahia Vilela (Pri Araujo),priscila_abl@hotmail.com,Agbe,Em dia,Não,Sim
 24/11/2022 09:50:02,Damiana Maria Barbosa Jaires Melo (Dama),dama01@gmail.com ,Agbe,Em dia,Não,Sim
 28/11/2022 12:46:47,Renata Caroline Mendonça Ferraz,renatacmferraz@gmail.com,Agbe,Em dia,Não,Sim
 28/11/2022 15:19:44,Marta Moura,martaeneas79@gmail.com,Agbe,Em dia,Não,Sim
-28/11/2022 15:45:12,Beatriz Vilalta,bia.vilalta@gmail.com,Agbe,Em dia,Não,Sim
+28/11/2022 15:45:12,Beatriz Vilalta,bia.vilalta@gmail.com,Agbe,Isento,Não,Sim
 28/11/2022 15:46:49,Lorena de Novaes Barros Cavalcante ,lorenanovaes27@gmail.com,Agbe,Em dia,Sim,Sim
 28/11/2022 16:43:35,Elisa Greenhalgh Vilalta,elisavilalta70@gmail.com,Agbe,Em dia,Não,Sim
-29/11/2022 16:37:22,Eliete Sousa de Araujo,elietebiblio@gmail.com,Agbe,,,
+29/11/2022 16:37:22,Eliete Sousa de Araujo,elietebiblio@gmail.com,Agbe,Em dia,Não,Sim
 23/11/2022 20:10:55,Danillo Roberto Teodozio Costa Pinto,danillortc@gmail.com,Agbe,Em dia,Não,Sim
 23/11/2022 20:12:41,Anna Carla Soares,annac_silva@outlook.com,Agbe,Em dia,Não,Sim
 23/11/2022 20:12:59,Evelyne Lima (Vel),evelyne.lima.a@gmail.com ,Agbe,Em dia,Não,Sim
@@ -25,6 +21,7 @@ Carimbo de data/hora,Nome Completo (apelido),E-mail,Ala,Situação fiscal,Sócio
 23/11/2022 20:51:27,Nise Viana ,valdeniseviana@yahoo.com.br,Agbe,Em dia,Não,Sim
 23/11/2022 21:17:30,Alberto Emídio Fonseca De Souza ,aemidio219@gmail.com,Agbe,Em dia,Não,Sim
 23/11/2022 22:27:16,Robertha Oliveira Silva do nascimento ( Betha),bethasilva83@gmail.com,Agbe,Em dia,Não,Sim
+29/11/2022 17:59:34,Lair Alves dos Santos,alveslair@hotmail.com,Agbe,Em dia,Não,Sim
 23/11/2022 22:28:45,Tainá Karoline Guedes,tainakarolineg@gmail.com ,Agogo,Em dia,Não,Sim
 24/11/2022 05:41:31,Gustavo Henrique Gomes Vieira ,gustavovieira7@gmail.com,Agogo,Em dia,Sim,Sim
 24/11/2022 11:51:27,Gabriela Rodrigues Simões de Barros,gabrielabaarros@icloud.com,Agogo,Em dia,Não,Sim
@@ -68,7 +65,7 @@ Carimbo de data/hora,Nome Completo (apelido),E-mail,Ala,Situação fiscal,Sócio
 23/11/2022 20:54:32,Geraldo Bernardo ,bernardobblack@gmail.com,Caixa,Em dia,Não,Sim
 23/11/2022 22:28:52,Maryanne Leite,maryanneleiterocha@gmail.com,Caixa,Em dia,Não,Sim
 23/11/2022 22:36:26,Dimas Barros Cavalcante ,dimasbc@gmail.com,Caixa,Em dia,Sim,Sim
-23/11/2022 22:37:48,Álvaro dos Santos,alvaro.scq@outlook.com,Caixa,Em dia,Sim,Sim
+23/11/2022 22:37:48,Álvaro dos Santos,alvaro.scq@outlook.com,Caixa,Isento,Sim,Sim
 23/11/2022 22:41:36,Analice de Souza Maia Alves ,alves.ana.sma@gmail.com,Caixa,Em dia,Não,Sim
 23/11/2022 22:52:06,Luisa Evangelista Santos ,Luisacajulito@hotmail.com,Caixa,Em dia,Não,Sim
 23/11/2022 23:00:13,Júlia Souza,julia.souza@ichca.ufal.br,Caixa,Em dia,Não,Sim
@@ -76,11 +73,14 @@ Carimbo de data/hora,Nome Completo (apelido),E-mail,Ala,Situação fiscal,Sócio
 24/11/2022 07:49:51,Hélton Walner Souto Santos,heltonomia@gmail.com,Caixa,Débito,Não,Sim
 24/11/2022 08:02:19,Brunna Quintiliano Silva Barbosa,brunnaqsb@hotmail.com ,Caixa,Em dia,Não,Sim
 28/11/2022 20:57:58,Carolina Castro,a.carolinacastro.t@gmail.com ,Caixa,Em dia,Não,Sim
-29/11/2022 17:00:23,Luana Silva de Souza (Luana),souzaluana822@gmail.com,Caixa,,,
+29/11/2022 17:00:23,Luana Silva de Souza (Luana),souzaluana822@gmail.com,Caixa,Em dia,Não,Sim
 23/11/2022 22:37:21,Rômulo Fernandes Silva,romulofernandessilva@gmail.com,Canto,Em dia,Sim,Sim
 24/11/2022 04:59:02,Rosenilse Tenório Mendonça ,rosemendonca2007@gmail.com,Canto,Em dia,Sim,Sim
-23/11/2022 15:45:17,GDX (Tiago Peres Moura Fé),tpmf@ic.ufal.br,Gonguê,Em dia,Não,Sim
+23/11/2022 15:45:17,Isento,tpmf@ic.ufal.br,Gonguê,Isento,Não,Sim
 23/11/2022 22:49:10,ivan oliveira (ivanzera),oliivgomac@gmail.com,Gonguê,Em acordo,Não,Sim
 26/11/2022 12:29:31,Jhonatan Willian Gama Rodrigues ,gamajhon@hotmail.com,Gonguê,Em acordo,Não,Sim
 28/11/2022 14:49:29,Arthur Vinícius Nascimento Pessoa,arthurvnpessoa@gmail.com,Gonguê,Em acordo,Não,Sim
 28/11/2022 17:12:09,Bruno Santos Braga Cavalcanti ,brunobragabraga47@gmail.com,Gonguê,Débito,Não,Sim
+03/12/2022 12:48:31,Francisco de Assis Martins Gomes Rego Filho (Chico),chico.al@gmail.com,Agbe,Em dia,Não,Sim
+07/12/2022 10:45:57,Mariana Sales Santos ,marisales39@gmail.com,Alfaia,Em dia,Não,Sim
+07/12/2022 10:45:57,GDX (Tiago Peres de Moura Fe) ,neogdx@gmail.com,Alfaia,Em dia,Não,Sim

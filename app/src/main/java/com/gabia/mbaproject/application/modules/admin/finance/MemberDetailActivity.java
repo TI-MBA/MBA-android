@@ -200,6 +200,7 @@ public class MemberDetailActivity extends AppCompatActivity implements ActionsLi
     }
 
     private void requestDeletion(int paymentId) {
+        binding.setIsLoading(true);
         PaymentViewModel paymentViewModel = new ViewModelProvider(MemberDetailActivity.this).get(PaymentViewModel.class);
         paymentViewModel.delete(paymentId, code -> {
             runOnUiThread(() -> {
@@ -208,6 +209,7 @@ public class MemberDetailActivity extends AppCompatActivity implements ActionsLi
                     fetchPayments(currentMember.getId());
                 } else {
                     Toast.makeText(MemberDetailActivity.this, "Falha ao deletar code: " + code, Toast.LENGTH_SHORT).show();
+                    binding.setIsLoading(false);
                 }
             });
             return null;

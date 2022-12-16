@@ -11,5 +11,6 @@ class ApiDataSourceProvider {
         val memberApiDataSource: MemberApiDataSource = retrofit.create(MemberApiDataSource::class.java)
         val paymentApiDataSource: PaymentApiDataSource = retrofit.create(PaymentApiDataSource::class.java)
         val rehearsalApiDataSource: RehearsalApiDataSource = retrofit.create(RehearsalApiDataSource::class.java)
+        val presenceApiDataSource: PresenceApiDataSource = retrofit.create(PresenceApiDataSource::class.java)
     }
 }

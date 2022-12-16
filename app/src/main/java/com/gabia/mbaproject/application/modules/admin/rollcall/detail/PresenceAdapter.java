@@ -1,7 +1,6 @@
 package com.gabia.mbaproject.application.modules.admin.rollcall.detail;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -12,7 +11,6 @@ import com.gabia.mbaproject.R;
 import com.gabia.mbaproject.application.SelectListener;
 import com.gabia.mbaproject.databinding.CellMemberPresenceBinding;
 import com.gabia.mbaproject.model.PresenceResponse;
-import com.gabia.mbaproject.model.RehearsalResponse;
 import com.gabia.mbaproject.model.enums.Instrument;
 import com.gabia.mbaproject.model.enums.PresenceType;
 
@@ -32,6 +30,14 @@ public class PresenceAdapter extends RecyclerView.Adapter<PresenceAdapter.ViewHo
         this.presenceList.clear();
         this.presenceList = presenceList;
         notifyDataSetChanged();
+    }
+
+    public List<PresenceResponse> getPresenceList() {
+        return presenceList;
+    }
+
+    public PresenceResponse getPresenceAt(int position) {
+        return presenceList.get(position);
     }
 
     @NonNull
@@ -67,9 +73,9 @@ public class PresenceAdapter extends RecyclerView.Adapter<PresenceAdapter.ViewHo
         }
 
         public void bind(PresenceResponse model) {
-            PresenceType presence = PresenceType.valueOf(model.getType());
-            String instrument = Instrument.valueOf(model.getUser().getInstrument()).getFormattedValue();
-            cellBinding.cellMemberName.setText(model.getUser().getName());
+            PresenceType presence = PresenceType.valueOf(model.getPresenceType());
+            String instrument = Instrument.valueOf(model.getInstrument()).getFormattedValue();
+            cellBinding.cellMemberName.setText(model.getName());
             cellBinding.cellMemberInstrumentTag.setText(instrument);
             cellBinding.cellMemberPresenceIndicator.setImageResource(presence.getPresenceIcon());
         }

@@ -5,10 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gabia.mbaproject.infrastructure.remote.providers.ApiDataSourceProvider
 import com.gabia.mbaproject.infrastructure.utils.BaseCallBack
-import com.gabia.mbaproject.model.CreateMemberRequest
-import com.gabia.mbaproject.model.Member
-import com.gabia.mbaproject.model.MemberRequest
-import com.gabia.mbaproject.model.PaymentResponse
+import com.gabia.mbaproject.model.*
 import com.gabia.mbaproject.model.enums.UserLevel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,6 +14,8 @@ import kotlin.streams.toList
 class MemberViewModel: ViewModel() {
     private val apiDataSource = ApiDataSourceProvider.memberApiDataSource
     var memberListLiveData: MutableLiveData<List<Member>> = MutableLiveData()
+    var relatedRehearsalMemberListLiveData: MutableLiveData<List<PresenceResponse>> = MutableLiveData()
+    var unrelatedRehearsalMemberListLiveData: MutableLiveData<List<Member>> = MutableLiveData()
 
     fun fetchAll(failCallback: (code: Int) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -30,6 +29,34 @@ class MemberViewModel: ViewModel() {
                     toList()?.
                     sortedBy { it.name } ?: emptyList()
                 )
+            } else {
+                failCallback(response.code())
+            }
+        }
+    }
+
+    fun fetchRelatedWithRehearsal(rehearsalId: Int, failCallback: (code: Int) -> Unit) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val response = apiDataSource.getRelatedWithRehearsal(rehearsalId)
+            if (response.isSuccessful) {
+                relatedRehearsalMemberListLiveData.postValue(response.body()?.
+                stream()?.
+                filter { it.name.lowercase().contains("admin").not() }?.
+                toList())
+            } else {
+                failCallback(response.code())
+            }
+        }
+    }
+
+    fun fetchUnrelatedWithRehearsal(rehearsalId: Int, failCallback: (code: Int) -> Unit) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val response = apiDataSource.getUnrelatedWithRehearsal(rehearsalId)
+            if (response.isSuccessful) {
+                unrelatedRehearsalMemberListLiveData.postValue(response.body()?.
+                stream()?.
+                filter { it.name.lowercase().contains("admin").not() }?.
+                toList())
             } else {
                 failCallback(response.code())
             }

@@ -1,18 +1,13 @@
 package com.gabia.mbaproject.application.modules.admin.rollcall.memberlist;
 
+import static com.gabia.mbaproject.application.ConstantKeys.REHEARSAL_KEY;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatRadioButton;
 import androidx.appcompat.widget.SearchView;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
@@ -22,12 +17,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.gabia.mbaproject.R;
 import com.gabia.mbaproject.application.SelectListener;
 import com.gabia.mbaproject.application.modules.admin.MemberViewModel;
+import com.gabia.mbaproject.application.modules.admin.rollcall.viewmodel.PresenceViewModel;
 import com.gabia.mbaproject.application.modules.admin.utils.PresenceFormDialog;
-import com.gabia.mbaproject.application.modules.admin.utils.SavePresenceListener;
 import com.gabia.mbaproject.databinding.ActivityMemberListBinding;
+import com.gabia.mbaproject.infrastructure.utils.BaseCallBack;
 import com.gabia.mbaproject.model.Member;
-import com.gabia.mbaproject.model.PaymentResponse;
+import com.gabia.mbaproject.model.PresenceRequest;
 import com.gabia.mbaproject.model.PresenceResponse;
+import com.gabia.mbaproject.model.RehearsalResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,10 +34,14 @@ public class MemberListActivity extends AppCompatActivity implements SelectListe
 
     ActivityMemberListBinding binding;
     private MemberListAdapter memberAdapter;
+    private RehearsalResponse rehearsal;
     private List<Member> memberList = new ArrayList<>();
+    private PresenceViewModel presenceViewModel;
 
-    public static Intent createIntent(Context context) {
-        return new Intent(context, MemberListActivity.class);
+    public static Intent createIntent(Context context, RehearsalResponse rehearsal) {
+        Intent intent = new Intent(context, MemberListActivity.class);
+        intent.putExtra(REHEARSAL_KEY, rehearsal);
+        return intent;
     }
 
     @Override
@@ -49,9 +50,16 @@ public class MemberListActivity extends AppCompatActivity implements SelectListe
         binding = DataBindingUtil.setContentView(this, R.layout.activity_member_list);
         binding.setIsLoading(true);
         memberAdapter = new MemberListAdapter(this);
+        presenceViewModel = new ViewModelProvider(this).get(PresenceViewModel.class);
+        rehearsal = (RehearsalResponse) getIntent().getSerializableExtra(REHEARSAL_KEY);
 
-        setupRecyclerview();
-        setupSearchView();
+        if (rehearsal != null) {
+            setupRecyclerview();
+            setupSearchView();
+        } else {
+            Toast.makeText(this, "Ensaio não encontrado", Toast.LENGTH_SHORT).show();
+            finish();
+        }
     }
 
     @Override
@@ -62,9 +70,7 @@ public class MemberListActivity extends AppCompatActivity implements SelectListe
 
     @Override
     public void didSelect(Member model) {
-        new PresenceFormDialog(this, model, () -> {
-            // TODO: Update it to fetch again the list
-        }).show();
+        new PresenceFormDialog(this, model, rehearsal.getId(), (presence, presenceID) -> createPresence(presence)).show();
     }
 
     private void setupSearchView() {
@@ -84,15 +90,15 @@ public class MemberListActivity extends AppCompatActivity implements SelectListe
         );
     }
 
-    // TODO: Update this fetch to fetch members not listed on rehearsal
     private void fetchMembers() {
         MemberViewModel viewModel = new ViewModelProvider(this).get(MemberViewModel.class);
-        viewModel.getMemberListLiveData().observe(this, members -> {
+        viewModel.getUnrelatedRehearsalMemberListLiveData().observe(this, members -> {
             binding.setIsLoading(false);
+
             memberList = members;
             memberAdapter.setMembers(members);
         });
-        viewModel.fetchAll(code -> {
+        viewModel.fetchUnrelatedWithRehearsal(rehearsal.getId(), code -> {
             runOnUiThread(() -> {
                 Toast.makeText(MemberListActivity.this, "Falha ao carregar membros code " + code, Toast.LENGTH_SHORT).show();
                 binding.setIsLoading(false);
@@ -120,5 +126,22 @@ public class MemberListActivity extends AppCompatActivity implements SelectListe
                     .collect(Collectors.toList());
             memberAdapter.setMembers(filteredMembers);
         }
+    }
+
+    public void createPresence(PresenceRequest presence) {
+        presenceViewModel.create(presence, new BaseCallBack<PresenceResponse>() {
+            @Override
+            public void onSuccess(PresenceResponse result) { handleSave("Presença adicionada"); }
+
+            @Override
+            public void onError(int code) { handleSave("Falha ao adicionar presença code: " + code); }
+
+            private void handleSave(String message) {
+                runOnUiThread(() -> {
+                    Toast.makeText(MemberListActivity.this, message, Toast.LENGTH_SHORT).show();
+                    finish();
+                });
+            }
+        });
     }
 }

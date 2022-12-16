@@ -103,18 +103,5 @@
                     android:text="Entrar" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:onClick="@{activity::createUsers}"
-            android:paddingStart="32dp"
-            android:paddingEnd="32dp"
-            android:text="Entrar"
-            android:textColor="@android:color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -49,6 +49,7 @@ public class PaymentFormActivity extends AppCompatActivity  implements DatePicke
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_payment_form);
         binding.setActivity(this);
+        binding.setIsLoading(false);
         viewModel = new ViewModelProvider(this).get(PaymentViewModel.class);
 
         currentPayment = (PaymentResponse) getIntent().getSerializableExtra(PAYMENT_KEY);
@@ -78,6 +79,7 @@ public class PaymentFormActivity extends AppCompatActivity  implements DatePicke
     }
 
     public void savePaymentDidPress(View view) {
+        binding.setIsLoading(true);
         if (binding.paymentValueEditText.getNumericValue() == 0.0 || referenceDate == null)  {
             Toast.makeText(this, "Data de referência e valor são obrigatorios", Toast.LENGTH_SHORT).show();
         } else {

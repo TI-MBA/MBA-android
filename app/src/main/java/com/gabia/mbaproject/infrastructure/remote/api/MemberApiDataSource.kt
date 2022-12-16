@@ -3,6 +3,7 @@ package com.gabia.mbaproject.infrastructure.remote.api
 import com.gabia.mbaproject.model.CreateMemberRequest
 import com.gabia.mbaproject.model.Member
 import com.gabia.mbaproject.model.MemberRequest
+import com.gabia.mbaproject.model.PresenceResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -28,9 +29,9 @@ interface MemberApiDataSource {
     @DELETE("api/user/{id}")
     suspend fun delete(@Path("id") id: Int)
 
-    @GET("api/user/presentRehearsal/{rehearsalId}")
-    suspend fun getPresentMembers(@Path("rehearsalId") rehearsalId: Int): Response<List<Member>>
+    @GET("api/user/relatedRehearsal/{rehearsalId}")
+    suspend fun getRelatedWithRehearsal(@Path("rehearsalId") rehearsalId: Int): Response<List<PresenceResponse>>
 
     @GET("api/user/absentRehearsal/{rehearsalId}")
-    suspend fun getAbsent(@Path("rehearsalId") rehearsalId: Int): Response<List<Member>>
+    suspend fun getUnrelatedWithRehearsal(@Path("rehearsalId") rehearsalId: Int): Response<List<Member>>
 }

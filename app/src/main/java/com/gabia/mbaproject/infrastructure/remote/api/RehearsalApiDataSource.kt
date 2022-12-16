@@ -1,5 +1,6 @@
 package com.gabia.mbaproject.infrastructure.remote.api
 
+import com.gabia.mbaproject.model.PresenceResponse
 import com.gabia.mbaproject.model.RehearsalRequest
 import com.gabia.mbaproject.model.RehearsalResponse
 import retrofit2.Response
@@ -18,4 +19,8 @@ interface RehearsalApiDataSource {
 
     @GET("api/rehearsal/{id}")
     suspend fun getById(@Path("id") id: Int): Response<RehearsalResponse>
+
+    @POST("api/presence/absentRehearsal/{rehearsalID}")
+    suspend fun finalizeRehearsal(@Path("rehearsalID") id: Int): Response<List<PresenceResponse>>
+
 }

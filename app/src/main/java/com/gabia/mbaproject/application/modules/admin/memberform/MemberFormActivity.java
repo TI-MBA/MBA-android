@@ -149,7 +149,7 @@ public class MemberFormActivity extends AppCompatActivity implements BaseCallBac
         Map<String, Situation> situationMap = new HashMap<>();
         situationMap.put("Em dia", Situation.UP_TO_DATE);
         situationMap.put("Débito", Situation.DEBIT);
-        situationMap.put("Isento", Situation.EXEMPT);
+        situationMap.put("Cota", Situation.EXEMPT);
         situationMap.put("Em acordo", Situation.AGREEMENT);
 
         fiscalSituationSpinner.setItems(
