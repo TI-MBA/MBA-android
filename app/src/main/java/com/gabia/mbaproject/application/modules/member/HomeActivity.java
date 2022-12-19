@@ -19,13 +19,14 @@ import com.gabia.mbaproject.application.App;
 import com.gabia.mbaproject.application.modules.member.editdata.EditPasswordActivity;
 import com.gabia.mbaproject.application.modules.member.payment.MemberPaymentListDelegate;
 import com.gabia.mbaproject.application.modules.member.payment.MemberPaymentListFragment;
+import com.gabia.mbaproject.application.modules.member.rollcall.MemberRollCallDelegate;
 import com.gabia.mbaproject.application.modules.member.rollcall.RollCallFragment;
 import com.gabia.mbaproject.databinding.ActivityHomeBinding;
 import com.gabia.mbaproject.infrastructure.local.UserDefaults;
 import com.gabia.mbaproject.model.Member;
 import com.gabia.mbaproject.model.enums.Situation;
 
-public class HomeActivity extends AppCompatActivity implements MemberPaymentListDelegate {
+public class HomeActivity extends AppCompatActivity implements MemberPaymentListDelegate, MemberRollCallDelegate {
 
     private ActivityHomeBinding binding;
     private Member currentMember;
@@ -84,7 +85,7 @@ public class HomeActivity extends AppCompatActivity implements MemberPaymentList
                     replaceFragment(MemberPaymentListFragment.newInstance(currentMember.getId(), this));
                     break;
                 case R.id.rollCallTab:
-                    replaceFragment(RollCallFragment.newInstance(currentMember.getId()));
+                    replaceFragment(RollCallFragment.newInstance(currentMember.getId(), this));
                     break;
             }
             return true;
@@ -104,5 +105,10 @@ public class HomeActivity extends AppCompatActivity implements MemberPaymentList
     @Override
     public void failToLoadPayments(int code) {
         runOnUiThread(() -> Toast.makeText(this, "Falha ao carregar pagamentos code " + code, Toast.LENGTH_SHORT).show());
+    }
+
+    @Override
+    public void failToLoadPresences(int code) {
+        runOnUiThread(() -> Toast.makeText(this, "Falha ao carregar presenças code " + code, Toast.LENGTH_SHORT).show());
     }
 }

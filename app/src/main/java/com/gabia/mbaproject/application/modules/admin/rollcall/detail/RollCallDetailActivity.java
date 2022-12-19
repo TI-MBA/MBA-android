@@ -20,7 +20,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gabia.mbaproject.R;
-import com.gabia.mbaproject.application.App;
 import com.gabia.mbaproject.application.SelectListener;
 import com.gabia.mbaproject.application.modules.admin.MemberViewModel;
 import com.gabia.mbaproject.application.modules.admin.rollcall.memberlist.MemberListActivity;
@@ -64,7 +63,6 @@ public class RollCallDetailActivity extends AppCompatActivity implements SelectL
         binding = DataBindingUtil.setContentView(this, R.layout.activity_rollcall_detail);
         binding.setActivity(this);
         binding.setIsLoading(true);
-
         setupViewModels();
 
         rehearsal = (RehearsalResponse) getIntent().getSerializableExtra(REHEARSAL_KEY);
@@ -144,6 +142,27 @@ public class RollCallDetailActivity extends AppCompatActivity implements SelectL
     }
 
     public void endRollCallDidPress(View view) {
+        String message = "Tem certeza que deseja finalizar chamada? \n\n" +
+                "Ensaio - " + DateUtils.changeFromIso(DateUtils.brazilianDate, rehearsal.getDate()) +
+                "\n\n" +
+                "Será adicionada falta a todos os não listados";
+        new AlertDialog.Builder(this)
+                .setIcon(R.drawable.ic_rehearsal)
+                .setTitle("Finalizar chamada")
+                .setMessage(message)
+                .setPositiveButton("Finalizar", (dialog, which) -> {
+                    endRollCall();
+                    binding.endRollCallButton.setEnabled(false);
+                })
+                .setNegativeButton("Cancelar", null)
+                .show();
+    }
+
+    public void addPresenceDidPress(View view) {
+        startActivity(MemberListActivity.createIntent(this, rehearsal));
+    }
+
+    private void endRollCall() {
         rehearsalViewModel.finalizeRehearsal(rehearsal.getId(), () -> {
             runOnUiThread(this::fetchRelatedMembers);
             return null;
@@ -151,10 +170,6 @@ public class RollCallDetailActivity extends AppCompatActivity implements SelectL
             runOnUiThread(() -> Toast.makeText(RollCallDetailActivity.this, "Falha ao finalizar ensaio code: " + code, Toast.LENGTH_SHORT).show());
             return null;
         });
-    }
-
-    public void addPresenceDidPress(View view) {
-        startActivity(MemberListActivity.createIntent(this, rehearsal));
     }
 
     private void deletePresence(int presenceId, int position) {

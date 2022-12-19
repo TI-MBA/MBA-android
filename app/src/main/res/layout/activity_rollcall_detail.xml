@@ -82,6 +82,7 @@
                         android:textStyle="bold" />
 
                     <Button
+                        android:id="@+id/endRollCallButton"
                         android:layout_marginTop="8dp"
                         android:text="Finalizar chamada"
                         android:onClick="@{activity::endRollCallDidPress}"

@@ -1,20 +1,18 @@
 package com.gabia.mbaproject.application.modules.admin.utils;
 
 import android.app.Activity;
-import android.content.Context;
+import android.content.DialogInterface;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatRadioButton;
 
 import com.gabia.mbaproject.R;
-import com.gabia.mbaproject.application.modules.admin.rollcall.detail.RollCallDetailActivity;
 import com.gabia.mbaproject.model.CreatePresenceRehearsalRequest;
 import com.gabia.mbaproject.model.CreatePresenceUserRequest;
 import com.gabia.mbaproject.model.Member;
@@ -37,7 +35,7 @@ public class PresenceFormDialog {
     String memberInstrument = "Ala: ";
     private int presenceId;
     private String presenceType = PresenceType.PRESENT.getValue();
-    private AlertDialog aLertDialog;
+    private AlertDialog alertDialog;
 
     private LinearLayout contentView;
     private ProgressBar loadingBar;
@@ -82,8 +80,12 @@ public class PresenceFormDialog {
     }
 
     public void show() {
-        aLertDialog = builder.create();
-        aLertDialog.show();
+        alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    public AlertDialog getAlertDialog() {
+        return alertDialog;
     }
 
     private void bind() {
@@ -120,8 +122,8 @@ public class PresenceFormDialog {
                     new CreatePresenceUserRequest(memberId)
             );
 
+            alertDialog.dismiss();
             listener.save(presenceRequest, presenceId);
-            aLertDialog.dismiss();
         });
     }
 

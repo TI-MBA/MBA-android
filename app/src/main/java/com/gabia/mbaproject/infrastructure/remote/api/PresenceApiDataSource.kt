@@ -1,5 +1,6 @@
 package com.gabia.mbaproject.infrastructure.remote.api
 
+import com.gabia.mbaproject.model.MemberPresenceResponse
 import com.gabia.mbaproject.model.PresenceRequest
 import com.gabia.mbaproject.model.PresenceResponse
 import retrofit2.Response
@@ -9,6 +10,9 @@ interface PresenceApiDataSource {
 
     @GET("api/presence")
     suspend fun getAll(): Response<List<PresenceResponse>>
+
+    @GET("api/presence/user/{userId}")
+    suspend fun getAll(@Path("userId") id: Int): Response<List<MemberPresenceResponse>>
 
     @POST("api/presence")
     suspend fun create(@Body request: PresenceRequest): Response<PresenceResponse>

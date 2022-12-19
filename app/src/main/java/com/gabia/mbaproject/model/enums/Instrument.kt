@@ -12,7 +12,7 @@ enum class Instrument(val value: String) {
         get() {
             var result = ""
             result = when (value) {
-                "AGBE" -> "Agbe"
+                "AGBE" -> "Agbê"
                 "AGOGO" -> "Agogô"
                 "GONGUE" -> "Gonguê"
                 "CAIXA" -> "Caixa"

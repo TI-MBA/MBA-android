@@ -3,6 +3,7 @@ package com.gabia.mbaproject.application.modules.admin.rollcall.memberlist;
 import static com.gabia.mbaproject.application.ConstantKeys.REHEARSAL_KEY;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -129,6 +130,7 @@ public class MemberListActivity extends AppCompatActivity implements SelectListe
     }
 
     public void createPresence(PresenceRequest presence) {
+        binding.setIsLoading(true);
         presenceViewModel.create(presence, new BaseCallBack<PresenceResponse>() {
             @Override
             public void onSuccess(PresenceResponse result) { handleSave("Presença adicionada"); }

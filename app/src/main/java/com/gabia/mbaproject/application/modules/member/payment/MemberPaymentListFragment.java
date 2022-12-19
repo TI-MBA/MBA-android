@@ -1,5 +1,7 @@
 package com.gabia.mbaproject.application.modules.member.payment;
 
+import static com.gabia.mbaproject.application.ConstantKeys.USER_ID;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,8 +37,6 @@ import kotlin.jvm.functions.Function1;
  * create an instance of this fragment.
  */
 public class MemberPaymentListFragment extends Fragment {
-
-    private static final String USER_ID = "com.gabia.mbaproject.application.modules.member.payment.MemberPaymentListFragment.USER_ID";
 
     private FragmentPaymentListBinding binding;
     private int userID;

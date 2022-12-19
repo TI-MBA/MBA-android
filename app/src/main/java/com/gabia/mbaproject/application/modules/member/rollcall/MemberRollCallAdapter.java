@@ -9,16 +9,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gabia.mbaproject.R;
 import com.gabia.mbaproject.databinding.CellRollCallPresenceBinding;
+import com.gabia.mbaproject.model.MemberPresenceResponse;
 import com.gabia.mbaproject.model.PresenceDto;
+import com.gabia.mbaproject.model.enums.PresenceType;
+import com.gabia.mbaproject.utils.DateUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MemberRollCallAdapter extends RecyclerView.Adapter<MemberRollCallAdapter.ViewHolder> {
 
-    List<PresenceDto> presenceList = new ArrayList<>();
+    List<MemberPresenceResponse> presenceList = new ArrayList<>();
 
-    public void setPresenceList(List<PresenceDto> presenceList) {
+    public void setPresenceList(List<MemberPresenceResponse> presenceList) {
         this.presenceList.clear();
         this.presenceList.addAll(presenceList);
         notifyDataSetChanged();
@@ -37,7 +40,7 @@ public class MemberRollCallAdapter extends RecyclerView.Adapter<MemberRollCallAd
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        PresenceDto current = presenceList.get(position);
+        MemberPresenceResponse current = presenceList.get(position);
         holder.bind(current);
     }
 
@@ -55,10 +58,14 @@ public class MemberRollCallAdapter extends RecyclerView.Adapter<MemberRollCallAd
             this.cellBinding = cellBinding;
         }
 
-        public void bind(PresenceDto presence) {
-            cellBinding.rehearsalTitleText.setText(presence.getRehearsalTitle());
-            if (presence.wasPresent()) {
+        public void bind(MemberPresenceResponse presence) {
+            String title = "Ensaio - " + DateUtils.changeFromIso(DateUtils.brazilianDate, presence.getRehearsalDate());
+            cellBinding.rehearsalTitleText.setText(title);
+
+            if (presence.getType().equals(PresenceType.PRESENT.getValue())) {
                 cellBinding.presenceIcon.setImageResource(R.drawable.ic_presence_green);
+            } else if (presence.getType().equals(PresenceType.OBSERVATION.getValue())) {
+                cellBinding.presenceIcon.setImageResource(R.drawable.ic_observation_yellow);
             } else {
                 cellBinding.presenceIcon.setImageResource(R.drawable.ic_absence_red);
             }

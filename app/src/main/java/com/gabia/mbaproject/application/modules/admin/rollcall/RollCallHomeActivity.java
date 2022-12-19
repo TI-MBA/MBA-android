@@ -58,7 +58,7 @@ public class RollCallHomeActivity extends AppCompatActivity implements SelectLis
     }
 
     private void createRehearsal() {
-        String today = DateUtils.toString(DateUtils.brazilianDate, new Date());
+        String today = DateUtils.toString(DateUtils.isoDateFormat, new Date());
         boolean canCreate = checkCanCreateRehearsal(today);
 
         if (canCreate) {
