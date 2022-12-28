@@ -16,6 +16,7 @@ import com.gabia.mbaproject.infrastructure.remote.providers.ApiDataSourceProvide
 import com.gabia.mbaproject.infrastructure.remote.remotedatasource.AuthRemoteDataSource;
 import com.gabia.mbaproject.infrastructure.utils.BaseCallBack;
 import com.gabia.mbaproject.model.AuthRequest;
+import com.gabia.mbaproject.model.EditPasswordRequest;
 import com.gabia.mbaproject.model.Member;
 
 public class EditPasswordActivity extends AppCompatActivity {
@@ -45,8 +46,8 @@ public class EditPasswordActivity extends AppCompatActivity {
         Member currentMember = App.getCurrentUser(this);
         if (currentMember != null) {
             AuthRemoteDataSource remoteDataSource = new AuthRemoteDataSource(ApiDataSourceProvider.Companion.getAuthApiDataSource());
-            AuthRequest authRequest = new AuthRequest(currentMember.getEmail(), binding.newPasswordField.getText().toString());
-            remoteDataSource.changePassword(authRequest, new BaseCallBack<Integer>() {
+            EditPasswordRequest editRequest = new EditPasswordRequest(currentMember.getEmail(), binding.currentPasswordField.getText().toString(), binding.newPasswordField.getText().toString());
+            remoteDataSource.changePassword(editRequest, new BaseCallBack<Integer>() {
                 @Override
                 public void onSuccess(Integer result) {
                     runOnUiThread(() -> {

@@ -55,16 +55,21 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_gravity="center"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
+                android:padding="16dp"
+                >
+                <LinearLayout
+                    android:id="@+id/referenceMonthButtonContent"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="16dp"
+                    android:onClick="@{activity::referenceDateDidPress}"
                     >
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:src="@drawable/ic_calendar" />
 
                     <TextView
                         android:id="@+id/referenceMonthTitle"
@@ -79,50 +84,81 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <LinearLayout
-                        android:id="@+id/referenceMonthButtonContent"
-                        android:orientation="horizontal"
+                    <TextView
+                        android:id="@+id/referenceMonthText"
+                        tools:text="-"
+                        android:layout_gravity="center"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:gravity="start"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/paymentDateButtonContent"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:onClick="@{activity::paymentDateDidPress}"
+                    >
+                    <ImageView
+                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:onClick="@{activity::referenceDateDidPress}"
-                        app:layout_constraintBottom_toBottomOf="@+id/referenceMonthTitle"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toEndOf="@+id/referenceMonthTitle"
-                        app:layout_constraintTop_toTopOf="@+id/referenceMonthTitle"
-                        >
-                        <ImageView
-                            android:layout_gravity="center"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="4dp"
-                            android:src="@drawable/ic_calendar" />
+                        android:layout_marginEnd="8dp"
+                        android:src="@drawable/ic_edit_calendar" />
 
-                        <TextView
-                            android:id="@+id/referenceMonthText"
-                            tools:text=""
-                            android:layout_gravity="center"
-                            android:textStyle="bold"
-                            android:textSize="14sp"
-                            android:gravity="start"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/paymentDateTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="4dp"
+                        android:text="Data do pagamento:"
+                        android:textStyle="bold"
+                        />
 
-                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/paymentDateText"
+                        tools:text="-"
+                        android:layout_gravity="center"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:gravity="start"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/paymentValueContent"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    >
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:src="@drawable/ic_money" />
 
                     <TextView
                         android:id="@+id/paymentValueTitle"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:gravity="start"
+                        android:gravity="center"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="4dp"
                         android:text="Valor:"
                         android:textStyle="bold"
-                        android:layout_marginTop="8dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/referenceMonthTitle"
-                        app:layout_constraintStart_toStartOf="@+id/referenceMonthTitle"
-                        app:layout_constraintTop_toBottomOf="@+id/referenceMonthButtonContent" />
+                        />
 
                     <com.cottacush.android.currencyedittext.CurrencyEditText
                         android:id="@+id/paymentValueEditText"
@@ -136,32 +172,7 @@
                         app:maxNumberOfDecimalDigits="2"
                         app:useCurrencySymbolAsHint="true" />
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginHorizontal="20dp"
-                    >
-
-
-
                 </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginHorizontal="20dp"
-                    >
-
-
-
-
-
-                </LinearLayout>
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -169,6 +180,7 @@
                     android:layout_gravity="center"
                     android:text="Observações:"
                     android:textStyle="bold"
+                    android:layout_marginTop="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

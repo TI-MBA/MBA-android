@@ -1,5 +1,6 @@
 package com.gabia.mbaproject.application.modules.admin.finance.payment;
 
+import static com.gabia.mbaproject.utils.DateUtils.brazilianDate;
 import static com.gabia.mbaproject.utils.DateUtils.monthAndYear;
 import static com.gabia.mbaproject.utils.FloatUtils.moneyFormat;
 
@@ -72,11 +73,14 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
 
         public void bind(PaymentResponse payment) {
             String relativeDate = DateUtils.changeFromIso(monthAndYear, payment.getDate());
+            String paymentDate = DateUtils.changeFromIso(brazilianDate, payment.getPaymentDate());
             String paymentValue = moneyFormat(payment.getPaymentValue());
+            String observationText = payment.getObservation().isEmpty() ? "-" : payment.getObservation();
 
             cellBinding.cellPaymentMonth.setText(relativeDate);
             cellBinding.cellPaymentValue.setText(paymentValue);
-            cellBinding.cellPaymentObservationText.setText(payment.getObservation());
+            cellBinding.paymentDateText.setText(paymentDate);
+            cellBinding.cellPaymentObservationText.setText(observationText);
         }
     }
 }

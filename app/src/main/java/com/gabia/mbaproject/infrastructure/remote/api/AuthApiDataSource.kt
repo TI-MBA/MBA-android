@@ -1,6 +1,7 @@
 package com.gabia.mbaproject.infrastructure.remote.api
 
 import com.gabia.mbaproject.model.AuthRequest
+import com.gabia.mbaproject.model.EditPasswordRequest
 import com.gabia.mbaproject.model.Member
 import retrofit2.Response
 import retrofit2.http.Body
@@ -13,7 +14,7 @@ interface AuthApiDataSource {
     suspend fun login(@Body authRequest: AuthRequest): Response<Member>
 
     @PUT("api/user/changePassword")
-    suspend fun changePassword(@Body authRequest: AuthRequest): Response<Unit>
+    suspend fun changePassword(@Body authRequest: EditPasswordRequest): Response<Unit>
 
     @PUT("api/user/resetPassword")
     suspend fun resetPassword(@Body authRequest: AuthRequest): Response<AuthRequest>

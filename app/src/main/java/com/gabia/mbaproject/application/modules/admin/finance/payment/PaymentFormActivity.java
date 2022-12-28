@@ -2,6 +2,8 @@ package com.gabia.mbaproject.application.modules.admin.finance.payment;
 
 import static com.gabia.mbaproject.application.ConstantKeys.MEMBER_KEY;
 import static com.gabia.mbaproject.application.ConstantKeys.PAYMENT_KEY;
+import static com.gabia.mbaproject.utils.DateUtils.brazilianDate;
+import static com.gabia.mbaproject.utils.DateUtils.isoDateFormat;
 import static com.gabia.mbaproject.utils.DateUtils.monthAndYear;
 
 import android.app.DatePickerDialog;
@@ -13,6 +15,7 @@ import android.widget.DatePicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -24,13 +27,17 @@ import com.gabia.mbaproject.model.PaymentResponse;
 import com.gabia.mbaproject.model.PaymentUserRequest;
 import com.gabia.mbaproject.model.UpdatePaymentRequest;
 import com.gabia.mbaproject.utils.DateUtils;
+import com.kal.rackmonthpicker.RackMonthPicker;
+import com.kal.rackmonthpicker.listener.DateMonthDialogListener;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
-public class PaymentFormActivity extends AppCompatActivity  implements DatePickerDialog.OnDateSetListener {
+public class PaymentFormActivity extends AppCompatActivity {
     private ActivityPaymentFormBinding binding;
     private Date referenceDate;
+    private Date paymentDate;
     private boolean isEditing = false;
     final Calendar myCalendar = Calendar.getInstance();
     private PaymentViewModel viewModel;
@@ -57,8 +64,11 @@ public class PaymentFormActivity extends AppCompatActivity  implements DatePicke
 
         if (currentPayment != null) {
             referenceDate = DateUtils.toDate(DateUtils.isoDateFormat, currentPayment.getDate());
+            paymentDate = DateUtils.toDate(DateUtils.isoDateFormat, currentPayment.getPaymentDate());
             String referenceMonth = DateUtils.toString(monthAndYear, referenceDate);
+            String paymentStringDate = DateUtils.toString(brazilianDate, paymentDate);
             binding.referenceMonthText.setText(referenceMonth);
+            binding.paymentDateText.setText(paymentStringDate);
             binding.paymentValueEditText.setText(String.valueOf(currentPayment.getPaymentValue()));
             binding.observationText.setText(currentPayment.getObservation());
             binding.saveButton.setText("Editar pagamento");
@@ -66,37 +76,57 @@ public class PaymentFormActivity extends AppCompatActivity  implements DatePicke
         }
     }
 
-    @Override
-    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-        String selectedDate = getMonthText(month) + "/" + year;
-        binding.referenceMonthText.setText(selectedDate);
-        referenceDate = DateUtils.toDate(monthAndYear, selectedDate);
-
+    public void referenceDateDidPress(View view) {
+        new RackMonthPicker(this)
+                .setLocale(Locale.getDefault())
+                .setPositiveButton(this::referenceMonthDidPress)
+                .setNegativeButton(AppCompatDialog::dismiss)
+                .show();
     }
 
-    public void referenceDateDidPress(View view) {
-        new DatePickerDialog(this, this, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+    public void paymentDateDidPress(View view) {
+        new DatePickerDialog(
+                this,
+                R.style.PickerFullBlue,
+                this::paymentDataSelected,
+                myCalendar.get(Calendar.YEAR),
+                myCalendar.get(Calendar.MONTH),
+                myCalendar.get(Calendar.DAY_OF_MONTH)
+        ).show();
+    }
+
+    private void paymentDataSelected(DatePicker datePicker, int year, int month, int day) {
+        String selectedDate = addInitialZero(day) + "/" + addInitialZero(month + 1) + "/" + year;
+        binding.paymentDateText.setText(selectedDate);
+        paymentDate = DateUtils.toDate(brazilianDate, selectedDate);
+    }
+
+    private void referenceMonthDidPress(int month, int startDate, int endDate, int year, String monthLabel) {
+        String selectedDate = addInitialZero(month) + "/" + year;
+        binding.referenceMonthText.setText(selectedDate);
+        referenceDate = DateUtils.toDate(monthAndYear, selectedDate);
     }
 
     public void savePaymentDidPress(View view) {
         binding.setIsLoading(true);
-        if (binding.paymentValueEditText.getNumericValue() == 0.0 || referenceDate == null)  {
-            Toast.makeText(this, "Data de referência e valor são obrigatorios", Toast.LENGTH_SHORT).show();
+        if (binding.paymentValueEditText.getNumericValue() == 0.0 || referenceDate == null || paymentDate == null)  {
+            Toast.makeText(this, "todos os campos são obrigatorios", Toast.LENGTH_SHORT).show();
         } else {
             String observation = binding.observationText.getText().toString();
             float value = (float) binding.paymentValueEditText.getNumericValue();
-            String date = DateUtils.toString(DateUtils.isoDateFormat, referenceDate);
+            String referenceDateString = DateUtils.toString(isoDateFormat, referenceDate);
+            String paymentDateString = DateUtils.toString(isoDateFormat, paymentDate);
 
             if (isEditing) {
-                requestUpdate(observation, value, date);
+                requestUpdate(observation, value, referenceDateString, paymentDateString);
             } else {
-                requestCreate(observation, value, date);
+                requestCreate(observation, value, referenceDateString, paymentDateString);
             }
         }
     }
 
-    private void requestCreate(String observation, float value, String date) {
-        PaymentRequest createRequest = new PaymentRequest(observation, value, date, new PaymentUserRequest(userId));
+    private void requestCreate(String observation, float value, String referenceDate, String paymentDate) {
+        PaymentRequest createRequest = new PaymentRequest(observation, value, referenceDate, paymentDate, new PaymentUserRequest(userId));
         viewModel.create(createRequest, new BaseCallBack<PaymentResponse>() {
             @Override
             public void onSuccess(PaymentResponse result) {
@@ -116,8 +146,8 @@ public class PaymentFormActivity extends AppCompatActivity  implements DatePicke
         });
     }
 
-    private void requestUpdate(String observation, float value, String date) {
-        UpdatePaymentRequest updateRequest = new UpdatePaymentRequest(observation, value, date);
+    private void requestUpdate(String observation, float value, String referenceDate, String paymentDate) {
+        UpdatePaymentRequest updateRequest = new UpdatePaymentRequest(observation, value, referenceDate, paymentDate);
         viewModel.update(currentPayment.getId(), updateRequest, new BaseCallBack<PaymentResponse>() {
             @Override
             public void onSuccess(PaymentResponse result) {
@@ -137,12 +167,11 @@ public class PaymentFormActivity extends AppCompatActivity  implements DatePicke
         });
     }
 
-    private String getMonthText(int month) {
-        int monthRealValue = month + 1;
-        if (monthRealValue < 10) {
-            return "0" + monthRealValue;
+    private String addInitialZero(int text) {
+        if (text < 10) {
+            return "0" + text;
         } else {
-            return String.valueOf(monthRealValue);
+            return String.valueOf(text);
         }
     }
 }

@@ -3,6 +3,7 @@ package com.gabia.mbaproject.infrastructure.remote.remotedatasource
 import com.gabia.mbaproject.infrastructure.remote.api.AuthApiDataSource
 import com.gabia.mbaproject.infrastructure.utils.BaseCallBack
 import com.gabia.mbaproject.model.AuthRequest
+import com.gabia.mbaproject.model.EditPasswordRequest
 import com.gabia.mbaproject.model.Member
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -10,7 +11,7 @@ import kotlinx.coroutines.launch
 
 interface AuthRemoteDataSourceContract {
     fun login(authRequest: AuthRequest, resultCallBack: BaseCallBack<Member?>)
-    fun changePassword(authRequest: AuthRequest, resultCallBack: BaseCallBack<Int>)
+    fun changePassword(authRequest: EditPasswordRequest, resultCallBack: BaseCallBack<Int>)
     fun resetPassword(authRequest: AuthRequest, resultCallBack: BaseCallBack<AuthRequest?>)
 }
 
@@ -28,7 +29,7 @@ class AuthRemoteDataSource(private val apiDataSource: AuthApiDataSource):
         }
     }
 
-    override fun changePassword(authRequest: AuthRequest, resultCallBack: BaseCallBack<Int>) {
+    override fun changePassword(authRequest: EditPasswordRequest, resultCallBack: BaseCallBack<Int>) {
         CoroutineScope(Dispatchers.IO).launch {
             val response = apiDataSource.changePassword(authRequest)
             if (response.isSuccessful) {

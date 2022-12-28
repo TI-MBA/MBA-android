@@ -7,6 +7,7 @@ data class PaymentResponse(
     val observation: String,
     val paymentValue: Float,
     val date: String,
+    val paymentDate: String,
     val createdAt: String,
     val updatedAt: String
 ): Serializable

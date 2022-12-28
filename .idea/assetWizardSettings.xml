@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:$USER_HOME$/Library/Android/sdk/icons/material/materialicons/remove_circle_outline/baseline_remove_circle_outline_24.xml" />
+                                      <entry key="url" value="file:$USER_HOME$/Library/Android/sdk/icons/material/materialicons/edit_calendar/baseline_edit_calendar_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -29,7 +29,7 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="999999" />
-                            <entry key="outputName" value="ic_undefined_gray" />
+                            <entry key="outputName" value="ic_edit_calendar" />
                           </map>
                         </option>
                       </PersistentState>

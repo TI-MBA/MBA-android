@@ -106,7 +106,7 @@ public class MemberPaymentListFragment extends Fragment {
         paymentList.sort((o1, o2) -> {
             Date firstDate = DateUtils.toDate(DateUtils.isoDateFormat, o1.getDate());
             Date secondDate = DateUtils.toDate(DateUtils.isoDateFormat, o2.getDate());
-            return firstDate.compareTo(secondDate);
+            return secondDate.compareTo(firstDate);
         });
     }
 }
