@@ -174,7 +174,7 @@ public class MemberFormActivity extends AppCompatActivity implements BaseCallBac
 
     private void setupInstrumentSpinner() {
         Map<String, Instrument> instrumentMap = new HashMap<>();
-        instrumentMap.put("Agbe", Instrument.AGBE);
+        instrumentMap.put("Agbê", Instrument.AGBE);
         instrumentMap.put("Agogô", Instrument.AGOGO);
         instrumentMap.put("Gonguê", Instrument.GONGUE);
         instrumentMap.put("Caixa", Instrument.CAIXA);
