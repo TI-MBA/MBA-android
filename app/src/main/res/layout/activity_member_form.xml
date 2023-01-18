@@ -9,12 +9,25 @@
         <variable
             name="activity"
             type="com.gabia.mbaproject.application.modules.admin.memberform.MemberFormActivity"/>
+        <variable
+            name="isLoading"
+            type="Boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".application.modules.admin.memberform.MemberFormActivity">
+
+        <ProgressBar
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:indeterminateTint="@color/baque_blue"
+            android:visibility="@{isLoading}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/memberFormTitleText"
@@ -35,6 +48,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            android:visibility="@{!isLoading}"
             app:layout_constraintTop_toBottomOf="@+id/memberFormTitleText">
 
             <LinearLayout

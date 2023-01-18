@@ -58,6 +58,7 @@ public class MemberFormActivity extends AppCompatActivity implements BaseCallBac
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_member_form);
         binding.setActivity(this);
+        binding.setIsLoading(false);
 
         currentMember = (Member) getIntent().getSerializableExtra(MEMBER_KEY);
         isEditing = currentMember != null;
@@ -116,6 +117,7 @@ public class MemberFormActivity extends AppCompatActivity implements BaseCallBac
 
     private void requestAction(MemberRequest member) {
         MemberViewModel viewModel = new ViewModelProvider(this).get(MemberViewModel.class);
+        binding.setIsLoading(true);
         if (isEditing) {
             viewModel.edit(currentMember.getId(), member, this);
         } else {

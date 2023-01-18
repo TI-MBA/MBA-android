@@ -82,6 +82,9 @@ public class FinanceHomeActivity extends AppCompatActivity implements SelectList
         startActivity(MemberFormActivity.createIntent(this, null));
     }
 
+    public void shareDidPress(View view) {
+
+    }
 
     @Override
     public void didSelect(Member model) {
