@@ -72,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
                     case "Agbe":
                         instrument = Instrument.AGBE.getValue();
                         break;
-                    case "Agogo ":
+                    case "Agogo":
                         instrument = Instrument.AGOGO.getValue();
                         break;
                     case "Gonguê":

@@ -6,7 +6,8 @@ enum class Instrument(val value: String) {
     GONGUE("GONGUE"),
     CAIXA("CAIXA"),
     ALFAIA("ALFAIA"),
-    CANTO("CANTO");
+    CANTO("CANTO"),
+    MAESTRIA("MAESTRIA");
 
     val formattedValue: String
         get() {
@@ -18,6 +19,7 @@ enum class Instrument(val value: String) {
                 "CAIXA" -> "Caixa"
                 "ALFAIA" -> "Alfaia"
                 "CANTO" -> "Canto"
+                "MAESTRIA" -> "Maestria"
                 else -> "Indefinido"
             }
             return result
@@ -32,6 +34,7 @@ enum class Instrument(val value: String) {
                 "CAIXA" -> 3
                 "ALFAIA" -> 4
                 "CANTO" -> 5
+                "MAESTRIA" -> 6
                 else -> 0
             }
         }

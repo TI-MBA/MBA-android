@@ -1,5 +1,7 @@
 package com.gabia.mbaproject.application.modules.admin.finance;
 
+import static com.gabia.mbaproject.utils.StringUtils.unAccent;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -18,6 +20,7 @@ import com.gabia.mbaproject.application.modules.admin.memberform.MemberFormActiv
 import com.gabia.mbaproject.databinding.ActivityFinanceHomeBinding;
 import com.gabia.mbaproject.model.Member;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -106,7 +109,7 @@ public class FinanceHomeActivity extends AppCompatActivity implements SelectList
         } else {
             List<Member> filteredMembers = memberList
                     .stream()
-                    .filter(element -> element.getName().toLowerCase().contains(query.toLowerCase()))
+                    .filter(element -> unAccent(element.getName().toLowerCase()).contains(query.toLowerCase()))
                     .collect(Collectors.toList());
             memberAdapter.setMembers(filteredMembers);
         }

@@ -182,6 +182,7 @@ public class MemberFormActivity extends AppCompatActivity implements BaseCallBac
         instrumentMap.put("Caixa", Instrument.CAIXA);
         instrumentMap.put("Alfaia", Instrument.ALFAIA);
         instrumentMap.put("Canto", Instrument.CANTO);
+        instrumentMap.put("Maestria", Instrument.MAESTRIA);
 
         instrumentSpinner = binding.instrumentSpinner;
         instrumentSpinner.setItems(
@@ -190,7 +191,8 @@ public class MemberFormActivity extends AppCompatActivity implements BaseCallBac
                 Instrument.GONGUE.getFormattedValue(),
                 Instrument.CAIXA.getFormattedValue(),
                 Instrument.ALFAIA.getFormattedValue(),
-                Instrument.CANTO.getFormattedValue()
+                Instrument.CANTO.getFormattedValue(),
+                Instrument.MAESTRIA.getFormattedValue()
         );
 
         instrumentSpinner.setOnItemSelectedListener((view, position, id, item) -> {

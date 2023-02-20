@@ -1,9 +1,9 @@
 package com.gabia.mbaproject.application.modules.admin.rollcall.memberlist;
 
 import static com.gabia.mbaproject.application.ConstantKeys.REHEARSAL_KEY;
+import static com.gabia.mbaproject.utils.StringUtils.unAccent;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -123,7 +123,7 @@ public class MemberListActivity extends AppCompatActivity implements SelectListe
         } else {
             List<Member> filteredMembers = memberList
                     .stream()
-                    .filter(element -> element.getName().toLowerCase().contains(query.toLowerCase()))
+                    .filter(element -> unAccent(element.getName().toLowerCase()).contains(query.toLowerCase()))
                     .collect(Collectors.toList());
             memberAdapter.setMembers(filteredMembers);
         }
