@@ -36,7 +36,7 @@ enum class Situation(val value: String) {
 
     val position: Int
         get() {
-            var result = R.color.gray
+            var result = 0
             result = when (value) {
                 "UP_TO_DATE" -> 0
                 "DEBIT" -> 1

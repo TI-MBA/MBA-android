@@ -58,6 +58,7 @@ public class RollCallHomeActivity extends AppCompatActivity implements SelectLis
     }
 
     private void createRehearsal() {
+        binding.addRollCallButton.setEnabled(false);
         String today = DateUtils.toString(DateUtils.isoDateFormat, new Date());
         boolean canCreate = checkCanCreateRehearsal(today);
 
@@ -67,6 +68,7 @@ public class RollCallHomeActivity extends AppCompatActivity implements SelectLis
                 public void onSuccess(RehearsalResponse result) {
                     runOnUiThread(() -> {
                         Toast.makeText(RollCallHomeActivity.this, "Ensaio criado com sucesso", Toast.LENGTH_SHORT).show();
+                        binding.addRollCallButton.setEnabled(true);
                         viewModel.fetchAll(integer -> null);
                     });
                 }
@@ -75,7 +77,7 @@ public class RollCallHomeActivity extends AppCompatActivity implements SelectLis
                 public void onError(int code) {
                     runOnUiThread(() -> {
                         Toast.makeText(RollCallHomeActivity.this, "Falha ao criar ensaio code: " + code, Toast.LENGTH_SHORT).show();
-                        System.out.println("aaa");
+                        binding.addRollCallButton.setEnabled(true);
                     });
                 }
             });

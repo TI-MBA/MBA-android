@@ -7,7 +7,8 @@ enum class Instrument(val value: String) {
     CAIXA("CAIXA"),
     ALFAIA("ALFAIA"),
     CANTO("CANTO"),
-    MAESTRIA("MAESTRIA");
+    MAESTRIA("MAESTRIA"),
+    UNDEFINED("UNDEFINED");
 
     val formattedValue: String
         get() {
@@ -35,6 +36,7 @@ enum class Instrument(val value: String) {
                 "ALFAIA" -> 4
                 "CANTO" -> 5
                 "MAESTRIA" -> 6
+                "INDEFINIDO" -> 7
                 else -> 0
             }
         }

@@ -163,7 +163,7 @@ public class MemberFormActivity extends AppCompatActivity implements BaseCallBac
 
         fiscalSituationSpinner.setOnItemSelectedListener((view, position, id, item) -> {
             String selectedItem = (String) item;
-            this.selectedSituation = situationMap.get(selectedItem);
+            this.selectedSituation = situationMap.getOrDefault(selectedItem, Situation.DEBIT);
         });
 
         if (isEditing) {
@@ -192,12 +192,13 @@ public class MemberFormActivity extends AppCompatActivity implements BaseCallBac
                 Instrument.CAIXA.getFormattedValue(),
                 Instrument.ALFAIA.getFormattedValue(),
                 Instrument.CANTO.getFormattedValue(),
-                Instrument.MAESTRIA.getFormattedValue()
+                Instrument.MAESTRIA.getFormattedValue(),
+                Instrument.UNDEFINED.getFormattedValue()
         );
 
         instrumentSpinner.setOnItemSelectedListener((view, position, id, item) -> {
             String selectedItem = (String) item;
-            this.selectedInstrument = instrumentMap.get(selectedItem);
+            this.selectedInstrument = instrumentMap.getOrDefault(selectedItem, Instrument.UNDEFINED);
         });
 
         if (isEditing) {

@@ -28,7 +28,6 @@ import com.gabia.mbaproject.model.PaymentUserRequest;
 import com.gabia.mbaproject.model.UpdatePaymentRequest;
 import com.gabia.mbaproject.utils.DateUtils;
 import com.kal.rackmonthpicker.RackMonthPicker;
-import com.kal.rackmonthpicker.listener.DateMonthDialogListener;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -109,7 +108,7 @@ public class PaymentFormActivity extends AppCompatActivity {
 
     public void savePaymentDidPress(View view) {
         binding.setIsLoading(true);
-        if (binding.paymentValueEditText.getNumericValue() == 0.0 || referenceDate == null || paymentDate == null)  {
+        if (referenceDate == null || paymentDate == null)  {
             Toast.makeText(this, "todos os campos são obrigatorios", Toast.LENGTH_SHORT).show();
         } else {
             String observation = binding.observationText.getText().toString();
