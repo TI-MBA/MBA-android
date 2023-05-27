@@ -11,4 +11,10 @@
         android:title="Frequência"
         android:icon="@drawable/ic_rollcall_blue"
         />
+
+    <item
+        android:id="@+id/rulesBookTab"
+        android:title="Cartilha"
+        android:icon="@drawable/ic_info"
+        />
 </menu>

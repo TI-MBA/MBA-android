@@ -21,6 +21,7 @@ import com.gabia.mbaproject.application.modules.member.payment.MemberPaymentList
 import com.gabia.mbaproject.application.modules.member.payment.MemberPaymentListFragment;
 import com.gabia.mbaproject.application.modules.member.rollcall.MemberRollCallDelegate;
 import com.gabia.mbaproject.application.modules.member.rollcall.RollCallFragment;
+import com.gabia.mbaproject.application.modules.member.rulesbook.RulesBookFragment;
 import com.gabia.mbaproject.databinding.ActivityHomeBinding;
 import com.gabia.mbaproject.infrastructure.local.UserDefaults;
 import com.gabia.mbaproject.model.Member;
@@ -86,6 +87,10 @@ public class HomeActivity extends AppCompatActivity implements MemberPaymentList
                     break;
                 case R.id.rollCallTab:
                     replaceFragment(RollCallFragment.newInstance(currentMember.getId(), this));
+                    break;
+
+                case R.id.rulesBookTab:
+                    replaceFragment(RulesBookFragment.newInstance());
                     break;
             }
             return true;

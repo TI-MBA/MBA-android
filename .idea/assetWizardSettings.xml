@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:$USER_HOME$/Library/Android/sdk/icons/material/materialicons/ios_share/baseline_ios_share_24.xml" />
+                                      <entry key="url" value="file:$USER_HOME$/Library/Android/sdk/icons/material/materialicons/info/baseline_info_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,8 +28,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="999999" />
-                            <entry key="outputName" value="ic_share" />
+                            <entry key="color" value="0320db" />
+                            <entry key="outputName" value="ic_info" />
                           </map>
                         </option>
                       </PersistentState>
