@@ -17,6 +17,7 @@ import com.gabia.mbaproject.R;
 import com.gabia.mbaproject.application.SelectListener;
 import com.gabia.mbaproject.application.modules.admin.MemberViewModel;
 import com.gabia.mbaproject.application.modules.admin.memberform.MemberFormActivity;
+import com.gabia.mbaproject.application.modules.admin.utils.ArrayFilterUtils;
 import com.gabia.mbaproject.databinding.ActivityFinanceHomeBinding;
 import com.gabia.mbaproject.model.Member;
 
@@ -69,8 +70,8 @@ public class FinanceHomeActivity extends AppCompatActivity implements SelectList
         MemberViewModel viewModel = new ViewModelProvider(this).get(MemberViewModel.class);
         viewModel.getMemberListLiveData().observe(this, members -> {
             binding.setIsLoading(false);
-            memberList = members;
-            memberAdapter.setMembers(members);
+            memberList = ArrayFilterUtils.arrayFilter(members, member -> !member.getName().contains("[DELETADO]"));
+            memberAdapter.setMembers(memberList);
         });
         viewModel.fetchAll(code -> {
             runOnUiThread(() -> {
