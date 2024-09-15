@@ -13,8 +13,6 @@ import androidx.fragment.app.Fragment;
 
 import com.gabia.mbaproject.R;
 import com.gabia.mbaproject.databinding.FragmentRulesBookBinding;
-import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle;
-import com.github.barteksc.pdfviewer.util.FitPolicy;
 
 public class RulesBookFragment extends Fragment {
 
@@ -30,12 +28,12 @@ public class RulesBookFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_rules_book, container, false);
-        binding.pdfView.fromAsset("cartilha.pdf")
-                .enableAnnotationRendering(true)
-                .scrollHandle(new DefaultScrollHandle(getContext()))
-                .spacing(10)
-                .pageFitPolicy(FitPolicy.BOTH)
-                .load();
+//        binding.pdfView.fromAsset("cartilha.pdf")
+//                .enableAnnotationRendering(true)
+//                .scrollHandle(new DefaultScrollHandle(getContext()))
+//                .spacing(10)
+//                .pageFitPolicy(FitPolicy.BOTH)
+//                .load();
         return binding.getRoot();
     }
 

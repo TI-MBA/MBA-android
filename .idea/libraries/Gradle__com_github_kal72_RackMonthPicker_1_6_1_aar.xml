@@ -1,9 +1,9 @@
 <component name="libraryTable">
-  <library name="Gradle: com.github.kal72:RackMonthPicker:1.6.1@aar">
+  <library name="Gradle: com.github.kal72:RackMonthPicker:1.6.1@aar" external-system-id="GRADLE">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/cda02d4ad96b321ea47efaf42d25cbb0/transformed/jetified-RackMonthPicker-1.6.1/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/cda02d4ad96b321ea47efaf42d25cbb0/transformed/jetified-RackMonthPicker-1.6.1/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/cda02d4ad96b321ea47efaf42d25cbb0/transformed/jetified-RackMonthPicker-1.6.1/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-4/c6546c1f1383aee1a0458a2c0cdba151/transformed/jetified-RackMonthPicker-1.6.1/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-4/c6546c1f1383aee1a0458a2c0cdba151/transformed/jetified-RackMonthPicker-1.6.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-4/c6546c1f1383aee1a0458a2c0cdba151/transformed/jetified-RackMonthPicker-1.6.1/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
