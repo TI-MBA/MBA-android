@@ -2,4 +2,5 @@
     <string name="app_name">MBAProject</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="match_password_message">Campos: \n<b> Digite sua nova senha</b> \n<b> Digite novamente sua nova senha</b> \nDevem ser iguais</string>
+    <string name="pdfPage">pdfPage</string>
 </resources>

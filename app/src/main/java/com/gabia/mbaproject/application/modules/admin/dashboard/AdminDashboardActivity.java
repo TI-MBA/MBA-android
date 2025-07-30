@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
+import android.annotation.SuppressLint;
 
 import com.gabia.mbaproject.R;
 import com.gabia.mbaproject.application.App;
@@ -74,6 +75,7 @@ public class AdminDashboardActivity extends AppCompatActivity implements SelectL
         }
     }
 
+    @SuppressLint("MissingSuperCall")
     @Override
     public void onBackPressed() {
         new AlertDialog.Builder(this, R.style.DeleteDialogTheme)

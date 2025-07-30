@@ -9,7 +9,7 @@ import com.gabia.mbaproject.model.*
 import com.gabia.mbaproject.model.enums.UserLevel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlin.streams.toList
+import java.util.stream.Collectors
 
 class MemberViewModel: ViewModel() {
     private val apiDataSource = ApiDataSourceProvider.memberApiDataSource
@@ -26,7 +26,7 @@ class MemberViewModel: ViewModel() {
                     body()?.
                     stream()?.
                     filter { it.adminLevel == UserLevel.ROLE_USER.value }?.
-                    toList()?.
+                    collect(Collectors.toList())?.
                     sortedBy { it.name } ?: emptyList()
                 )
             } else {
@@ -42,7 +42,7 @@ class MemberViewModel: ViewModel() {
                 relatedRehearsalMemberListLiveData.postValue(response.body()?.
                 stream()?.
                 filter { it.name.lowercase().contains("admin").not() }?.
-                toList())
+                collect(Collectors.toList()))
             } else {
                 failCallback(response.code())
             }
@@ -56,7 +56,7 @@ class MemberViewModel: ViewModel() {
                 unrelatedRehearsalMemberListLiveData.postValue(response.body()?.
                 stream()?.
                 filter { it.name.lowercase().contains("admin").not() }?.
-                toList())
+                collect(Collectors.toList()))
             } else {
                 failCallback(response.code())
             }

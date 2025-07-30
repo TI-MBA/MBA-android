@@ -2,6 +2,7 @@ package com.gabia.mbaproject.application.modules.member;
 
 import static com.gabia.mbaproject.utils.StringUtils.capitalizeFirstLetter;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -104,6 +105,7 @@ public class HomeActivity extends AppCompatActivity implements MemberPaymentList
         fragmentTransaction.commit();
     }
 
+    @SuppressLint("MissingSuperCall")
     @Override
     public void onBackPressed() {}
 
