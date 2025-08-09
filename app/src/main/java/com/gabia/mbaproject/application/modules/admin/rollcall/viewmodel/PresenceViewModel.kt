@@ -11,6 +11,7 @@ import com.gabia.mbaproject.model.PresenceResponse
 import com.gabia.mbaproject.model.RehearsalResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class PresenceViewModel: ViewModel() {
 
@@ -19,45 +20,76 @@ class PresenceViewModel: ViewModel() {
 
     fun create(presence: PresenceRequest, resultCallback: BaseCallBack<PresenceResponse?>) {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = apiDataSource.create(presence)
-            if (response.isSuccessful) {
-
-                resultCallback.onSuccess(response.body())
-            } else {
-                resultCallback.onError(response.code())
+            try  {
+                val response = apiDataSource.create(presence)
+                withContext(Dispatchers.Main) {
+                    if (response.isSuccessful) {
+                        resultCallback.onSuccess(response.body())
+                    } else {
+                        resultCallback.onError(response.code())
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    resultCallback.onError(9999)
+                }
             }
         }
     }
 
     fun update(presenceId: Int, presence: PresenceRequest, resultCallback: BaseCallBack<PresenceResponse?>) {
-            viewModelScope.launch(Dispatchers.IO) {
-            val response = apiDataSource.update(presenceId, presence)
-            if (response.isSuccessful) {
-                resultCallback.onSuccess(response.body())
-            } else {
-                resultCallback.onError(response.code())
+        viewModelScope.launch(Dispatchers.IO) {
+            try  {
+                val response = apiDataSource.update(presenceId, presence)
+                withContext(Dispatchers.Main) {
+                    if (response.isSuccessful) {
+                        resultCallback.onSuccess(response.body())
+                    } else {
+                        resultCallback.onError(response.code())
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    resultCallback.onError(9999)
+                }
             }
         }
     }
 
     fun delete(presenceId: Int, resultCallback: BaseCallBack<Unit?>) {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = apiDataSource.delete(presenceId)
-            if (response.isSuccessful) {
-                resultCallback.onSuccess(response.body())
-            } else {
-                resultCallback.onError(response.code())
+            try {
+                val response = apiDataSource.delete(presenceId)
+                withContext(Dispatchers.Main) {
+                    if (response.isSuccessful) {
+                        resultCallback.onSuccess(response.body())
+                    } else {
+                        resultCallback.onError(response.code())
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    resultCallback.onError(9999)
+                }
             }
         }
     }
 
     fun fetchAllBy(userId: Int, failCallBack: (code: Int) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = apiDataSource.getAll(userId)
-            if (response.isSuccessful) {
-                presenceLiveData.postValue(response.body());
-            } else {
-                failCallBack(response.code())
+            try {
+                val response = apiDataSource.getAll(userId)
+                withContext(Dispatchers.Main) {
+                    if (response.isSuccessful) {
+                        presenceLiveData.postValue(response.body());
+                    } else {
+                        failCallBack(response.code())
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    failCallBack(9999)
+                }
             }
         }
     }

@@ -23,7 +23,7 @@ public class MemberRollCallAdapter extends RecyclerView.Adapter<MemberRollCallAd
 
     public void setPresenceList(List<MemberPresenceResponse> presenceList) {
         this.presenceList.clear();
-        this.presenceList.addAll(presenceList);
+        this.presenceList = new ArrayList<>(presenceList);
         notifyDataSetChanged();
     }
 

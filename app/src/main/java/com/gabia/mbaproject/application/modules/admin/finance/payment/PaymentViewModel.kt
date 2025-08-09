@@ -9,6 +9,7 @@ import com.gabia.mbaproject.model.PaymentResponse
 import com.gabia.mbaproject.model.UpdatePaymentRequest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class PaymentViewModel: ViewModel() {
 
@@ -16,30 +17,54 @@ class PaymentViewModel: ViewModel() {
 
     fun create(payment: PaymentRequest, callback: BaseCallBack<PaymentResponse?>) {
         viewModelScope.launch(Dispatchers.IO) {
-            val result = apiDataSource.createPayment(payment)
-            if (result.isSuccessful) {
-                callback.onSuccess(result.body())
-            } else {
-                callback.onError(result.code())
+            try {
+                val result = apiDataSource.createPayment(payment)
+                withContext(Dispatchers.Main) {
+                    if (result.isSuccessful) {
+                        callback.onSuccess(result.body())
+                    } else {
+                        callback.onError(result.code())
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    callback.onError(9999)
+                }
             }
         }
     }
 
     fun update(paymentId: Int, payment: UpdatePaymentRequest, callback: BaseCallBack<PaymentResponse?>) {
         viewModelScope.launch(Dispatchers.IO) {
-            val result = apiDataSource.updatePayment(paymentId, payment)
-            if (result.isSuccessful) {
-                callback.onSuccess(result.body())
-            } else {
-                callback.onError(result.code())
+            try {
+                val result = apiDataSource.updatePayment(paymentId, payment)
+                withContext(Dispatchers.Main) {
+                    if (result.isSuccessful) {
+                        callback.onSuccess(result.body())
+                    } else {
+                        callback.onError(result.code())
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    callback.onError(9999)
+                }
             }
         }
     }
 
     fun delete(paymentId: Int, resultCallback: (code: Int) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
-            val result = apiDataSource.deletePayment(paymentId)
-            resultCallback(result.code())
+            try {
+                val result = apiDataSource.deletePayment(paymentId)
+                withContext(Dispatchers.Main) {
+                    resultCallback(result.code())
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    resultCallback(9999)
+                }
+            }
         }
     }
 }

@@ -8,6 +8,7 @@ import com.gabia.mbaproject.infrastructure.remote.providers.ApiDataSourceProvide
 import com.gabia.mbaproject.model.PaymentResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MemberPaymentListViewModel : ViewModel() {
     var paymentListLiveData: MutableLiveData<List<PaymentResponse>> = MutableLiveData()
@@ -16,11 +17,19 @@ class MemberPaymentListViewModel : ViewModel() {
         val apiDataSource = ApiDataSourceProvider.paymentApiDataSource
 
         viewModelScope.launch(Dispatchers.IO) {
-            val response = apiDataSource.getByUserId(userId)
-            if (response.isSuccessful) {
-                paymentListLiveData.postValue(response.body())
-            } else {
-                failCallback(response.code())
+            try {
+                val response = apiDataSource.getByUserId(userId)
+                withContext(Dispatchers.Main) {
+                    if (response.isSuccessful) {
+                        paymentListLiveData.postValue(response.body())
+                    } else {
+                        failCallback(response.code())
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    failCallback(9999)
+                }
             }
         }
     }
