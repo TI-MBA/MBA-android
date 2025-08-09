@@ -29,7 +29,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
 
     public void setMembers(List<Member> memberList) {
         this.memberList.clear();
-        this.memberList.addAll(memberList);
+        this.memberList = new ArrayList<>(memberList);
         notifyDataSetChanged();
     }
 

@@ -23,7 +23,7 @@ public class MemberPaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.Vi
 
     public void setPaymentList(List<PaymentResponse> paymentList) {
         this.paymentList.clear();
-        this.paymentList.addAll(paymentList);
+        this.paymentList = new ArrayList<>(paymentList);
         notifyDataSetChanged();
     }
 

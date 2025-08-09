@@ -34,7 +34,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
 
     public void setPaymentList(List<PaymentResponse> paymentList) {
         this.paymentList.clear();
-        this.paymentList.addAll(paymentList);
+        this.paymentList = new ArrayList<>(paymentList);
         notifyDataSetChanged();
     }
 

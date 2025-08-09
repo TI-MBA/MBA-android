@@ -3,8 +3,10 @@ package com.gabia.mbaproject.infrastructure.remote.api
 import com.gabia.mbaproject.model.PresenceResponse
 import com.gabia.mbaproject.model.RehearsalRequest
 import com.gabia.mbaproject.model.RehearsalResponse
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -23,4 +25,6 @@ interface RehearsalApiDataSource {
     @POST("api/presence/absentRehearsal/{rehearsalID}")
     suspend fun finalizeRehearsal(@Path("rehearsalID") id: Int): Response<List<PresenceResponse>>
 
+    @DELETE("api/rehearsal/{id}")
+    suspend fun deleteRehearsal(@Path("id") id: Int): Call<String>
 }

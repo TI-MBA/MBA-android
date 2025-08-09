@@ -27,7 +27,7 @@ public class AdminDashboardAdapter extends RecyclerView.Adapter<AdminDashboardAd
 
     public void setFeatures(List<AdminFeatureModel> adminFeatureModelList) {
         this.adminFeatureModelList.clear();
-        this.adminFeatureModelList.addAll(adminFeatureModelList);
+        this.adminFeatureModelList = new ArrayList<>(adminFeatureModelList);
         notifyDataSetChanged();
     }
 

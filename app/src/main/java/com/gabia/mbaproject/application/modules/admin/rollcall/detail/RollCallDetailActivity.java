@@ -35,7 +35,6 @@ import com.gabia.mbaproject.model.enums.PresenceType;
 import com.gabia.mbaproject.utils.DateUtils;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;

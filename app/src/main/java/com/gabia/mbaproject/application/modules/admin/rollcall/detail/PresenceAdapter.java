@@ -28,7 +28,7 @@ public class PresenceAdapter extends RecyclerView.Adapter<PresenceAdapter.ViewHo
 
     public void setPresenceList(List<PresenceResponse> presenceList) {
         this.presenceList.clear();
-        this.presenceList = presenceList;
+        this.presenceList = new ArrayList<>(presenceList);
         notifyDataSetChanged();
     }
 

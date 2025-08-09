@@ -28,7 +28,7 @@ public class MemberListAdapter extends RecyclerView.Adapter<MemberListAdapter.Vi
 
     public void setMembers(List<Member> memberList) {
         this.memberList.clear();
-        this.memberList.addAll(memberList);
+        this.memberList = new ArrayList<>(memberList);
         notifyDataSetChanged();
     }
 
