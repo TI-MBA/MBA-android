@@ -8,9 +8,6 @@ import retrofit2.http.*
 
 interface PresenceApiDataSource {
 
-    @GET("api/presence")
-    suspend fun getAll(): Response<List<PresenceResponse>>
-
     @GET("api/presence/user/{userId}")
     suspend fun getAll(@Path("userId") id: Int): Response<List<MemberPresenceResponse>>
 

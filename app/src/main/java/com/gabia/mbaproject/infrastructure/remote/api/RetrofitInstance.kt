@@ -13,7 +13,7 @@ class RetrofitInstance {
 
 //    https://mba-api.herokuapp.com/swagger-ui/index.html
     companion object {
-        val BaseURL = "https://mba-api.herokuapp.com/"
+        val BaseURL = "https://6tvfvvcjmjpcuwr4m2bd2iu7va0pijwx.lambda-url.us-east-1.on.aws/"
 
 //        val gson = GsonBuilder()
 //            .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
